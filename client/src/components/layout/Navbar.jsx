@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import logo from '../../assets/images/logo_wedclick.png'
 
 const navLinks = [
   { label: 'Cómo funciona',   href: '#como-funciona'   },
@@ -36,7 +35,7 @@ function Navbar() {
 
         {/* Logo */}
         <a href="/" className="flex items-center">
-          <img src={logo} alt="WedClick" className="h-16 mr-2" />
+          <img src="/Logo_WedClick.png" alt="WedClick" className="h-16 mr-2" />
         </a>
 
         {/* Desktop Links */}
