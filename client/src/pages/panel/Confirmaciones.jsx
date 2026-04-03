@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, Download, Filter, CheckCircle2, XCircle, BusFront, Car } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
-import PanelLayout from '../../components/panel/panelLayout'
+import PanelLayout from '../../components/panel/PanelLayout'
 
 function Confirmaciones() {
   const navigate = useNavigate()
