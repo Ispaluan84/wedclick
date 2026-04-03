@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-serif: 'Playfair Display', serif;
+  --font-family-sans: 'Lato', sans-serif;
+
+  --color-sage:         #7D9B76;
+  --color-tierra:       #C4956A;
+  --color-crema:        #F5F0E8;
+  --color-blanco-roto:  #FDFCFA;
+  --color-verde-oscuro: #3D5A3E;
+  --color-marron:       #8B6F5C;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #FDFCFA;
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .btn-natural {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #3D5A3E;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    transition: all 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-natural:hover {
+    opacity: 0.9;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .btn-natural-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid #3D5A3E;
+    color: #3D5A3E;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    transition: all 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  .btn-natural-outline:hover {
+    background-color: #3D5A3E;
+    color: white;
+  }
+}

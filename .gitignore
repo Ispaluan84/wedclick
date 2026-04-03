@@ -1,0 +1,17 @@
+# Node
+
+node_modules
+dist 
+.env
+*.log
+
+
+#invitacion demo
+elena-marcos/node_modules
+elena- marcos/dist
+elena-marcos/.env
+
+#server 
+
+server/node_modules
+server/dist
