@@ -9,31 +9,11 @@ const fadeUp = (delay = 0) => ({
 })
 
 const miniaturas = [
-  {
-    id: 1,
-    titulo: 'Portada',
-    imagen: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80',
-  },
-  {
-    id: 2,
-    titulo: 'Historia de amor',
-    imagen: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&q=80',
-  },
-  {
-    id: 3,
-    titulo: 'Ubicaciones',
-    imagen: 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&q=80',
-  },
-  {
-    id: 4,
-    titulo: 'Itinerario',
-    imagen: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400&q=80',
-  },
-  {
-    id: 5,
-    titulo: 'Confirmación',
-    imagen: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&q=80',
-  },
+  { id: 1, titulo: 'Portada',          imagen: '/screenshots/demo-portada.jpg' },
+  { id: 2, titulo: 'Historia de amor', imagen: '/screenshots/demo-historia.jpg' },
+  { id: 3, titulo: 'Ubicaciones',      imagen: '/screenshots/demo-ubicaciones.jpg' },
+  { id: 4, titulo: 'Itinerario',       imagen: '/screenshots/demo-itinerario.jpg' },
+  { id: 5, titulo: 'Confirmación',     imagen: '/screenshots/demo-confirmacion.jpg' },
 ]
 
 function DemoPreview() {
@@ -80,7 +60,7 @@ function DemoPreview() {
                                 bg-azul-oscuro rounded-b-2xl z-10" />
                 <div className="rounded-[2.3rem] overflow-hidden bg-crema aspect-[9/19.5]">
                   <img
-                    src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80"
+                    src="/screenshots/demo-portada.jpg"
                     alt="Demo Elena & Marcos"
                     className="w-full h-full object-cover"
                   />
