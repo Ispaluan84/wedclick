@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloquear paneles privados
+Disallow: /panel
+Disallow: /admin
+Disallow: /checkout
+
+# Sitemap
+Sitemap: https://wedclick.es/sitemap.xml
