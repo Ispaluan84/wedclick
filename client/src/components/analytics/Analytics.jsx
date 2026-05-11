@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useCookies } from '../../context/CookieContext'
 
-const GA_ID = 'G-C8QHKFK35M'
+const GA_ID = 'G-D62456N7EB'
 
 function loadGoogleAnalytics() {
   // Evitar cargarlo dos veces
