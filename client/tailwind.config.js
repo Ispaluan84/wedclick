@@ -1,26 +1,26 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  darkMode: 'class',
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    './src/**/*.{js,jsx,ts,tsx}', // Ajusta según tu estructura
   ],
   theme: {
     extend: {
       colors: {
-        blueWillow: '#6A8DAD',
-        goldAccent: '#D9C99E',
-        copperLight: '#B98362',
-        slateGray:  '#333E50',
-        warmWhite:  '#F5F5F5',
+        'azul-oscuro':  '#243763',
+        'beige-claro':  '#D9C7A6',
+        'crema':        '#F1EFE6',
+        'marron':       '#8B6F5C',
+        'verde-suave':  '#7D9B76',
+        'tierra':       '#CFC29B',
+        'blanco-roto':  '#FDFCFA',
+        'sage':         '#7D9B76',
+        'verde-oscuro': '#3D5A3E',
       },
       fontFamily: {
-        serif:  ['Playfair Display', 'serif'],
-        sans:   ['Lato', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
+        sans:  ['Inter', 'sans-serif'],
       },
     },
   },
   plugins: [],
 }
-
-

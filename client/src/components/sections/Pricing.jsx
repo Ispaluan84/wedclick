@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import {
-  Timer, BookOpen, MapPin, ClipboardList,
-  Music2, QrCode, Smartphone, CheckCircle,
-  Images, PartyPopper, MessageCircle
+  Timer, BookOpen, MapPin, ClipboardList, Music2, QrCode,
+  Smartphone, CheckCircle, Images, MessageCircle,
+  Shirt, Clock, Heart, Camera, Check, Sparkles,
+  Mail, Star, Zap
 } from 'lucide-react'
-import SectionWrapper from '../ui/SectionWrapper.jsx'
 
 const WHATSAPP_NUMBER  = '34627147039'
 const WHATSAPP_MESSAGE = encodeURIComponent(
@@ -13,241 +14,276 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
 
 const fadeUp = (delay = 0) => ({
   initial:     { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0  },
+  whileInView: { opacity: 1, y: 0 },
   viewport:    { once: true, margin: '-60px' },
-  transition:  { duration: 0.6, delay, ease: 'easeOut' },
+  transition:  { duration: 0.8, delay, ease: 'easeOut' },
 })
 
-const includes = [
-  { icon: Timer,         label: 'Cuenta atrás'                        },
-  { icon: BookOpen,      label: 'Presentación de los novios'          },
-  { icon: MapPin,        label: 'Ceremonia & Celebración'             },
-  { icon: ClipboardList, label: 'Confirmación de asistencia y alérgenos' },
-  { icon: Music2,        label: 'Banda Sonora de vuestra boda'        },
-  { icon: QrCode,        label: 'QR personalizado por invitado/pareja'},
-  { icon: Smartphone,    label: 'Diseño responsive'                   },
-  { icon: CheckCircle,   label: 'Una ronda de revisión incluida'      },
+const planes = [
+  {
+    id:          'esencial',
+    nombre:      'Esencial',
+    precio:      '149',
+    descripcion: 'Todo lo que necesitáis para una invitación digital elegante y completa.',
+    icono:       Heart,
+    color:       'verde-suave',
+    destacado:   false,
+    incluye: [
+      { icono: Heart,         texto: 'Diseño 100% personalizado'           },
+      { icono: Timer,         texto: 'Cuenta atrás hasta el gran día'      },
+      { icono: BookOpen,      texto: 'Historia de amor y carta de novios'  },
+      { icono: MapPin,        texto: 'Ubicaciones con mapa interactivo'    },
+      { icono: Clock,         texto: 'Itinerario hora a hora'              },
+      { icono: Shirt,         texto: 'Dress code con paleta de colores'    },
+      { icono: ClipboardList, texto: 'Confirmación de asistencia'          },
+      { icono: Music2,        texto: 'Playlist colaborativa'               },
+      { icono: Smartphone,    texto: 'Enlace único compartible'            },
+      { icono: CheckCircle,   texto: 'Una ronda de revisión'               },
+    ],
+    noIncluye: [
+      'QR personalizado por invitado',
+      'Sobre animado con nombre',
+      'Álbum colaborativo de fotos',
+    ],
+    cta: 'Solicitar plan Esencial',
+  },
+  {
+    id:          'premium',
+    nombre:      'Premium',
+    precio:      '249',
+    descripcion: 'La experiencia completa con QR personalizado y sobre animado para cada invitado.',
+    icono:       Mail,
+    color:       'azul-oscuro',
+    destacado:   true,
+    incluye: [
+      { icono: Heart,         texto: 'Todo lo del plan Esencial'           },
+      { icono: QrCode,        texto: 'QR personalizado por invitado/pareja'},
+      { icono: Mail,          texto: 'Sobre animado con nombre del invitado'},
+      { icono: Star,          texto: 'Animación de apertura tipo carta'    },
+      { icono: Sparkles,      texto: 'Sello personalizado con fecha'       },
+      { icono: CheckCircle,   texto: 'Dos rondas de revisión'              },
+    ],
+    noIncluye: [
+      'Álbum colaborativo de fotos',
+    ],
+    cta: 'Solicitar plan Premium',
+  },
+  {
+    id:          'lanzamiento',
+    nombre:      'Lanzamiento',
+    precio:      '299',
+    descripcion: 'Oferta exclusiva de estreno. Todo Premium más álbum colaborativo con hosting incluido.',
+    icono:       Zap,
+    color:       'tierra',
+    destacado:   false,
+    badge:       '🎁 Oferta de estreno',
+    incluye: [
+      { icono: Heart,         texto: 'Todo lo del plan Premium'            },
+      { icono: Camera,        texto: 'Álbum colaborativo de fotos'         },
+      { icono: Images,        texto: '2 meses de hosting del álbum'        },
+      { icono: Images,        texto: 'Álbum en alta resolución al finalizar'},
+      { icono: CheckCircle,   texto: 'Tres rondas de revisión'             },
+    ],
+    noIncluye: [],
+    cta: 'Solicitar oferta de lanzamiento',
+  },
 ]
 
-const extras = [
-  {
-    icon:        PartyPopper,
-    title:       'Invitación pre-boda',
-    description: '¿Tenéis una preboda, fiesta o celebración previa? Creamos una invitación digital exclusiva para ese momento especial.',
-    price:       '+80€',
-    color:       'gold',
-  },
-  {
-    icon:        Images,
-    title:       'Galería post-boda',
-    description: 'Después del gran día, activamos una galería donde vuestros invitados pueden ver y descargar todas las fotos. Un recuerdo compartido para siempre.',
-    price:       '+120€',
-    note:        '+ hosting a consultar',
-    color:       'blue',
-  },
-]
+function PlanCard({ plan, index }) {
+  const navigate = useNavigate()
+  const Icono = plan.icono
+
+  const estilos = {
+    'verde-suave': {
+      bg:         'bg-blanco-roto',
+      iconoBg:    'bg-verde-suave/10',
+      iconoColor: 'text-verde-suave',
+      badge:      'bg-verde-suave/10 text-verde-suave border-verde-suave/20',
+      precio:     'text-verde-suave',
+      check:      'text-verde-suave',
+      btn:        'bg-verde-suave text-crema border border-verde-suave hover:bg-verde-suave/90',
+    },
+    'azul-oscuro': {
+      bg:         'bg-azul-oscuro',
+      iconoBg:    'bg-crema/10',
+      iconoColor: 'text-crema',
+      badge:      'bg-crema/10 text-crema border-crema/20',
+      precio:     'text-crema',
+      check:      'text-crema',
+      btn:        'bg-crema text-azul-oscuro border border-beige-claro hover:bg-beige-claro',
+    },
+    'tierra': {
+      bg:         'bg-blanco-roto',
+      iconoBg:    'bg-tierra/10',
+      iconoColor: 'text-tierra',
+      badge:      'bg-tierra/10 text-tierra border-tierra/20',
+      precio:     'text-tierra',
+      check:      'text-tierra',
+      btn:        'bg-tierra text-crema border border-tierra hover:bg-tierra/90',
+    },
+  }
+
+  const s = estilos[plan.color]
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className={`relative rounded-3xl p-8 shadow-sm border border-black/5
+                  flex flex-col gap-6 ${s.bg}
+                  ${plan.destacado ? 'ring-2 ring-azul-oscuro ring-offset-2 scale-105' : ''}`}
+    >
+      {/* Badge destacado */}
+      {plan.destacado && (
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+          <span className="inline-block font-sans text-xs tracking-widest uppercase
+                           bg-azul-oscuro text-crema px-6 py-2 rounded-full shadow-sm">
+            ⭐ Más popular
+          </span>
+        </div>
+      )}
+
+      {/* Badge oferta */}
+      {plan.badge && (
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+          <span className={`inline-block font-sans text-xs tracking-widest uppercase
+                           border px-6 py-2 rounded-full shadow-sm ${s.badge}`}>
+            {plan.badge}
+          </span>
+        </div>
+      )}
+
+      {/* Cabecera */}
+      <div className="flex items-center gap-4 mt-2">
+        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${s.iconoBg}`}>
+          <Icono size={22} className={s.iconoColor} />
+        </div>
+        <div>
+          <h3 className={`font-serif text-xl ${plan.destacado ? 'text-crema' : 'text-azul-oscuro'}`}>
+            {plan.nombre}
+          </h3>
+          <p className={`font-sans text-xs font-light ${plan.destacado ? 'text-crema/70' : 'text-marron'}`}>
+            {plan.descripcion}
+          </p>
+        </div>
+      </div>
+
+      {/* Separador */}
+      <div className={`w-full h-px ${plan.destacado ? 'bg-crema/20' : 'bg-black/5'}`} />
+
+      {/* Precio */}
+      <div className="flex items-end gap-1">
+        <span className={`font-serif text-6xl font-bold ${s.precio}`}>
+          {plan.precio}
+        </span>
+        <span className={`font-serif text-2xl mb-2 ${s.precio}`}>€</span>
+      </div>
+
+      {/* Lo que incluye */}
+      <ul className="flex flex-col gap-2.5 flex-1">
+        {plan.incluye.map((item) => {
+          const ItemIcono = item.icono
+          return (
+            <li key={item.texto} className="flex items-center gap-3">
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center
+                              flex-shrink-0 ${s.iconoBg}`}>
+                <Check size={12} className={s.check} />
+              </div>
+              <span className={`font-sans text-sm ${plan.destacado ? 'text-crema/90' : 'text-marron'}`}>
+                {item.texto}
+              </span>
+            </li>
+          )
+        })}
+
+        {/* Lo que NO incluye */}
+        {plan.noIncluye.map((item) => (
+          <li key={item} className="flex items-center gap-3 opacity-40">
+            <div className="w-5 h-5 rounded-full flex items-center justify-center
+                            flex-shrink-0 bg-gray-200">
+              <span className="text-[10px] text-gray-400">✕</span>
+            </div>
+            <span className={`font-sans text-sm line-through
+                             ${plan.destacado ? 'text-crema/50' : 'text-marron/50'}`}>
+              {item}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      {/* Separador */}
+      <div className={`w-full h-px ${plan.destacado ? 'bg-crema/20' : 'bg-black/5'}`} />
+
+      {/* CTA */}
+      <button
+        onClick={() => navigate(`/checkout/${plan.id}`)}
+        className={`flex items-center justify-center gap-2 w-full
+                   font-sans font-semibold text-sm px-6 py-4 rounded-2xl
+                   transition-all duration-300 shadow-sm hover:shadow-md
+                   tracking-wide uppercase ${s.btn}`}
+      >
+        <MessageCircle size={16} />
+        {plan.cta}
+      </button>
+    </motion.div>
+  )
+}
 
 function Pricing() {
   return (
-    <SectionWrapper id="precios" className="bg-white">
+    <section id="precios" className="bg-blanco-roto py-24 px-6 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
 
-      {/* Encabezado */}
-      <motion.div {...fadeUp(0)} className="text-center mb-16">
-        <span className="inline-block font-sans text-xs tracking-widest uppercase text-blueWillow mb-4">
-          Precios
-        </span>
-        <h2 className="section-title">
-          Una inversión única
-          <br />
-          para un día irrepetible
-        </h2>
-        <p className="section-subtitle">
-          Sin sorpresas. Sin letra pequeña.
-          Solo vuestra historia, bien contada.
-        </p>
-      </motion.div>
-
-      {/* Paquete principal */}
-      <motion.div
-        {...fadeUp(0.1)}
-        className="max-w-2xl mx-auto mb-20"
-      >
-        <div className="relative bg-warmWhite rounded-3xl p-10 border border-gray-100 shadow-sm">
-
-          {/* Badge */}
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-            <span className="inline-block font-sans text-xs tracking-widest uppercase
-                           bg-blueWillow text-white px-6 py-2 rounded-full shadow-sm">
-              Paquete principal
-            </span>
+        {/* Encabezado */}
+        <motion.div {...fadeUp(0)} className="text-center mb-20">
+          <span className="font-sans text-xs tracking-widest uppercase text-verde-suave mb-4 block">
+            Precios
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl text-azul-oscuro mb-6">
+            Una inversión única
+            <br />
+            <span className="italic text-tierra">para un día irrepetible</span>
+          </h2>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-12 h-px bg-tierra opacity-50" />
+            <span className="text-tierra text-lg">◆</span>
+            <div className="w-12 h-px bg-tierra opacity-50" />
           </div>
+          <p className="font-sans font-light text-marron max-w-xl mx-auto leading-relaxed">
+            Sin sorpresas. Sin letra pequeña.
+            Solo vuestra historia, bien contada.
+          </p>
+        </motion.div>
 
-          {/* Nombre y precio */}
-          <div className="text-center mb-10 mt-4">
-            <h3 className="font-serif text-3xl text-slateGray mb-2">
-              Vuestra Historia
-            </h3>
-            <div className="flex items-end justify-center gap-2 mb-2">
-              <span className="font-serif text-6xl font-bold text-blueWillow">
-                200€
-              </span>
-            </div>
-            <p className="font-sans text-sm text-gray-400">
-              Hasta 200 invitados · QR personalizado por invitado o pareja
-            </p>
-            <div className="flex items-center justify-center gap-3 mt-4">
-              <div className="w-12 h-px bg-goldAccent opacity-50" />
-              <span className="text-goldAccent text-lg">◆</span>
-              <div className="w-12 h-px bg-goldAccent opacity-50" />
-            </div>
-          </div>
+        {/* Grid de planes */}
+        <div className="grid md:grid-cols-3 gap-8 items-start">
+          {planes.map((plan, index) => (
+            <PlanCard key={plan.id} plan={plan} index={index} />
+          ))}
+        </div>
 
-          {/* Lo que incluye */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            {includes.map((item) => {
-              const Icon = item.icon
-              return (
-                <div key={item.label} className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blueWillow/10 flex items-center justify-center flex-shrink-0">
-                    <Icon size={14} className="text-blueWillow" />
-                  </div>
-                  <span className="font-sans text-sm text-gray-500">
-                    {item.label}
-                  </span>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Nota más de 200 invitados */}
-          <div className="bg-white rounded-2xl px-6 py-4 mb-8 border border-gray-100 text-center">
-            <p className="font-sans text-sm text-gray-400">
+        {/* Nota más de 200 invitados */}
+        <motion.div {...fadeUp(0.5)} className="mt-16 text-center">
+          <div className="bg-white rounded-2xl px-8 py-6 shadow-sm
+                          border border-black/5 inline-block">
+            <p className="font-sans text-sm text-marron font-light">
               ¿Más de 200 invitados?{' '}
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blueWillow font-semibold hover:underline"
+                className="text-azul-oscuro font-semibold hover:underline"
               >
                 Consúltanos sin compromiso
               </a>
             </p>
           </div>
+        </motion.div>
 
-          {/* CTA */}
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full
-                       bg-green-500 text-white font-sans font-semibold text-sm
-                       px-6 py-4 rounded-full hover:bg-green-600
-                       transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer"
-          >
-            <MessageCircle size={18} />
-            Quiero mi invitación
-          </a>
-
-        </div>
-      </motion.div>
-
-      {/* Extras */}
-      <motion.div {...fadeUp(0.2)}>
-        <div className="text-center mb-10">
-          <span className="inline-block font-sans text-xs tracking-widest uppercase text-blueWillow mb-4">
-            Extras
-          </span>
-          <h3 className="font-serif text-2xl md:text-3xl text-slateGray">
-            Amplía vuestra experiencia
-          </h3>
-          <p className="font-sans font-light text-sm text-gray-400 mt-3">
-            Opcionales que podéis añadir a vuestro paquete principal.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {extras.map((extra) => {
-            const Icon     = extra.icon
-            const isBlue   = extra.color === 'blue'
-            const iconBg   = isBlue ? '#6A8DAD' : '#D9C99E'
-            const iconColor = isBlue ? '#ffffff' : '#333E50'
-
-            return (
-              <motion.div
-                key={extra.title}
-                {...fadeUp(0.1)}
-                className="bg-warmWhite rounded-2xl p-7 border border-gray-100
-                           shadow-sm hover:shadow-md hover:-translate-y-1
-                           transition-all duration-300 flex flex-col gap-4"
-              >
-                {/* Icono y precio */}
-                <div className="flex items-start justify-between">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
-                    style={{ backgroundColor: iconBg }}
-                  >
-                    <Icon size={22} style={{ color: iconColor }} />
-                  </div>
-                  <div className="text-right">
-                    <span className="font-serif text-2xl font-bold text-blueWillow">
-                      {extra.price}
-                    </span>
-                    {extra.note && (
-                      <p className="font-sans text-xs text-gray-400 mt-1">
-                        {extra.note}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Separador */}
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-px bg-goldAccent" />
-                  <div className="w-1 h-1 rounded-full bg-goldAccent" />
-                </div>
-
-                {/* Título y descripción */}
-                <h4 className="font-serif text-lg text-slateGray">
-                  {extra.title}
-                </h4>
-                <p className="font-sans font-light text-sm text-gray-500 leading-relaxed">
-                  {extra.description}
-                </p>
-
-                {/* CTA */}
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-blueWillow
-                             font-sans text-sm font-semibold hover:underline
-                             transition-colors duration-200 mt-auto cursor-pointer"
-                >
-                  <MessageCircle size={14} />
-                  Añadir este extra
-                </a>
-
-              </motion.div>
-            )
-          })}
-        </div>
-      </motion.div>
-
-      {/* Cierre */}
-      <motion.div {...fadeUp(0.3)} className="mt-16 flex flex-col items-center gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-16 h-px bg-goldAccent opacity-50" />
-          <span className="text-goldAccent text-xl">◆</span>
-          <div className="w-16 h-px bg-goldAccent opacity-50" />
-        </div>
-        <p className="font-sans font-light text-sm text-gray-400 text-center">
-          Todos los precios incluyen IVA.
-          <br className="hidden md:block" />
-          Sin costes ocultos, sin sorpresas de última hora.
-        </p>
-      </motion.div>
-
-    </SectionWrapper>
+      </div>
+    </section>
   )
 }
 

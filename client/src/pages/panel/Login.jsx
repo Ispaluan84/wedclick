@@ -1,182 +1,172 @@
+import SEO from '../../components/SEO'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
-
-const fadeUp = (delay = 0) => ({
-  initial:    { opacity: 0, y: 20 },
-  animate:    { opacity: 1, y: 0  },
-  transition: { duration: 0.6, delay, ease: 'easeOut' },
-})
+import { Mail, Lock, Eye, EyeOff, Heart } from 'lucide-react'
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email:    '',
-    password: '',
-  })
-  const [showPassword, setShowPassword] = useState(false)
-  const [status, setStatus]             = useState('idle') // idle | loading | error
+  const navigate = useNavigate()
+  const [email, setEmail]       = useState('')
+  const [password, setPassword] = useState('')
+  const [showPass, setShowPass] = useState(false)
+  const [loading, setLoading]   = useState(false)
+  const [error, setError]       = useState('')
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    setStatus('loading')
+    setError('')
+    setLoading(true)
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email:    formData.email,
-      password: formData.password,
-    })
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
 
-    if (error) {
-      setStatus('error')
-    } else {
-      setStatus('idle')
-      window.location.href = '/panel/dashboard'
+      if (authError) {
+        setError('Email o contraseña incorrectos')
+        setLoading(false)
+        return
+      }
+
+      navigate('/panel/dashboard')
+
+    } catch (err) {
+      setError('Ha ocurrido un error. Inténtalo de nuevo.')
+      setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-warmWhite flex items-center justify-center px-6">
-
-      {/* Elementos decorativos */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -right-32 w-[400px] h-[400px] rounded-full bg-blueWillow opacity-[0.06]" />
-        <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-goldAccent opacity-[0.06]" />
-      </div>
-
-      <div className="relative w-full max-w-md">
-
-        {/* Logo */}
-        <motion.div {...fadeUp(0)} className="text-center mb-10">
-          <a href="/" className="inline-block">
-            <span className="font-serif text-3xl font-bold text-blueWillow">
-              Wed<span className="text-goldAccent">Click</span>
-            </span>
-          </a>
-          <p className="font-sans text-sm text-gray-400 mt-2">
-            Panel de gestión
-          </p>
-        </motion.div>
-
-        {/* Card */}
-        <motion.div
-          {...fadeUp(0.1)}
-          className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100"
+    <>
+      <SEO noIndex={true} />
+    <div className="min-h-screen bg-crema flex items-center justify-center px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md"
         >
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <img
+            src="/Logo_WedClick.png"
+            alt="WedClick"
+            className="h-16 mx-auto mb-4"
+            />
+          <h1 className="font-serif text-2xl text-azul-oscuro mb-1">
+            Panel de novios
+          </h1>
+          <p className="font-sans text-sm text-marron/60">
+            Accede para gestionar vuestra boda
+          </p>
+        </div>
 
-          {/* Encabezado */}
-          <div className="flex flex-col gap-2 mb-8">
-            <h1 className="font-serif text-2xl text-slateGray">
-              Bienvenidos
-            </h1>
-            <p className="font-sans font-light text-sm text-gray-400">
-              Accede con vuestro email y contraseña
-            </p>
-          </div>
-
-          {/* Formulario */}
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        {/* Formulario */}
+        <div className="bg-white rounded-3xl p-8 shadow-sm border border-beige-claro">
+          <form onSubmit={handleLogin} className="flex flex-col gap-5">
 
             {/* Email */}
-            <div className="flex flex-col gap-2">
-              <label className="font-sans text-xs text-gray-400 tracking-wide uppercase flex items-center gap-2">
-                <Mail size={12} />
+            <div>
+              <label className="font-sans text-xs text-marron tracking-wide
+                               uppercase mb-1.5 block">
                 Email
               </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="vuestro@email.com"
-                className="font-sans text-sm text-slateGray bg-warmWhite
-                           border border-gray-200 rounded-xl px-4 py-3
-                           focus:outline-none focus:border-blueWillow
-                           transition-colors duration-200 placeholder:text-gray-300"
-              />
+              <div className="relative">
+                <Mail size={16} className="absolute left-4 top-1/2
+                                           -translate-y-1/2 text-gray-400" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="elena@email.com"
+                  required
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-beige-claro
+                  bg-crema/30 font-sans text-sm text-azul-oscuro
+                  placeholder:text-gray-300
+                  focus:outline-none focus:ring-2 focus:ring-azul-oscuro/20
+                  focus:border-azul-oscuro transition-all"
+                  />
+              </div>
             </div>
 
-            {/* Password */}
-            <div className="flex flex-col gap-2">
-              <label className="font-sans text-xs text-gray-400 tracking-wide uppercase flex items-center gap-2">
-                <Lock size={12} />
+            {/* Contraseña */}
+            <div>
+              <label className="font-sans text-xs text-marron tracking-wide
+                               uppercase mb-1.5 block">
                 Contraseña
               </label>
               <div className="relative">
+                <Lock size={16} className="absolute left-4 top-1/2
+                                           -translate-y-1/2 text-gray-400" />
                 <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
+                  type={showPass ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full font-sans text-sm text-slateGray bg-warmWhite
-                             border border-gray-200 rounded-xl px-4 py-3
-                             focus:outline-none focus:border-blueWillow
-                             transition-colors duration-200 placeholder:text-gray-300"
-                />
+                  required
+                  className="w-full pl-11 pr-12 py-3 rounded-xl border border-beige-claro
+                  bg-crema/30 font-sans text-sm text-azul-oscuro
+                  placeholder:text-gray-300
+                  focus:outline-none focus:ring-2 focus:ring-azul-oscuro/20
+                  focus:border-azul-oscuro transition-all"
+                  />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPass(!showPass)}
                   className="absolute right-4 top-1/2 -translate-y-1/2
-                             text-gray-400 hover:text-slateGray transition-colors"
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  text-gray-400 hover:text-azul-oscuro transition-colors"
+                  >
+                  {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
             </div>
 
             {/* Error */}
-            {status === 'error' && (
+            {error && (
               <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="font-sans text-sm text-red-400 text-center"
-              >
-                ❌ Email o contraseña incorrectos
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-sans text-xs text-red-500 text-center
+                           bg-red-50 py-2 px-4 rounded-xl"
+                           >
+                {error}
               </motion.p>
             )}
 
             {/* Botón */}
             <button
               type="submit"
-              disabled={status === 'loading'}
-              className="btn-primary mt-2 flex items-center justify-center gap-2"
-            >
-              {status === 'loading' ? (
+              disabled={loading}
+              className="w-full py-3.5 rounded-xl bg-azul-oscuro text-crema
+              font-sans font-semibold text-sm uppercase tracking-wide
+              border border-beige-claro
+              hover:bg-beige-claro hover:text-azul-oscuro
+              transition-colors duration-300 shadow-md
+              disabled:opacity-50 disabled:cursor-not-allowed
+              flex items-center justify-center gap-2"
+              >
+              {loading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-crema/30
+                                  border-t-crema rounded-full animate-spin" />
                   Accediendo...
                 </>
               ) : (
                 'Acceder al panel'
               )}
             </button>
-
           </form>
+        </div>
 
-        </motion.div>
-
-        {/* Nota */}
-        <motion.p
-          {...fadeUp(0.2)}
-          className="text-center font-sans text-xs text-gray-300 mt-6"
-        >
-          ¿Problemas para acceder? Contacta con{' '}
-          <a
-            href="mailto:contacto@wedclick.es"
-            className="text-blueWillow hover:underline"
-          >
-            WedClick
-          </a>
-        </motion.p>
-
-      </div>
+        <p className="font-sans text-xs text-marron/40 text-center mt-6
+                      flex items-center justify-center gap-1">
+          Hecho con <Heart size={10} className="text-tierra" fill="#CFC29B" /> en Sevilla
+        </p>
+      </motion.div>
     </div>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Shield } from 'lucide-react'
+import SEO      from '../components/SEO'
 
 const fadeUp = (delay = 0) => ({
   initial:    { opacity: 0, y: 20 },
@@ -7,31 +8,71 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, delay, ease: 'easeOut' },
 })
 
+const Section = ({ numero, titulo, children }) => (
+  <div className="flex flex-col gap-4">
+    <h2 className="font-serif text-2xl text-azul-oscuro">
+      {numero}. {titulo}
+    </h2>
+    <div className="w-12 h-px bg-tierra opacity-60" />
+    {children}
+  </div>
+)
+
+const Lista = ({ items }) => (
+  <ul className="flex flex-col gap-2">
+    {items.map((item) => (
+      <li key={item} className="flex items-start gap-2
+                                font-sans font-light text-marron
+                                text-sm leading-relaxed">
+        <span className="text-tierra mt-1 flex-shrink-0">◆</span>
+        {item}
+      </li>
+    ))}
+  </ul>
+)
+
+const Parrafo = ({ children }) => (
+  <p className="font-sans font-light text-marron text-sm leading-relaxed">
+    {children}
+  </p>
+)
+
 function Privacy() {
   return (
-    <div className="min-h-screen bg-warmWhite">
+    <>
+    <SEO
+      titulo="Política de Privacidad · WedClick"
+      descripcion="Política de privacidad de WedClick. Información sobre el tratamiento de datos personales."
+      url="https://wedclick.es/privacidad"
+      noIndex={true}
+      />
+    <div className="min-h-screen bg-crema">
 
       {/* Header */}
-      <div className="bg-slateGray py-16 px-6">
+      <div className="bg-azul-oscuro py-16 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.a
             {...fadeUp(0)}
             href="/"
-            className="inline-flex items-center gap-2 text-gray-400
-                       hover:text-white transition-colors duration-200
-                       font-sans text-sm mb-8 cursor-pointer"
-          >
+            className="inline-flex items-center gap-2 text-crema/50
+            hover:text-crema transition-colors duration-200
+            font-sans text-sm mb-8"
+            >
             <ArrowLeft size={16} />
             Volver al inicio
           </motion.a>
+
           <motion.div {...fadeUp(0.1)} className="flex flex-col gap-4">
-            <span className="font-sans text-xs tracking-widest uppercase text-goldAccent">
-              Legal
-            </span>
-            <h1 className="font-serif text-4xl text-white">
+            <div className="flex items-center gap-2">
+              <Shield size={14} className="text-tierra" />
+              <span className="font-sans text-xs tracking-widest uppercase text-tierra">
+                Legal
+              </span>
+            </div>
+            <h1 className="font-serif text-4xl text-crema">
               Política de Privacidad
             </h1>
-            <p className="font-sans font-light text-gray-400 text-sm">
+            <p className="font-sans font-light text-crema/50 text-sm">
               Última actualización: {new Date().toLocaleDateString('es-ES', {
                 day: 'numeric', month: 'long', year: 'numeric'
               })}
@@ -44,241 +85,236 @@ function Privacy() {
       <motion.div
         {...fadeUp(0.2)}
         className="max-w-3xl mx-auto px-6 py-16 flex flex-col gap-12"
-      >
+        >
 
-        {/* Sección 1 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            1. Responsable del tratamiento
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <div className="flex flex-col gap-2 font-sans font-light text-gray-500 text-sm leading-relaxed">
-            <p><span className="font-semibold text-slateGray">Nombre:</span> WedClick</p>
-            <p><span className="font-semibold text-slateGray">Web:</span> wedclick.es</p>
-            <p><span className="font-semibold text-slateGray">Email:</span> contacto@wedclick.es</p>
-            <p><span className="font-semibold text-slateGray">Teléfono:</span> +34 628 355 913</p>
+        <Section numero="1" titulo="Responsable del tratamiento">
+          <div className="flex flex-col gap-2 font-sans font-light
+                          text-marron text-sm leading-relaxed">
+            <p><span className="font-semibold text-azul-oscuro">Nombre:</span> WedClick</p>
+            <p><span className="font-semibold text-azul-oscuro">Web:</span> wedclick.es</p>
+            <p><span className="font-semibold text-azul-oscuro">Email:</span> contacto@wedclick.es</p>
+            <p><span className="font-semibold text-azul-oscuro">Teléfono:</span> +34 628 355 913</p>
           </div>
-        </div>
+        </Section>
 
-        {/* Sección 2 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            2. Datos que recopilamos
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            A través de los formularios de contacto de nuestra web recopilamos los siguientes datos:
-          </p>
-          <ul className="flex flex-col gap-2 font-sans font-light text-gray-500 text-sm leading-relaxed">
-            {[
-              'Nombre y apellidos',
-              'Dirección de correo electrónico',
-              'Número de teléfono (opcional)',
-              'Fecha de la boda',
-              'Mensaje o consulta',
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-goldAccent mt-1">◆</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Section numero="2" titulo="Datos que recopilamos">
+          <Parrafo>
+            A través de los formularios de nuestra web recopilamos los siguientes datos:
+          </Parrafo>
+          <Lista items={[
+            'Nombre de los novios',
+            'Dirección de correo electrónico',
+            'Número de teléfono',
+            'Fecha y lugar de la boda',
+            'Datos de pago (gestionados por Stripe — no almacenamos datos bancarios)',
+            'Información sobre la invitación (estilo, número de invitados, etc.)',
+            'Fotos subidas al álbum colaborativo',
+            'Confirmaciones de asistencia de los invitados',
+          ]} />
+        </Section>
 
-        {/* Sección 3 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            3. Finalidad del tratamiento
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
+        <Section numero="3" titulo="Finalidad del tratamiento">
+          <Parrafo>
             Los datos personales que nos facilitáis se utilizan exclusivamente para:
-          </p>
-          <ul className="flex flex-col gap-2 font-sans font-light text-gray-500 text-sm leading-relaxed">
-            {[
-              'Atender vuestras consultas y solicitudes de información',
-              'Gestionar la prestación del servicio contratado',
-              'Enviar información relacionada con vuestro pedido',
-              'Cumplir con las obligaciones legales aplicables',
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-goldAccent mt-1">◆</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+          </Parrafo>
+          <Lista items={[
+            'Gestionar y procesar el pago del servicio contratado',
+            'Crear y entregar la invitación digital personalizada',
+            'Enviar comunicaciones relacionadas con vuestro pedido',
+            'Gestionar el panel de novios y el álbum colaborativo',
+            'Atender vuestras consultas y solicitudes de soporte',
+            'Cumplir con las obligaciones legales aplicables',
+          ]} />
+        </Section>
 
-        {/* Sección 4 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            4. Base legal del tratamiento
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            La base legal para el tratamiento de vuestros datos es el consentimiento 
-            explícito que nos otorgáis al rellenar y enviar el formulario de contacto, 
-            de conformidad con el Reglamento General de Protección de Datos (RGPD) 
-            y la Ley Orgánica 3/2018 de Protección de Datos Personales (LOPDGDD).
-          </p>
-        </div>
+        <Section numero="4" titulo="Base legal del tratamiento">
+          <Parrafo>
+            La base legal para el tratamiento de vuestros datos es el consentimiento
+            explícito que nos otorgáis al contratar el servicio y rellenar los
+            formularios, de conformidad con el Reglamento General de Protección
+            de Datos (RGPD) y la Ley Orgánica 3/2018 de Protección de Datos
+            Personales (LOPDGDD). El tratamiento de datos de pago se basa en la
+            ejecución del contrato de prestación de servicios.
+          </Parrafo>
+        </Section>
 
-        {/* Sección 5 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            5. Conservación de los datos
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            Los datos personales se conservarán durante el tiempo necesario para 
-            atender vuestra consulta y, en caso de contratar nuestros servicios, 
-            durante la vigencia de la relación contractual más el tiempo exigido 
-            por la legislación aplicable.
-          </p>
-        </div>
+        <Section numero="5" titulo="Conservación de los datos">
+          <Parrafo>
+            Los datos personales se conservarán durante el tiempo necesario para
+            prestar el servicio contratado y, una vez finalizado, durante el tiempo
+            exigido por la legislación aplicable (mínimo 5 años para datos fiscales).
+            Las fotos del álbum colaborativo se conservarán hasta que los novios
+            soliciten su eliminación o transcurrido un año desde la fecha de la boda.
+          </Parrafo>
+        </Section>
 
-        {/* Sección 6 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            6. Comunicación de datos a terceros
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            WedClick no cede ni vende vuestros datos personales a terceros. 
-            No obstante, para la prestación del servicio utilizamos los siguientes 
-            proveedores que actúan como encargados del tratamiento:
-          </p>
-          <ul className="flex flex-col gap-2 font-sans font-light text-gray-500 text-sm leading-relaxed">
-            {[
-              'Formspree (gestión del formulario de contacto)',
-              'Google Analytics (análisis de tráfico web, solo si aceptáis las cookies)',
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-goldAccent mt-1">◆</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Section numero="6" titulo="Comunicación de datos a terceros">
+          <Parrafo>
+            WedClick no cede ni vende vuestros datos personales a terceros.
+            Para la prestación del servicio utilizamos los siguientes proveedores
+            que actúan como encargados del tratamiento:
+          </Parrafo>
+          <Lista items={[
+            'Stripe — Procesamiento seguro de pagos (stripe.com/es/privacy)',
+            'Supabase — Almacenamiento de datos y archivos (supabase.com/privacy)',
+            'Resend — Envío de emails transaccionales (resend.com/privacy)',
+            'Google Analytics — Análisis de tráfico web (solo si aceptáis las cookies)',
+          ]} />
+        </Section>
 
-        {/* Sección 7 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            7. Vuestros derechos
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            Como titulares de los datos, podéis ejercer en cualquier momento los siguientes derechos:
-          </p>
-          <ul className="flex flex-col gap-2 font-sans font-light text-gray-500 text-sm leading-relaxed">
-            {[
-              'Acceso: conocer qué datos tenemos sobre vosotros',
-              'Rectificación: corregir datos inexactos o incompletos',
-              'Supresión: solicitar la eliminación de vuestros datos',
-              'Oposición: oponeros al tratamiento de vuestros datos',
-              'Portabilidad: recibir vuestros datos en formato electrónico',
-              'Limitación: solicitar la limitación del tratamiento',
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-goldAccent mt-1">◆</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            Para ejercer cualquiera de estos derechos, podéis contactarnos en{' '}
+        <Section numero="7" titulo="Vuestros derechos">
+          <Parrafo>
+            Como titulares de los datos, podéis ejercer en cualquier momento
+            los siguientes derechos:
+          </Parrafo>
+          <Lista items={[
+            'Acceso: conocer qué datos tenemos sobre vosotros',
+            'Rectificación: corregir datos inexactos o incompletos',
+            'Supresión: solicitar la eliminación de vuestros datos',
+            'Oposición: oponeros al tratamiento de vuestros datos',
+            'Portabilidad: recibir vuestros datos en formato electrónico',
+            'Limitación: solicitar la limitación del tratamiento',
+          ]} />
+          <Parrafo>
+            Para ejercer cualquiera de estos derechos, contactadnos en{' '}
             <a
               href="mailto:contacto@wedclick.es"
-              className="text-blueWillow hover:underline"
-            >
+              className="text-tierra hover:underline"
+              >
               contacto@wedclick.es
             </a>
-            . También podéis presentar una reclamación ante la Agencia Española 
+            . También podéis presentar una reclamación ante la Agencia Española
             de Protección de Datos (AEPD) en{' '}
             <a
               href="https://www.aepd.es"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blueWillow hover:underline"
-            >
+              className="text-tierra hover:underline"
+              >
               www.aepd.es
             </a>
             .
-          </p>
-        </div>
+          </Parrafo>
+        </Section>
 
-        {/* Sección 8 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            8. Política de cookies
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            Nuestra web utiliza cookies propias y de terceros. Las cookies son 
-            pequeños archivos de texto que se almacenan en vuestro dispositivo 
+        <Section numero="8" titulo="Política de cookies">
+          <Parrafo>
+            Nuestra web utiliza cookies propias y de terceros. Las cookies son
+            pequeños archivos de texto que se almacenan en vuestro dispositivo
             cuando visitáis nuestra web.
-          </p>
-          <div className="bg-warmWhite rounded-2xl border border-gray-100 overflow-hidden">
+          </Parrafo>
+
+          {/* Tabla cookies */}
+          <div className="rounded-2xl border border-beige-claro overflow-hidden">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slateGray text-white">
-                  <th className="font-sans font-semibold text-left px-4 py-3 text-xs">Cookie</th>
-                  <th className="font-sans font-semibold text-left px-4 py-3 text-xs">Tipo</th>
-                  <th className="font-sans font-semibold text-left px-4 py-3 text-xs">Finalidad</th>
+                <tr className="bg-azul-oscuro text-crema">
+                  <th className="font-sans font-semibold text-left
+                                 px-4 py-3 text-xs">
+                    Cookie
+                  </th>
+                  <th className="font-sans font-semibold text-left
+                                 px-4 py-3 text-xs">
+                    Tipo
+                  </th>
+                  <th className="font-sans font-semibold text-left
+                                 px-4 py-3 text-xs">
+                    Finalidad
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { name: 'wedclick-cookies', type: 'Propia · Técnica', purpose: 'Guardar vuestra preferencia de cookies' },
-                  { name: '_ga, _ga_*',       type: 'Google · Analítica', purpose: 'Análisis de tráfico web (solo si aceptáis)' },
+                  {
+                    name:    'wedclick-cookies',
+                    type:    'Propia · Técnica',
+                    purpose: 'Guardar vuestra preferencia de cookies',
+                  },
+                  {
+                    name:    '_ga, _ga_*',
+                    type:    'Google · Analítica',
+                    purpose: 'Análisis de tráfico web (solo si aceptáis)',
+                  },
+                  {
+                    name:    '__stripe_*',
+                    type:    'Stripe · Técnica',
+                    purpose: 'Procesamiento seguro de pagos',
+                  },
                 ].map((row, i) => (
-                  <tr key={row.name} className={i % 2 === 0 ? 'bg-white' : 'bg-warmWhite'}>
-                    <td className="font-sans text-xs text-slateGray px-4 py-3 font-mono">{row.name}</td>
-                    <td className="font-sans text-xs text-gray-500 px-4 py-3">{row.type}</td>
-                    <td className="font-sans text-xs text-gray-500 px-4 py-3">{row.purpose}</td>
+                  <tr
+                  key={row.name}
+                  className={i % 2 === 0 ? 'bg-white' : 'bg-crema/50'}
+                  >
+                    <td className="font-mono text-xs text-azul-oscuro px-4 py-3">
+                      {row.name}
+                    </td>
+                    <td className="font-sans text-xs text-marron px-4 py-3">
+                      {row.type}
+                    </td>
+                    <td className="font-sans text-xs text-marron px-4 py-3">
+                      {row.purpose}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </div>
 
-        {/* Sección 9 */}
-        <div className="flex flex-col gap-4">
-          <h2 className="font-serif text-2xl text-slateGray">
-            9. Cambios en la política de privacidad
-          </h2>
-          <div className="w-12 h-px bg-goldAccent" />
-          <p className="font-sans font-light text-gray-500 text-sm leading-relaxed">
-            WedClick se reserva el derecho de modificar esta política de privacidad 
-            para adaptarla a cambios legislativos o cambios en nuestros servicios. 
-            Os recomendamos revisarla periódicamente. La fecha de última actualización 
+          <Parrafo>
+            Podéis gestionar vuestras preferencias de cookies en cualquier momento
+            desde el banner de cookies que aparece al acceder a la web, o borrando
+            las cookies desde la configuración de vuestro navegador.
+          </Parrafo>
+        </Section>
+
+        <Section numero="9" titulo="Seguridad de los datos">
+          <Parrafo>
+            WedClick aplica medidas técnicas y organizativas apropiadas para
+            proteger vuestros datos personales contra el acceso no autorizado,
+            la pérdida o la destrucción. Los datos de pago son procesados
+            directamente por Stripe bajo cifrado SSL y nunca son almacenados
+            en nuestros servidores. Las fotos y datos del álbum se almacenan
+            en Supabase con acceso restringido.
+          </Parrafo>
+        </Section>
+
+        <Section numero="10" titulo="Cambios en la política de privacidad">
+          <Parrafo>
+            WedClick se reserva el derecho de modificar esta política de privacidad
+            para adaptarla a cambios legislativos o cambios en nuestros servicios.
+            Os recomendamos revisarla periódicamente. La fecha de última actualización
             aparece al inicio de este documento.
-          </p>
-        </div>
+          </Parrafo>
+        </Section>
 
         {/* CTA final */}
-        <div className="flex flex-col items-center gap-6 pt-8 border-t border-gray-100">
+        <div className="flex flex-col items-center gap-6 pt-8
+                        border-t border-beige-claro">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-px bg-goldAccent opacity-50" />
-            <span className="text-goldAccent">◆</span>
-            <div className="w-12 h-px bg-goldAccent opacity-50" />
+            <div className="w-12 h-px bg-tierra opacity-50" />
+            <span className="text-tierra">◆</span>
+            <div className="w-12 h-px bg-tierra opacity-50" />
           </div>
-          <p className="font-sans font-light text-sm text-gray-400 text-center">
+          <p className="font-sans font-light text-sm text-marron/60 text-center">
             ¿Tenéis alguna duda sobre cómo tratamos vuestros datos?
             <br className="hidden md:block" />
-            Escribidnos y os respondemos.
+            Escribidnos y os respondemos encantados.
           </p>
           <a
             href="mailto:contacto@wedclick.es"
-            className="btn-primary"
-          >
+            className="flex items-center gap-2 px-6 py-3 rounded-xl
+            bg-azul-oscuro text-crema font-sans text-sm
+            border border-beige-claro
+            hover:bg-beige-claro hover:text-azul-oscuro
+            transition-colors duration-300"
+            >
             contacto@wedclick.es
           </a>
         </div>
 
       </motion.div>
     </div>
+  </>
   )
 }
 

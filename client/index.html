@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#333E50" />
+    <meta name="theme-color" content="#1C2B3A" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo_wedclick.png" />
@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
 
@@ -23,17 +23,31 @@
       name="description"
       content="Invitaciones de boda digitales únicas y personalizadas. Sin plantillas, sin robots. Dos personas que cuidan cada detalle de vuestra invitación como si fuera la suya."
     />
-    <meta name="keywords" content="invitaciones de boda digitales, invitaciones boda online, invitación boda interactiva, invitación boda QR, wedding invitation digital, wedclick" />
-    <meta name="author" content="WedClick" />
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="keywords"
+      content="invitaciones de boda digitales, invitaciones boda online, invitación boda interactiva, invitación boda personalizada, wedding invitation digital, invitación boda Sevilla, wedclick"
+    />
+    <meta name="author"  content="WedClick" />
+    <meta name="robots"  content="index, follow" />
     <link rel="canonical" href="https://wedclick.es" />
 
-    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <!-- GEO tags -->
+    <meta name="geo.region"      content="ES-AN" />
+    <meta name="geo.placename"   content="Sevilla" />
+    <meta name="geo.position"    content="37.3891;-5.9845" />
+    <meta name="ICBM"            content="37.3891, -5.9845" />
+    <meta name="language"        content="es" />
+    <meta name="content-language" content="es-ES" />
+
+    <!-- Open Graph -->
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content="https://wedclick.es" />
     <meta property="og:title"       content="WedClick · Invitaciones de boda digitales y personalizadas" />
     <meta property="og:description" content="Invitaciones de boda digitales únicas y personalizadas. Sin plantillas, sin robots. Dos personas que cuidan cada detalle de vuestra invitación como si fuera la suya." />
     <meta property="og:image"       content="https://wedclick.es/og-image.jpg" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt"    content="WedClick — Invitaciones de boda digitales" />
     <meta property="og:locale"      content="es_ES" />
     <meta property="og:site_name"   content="WedClick" />
 
@@ -41,64 +55,130 @@
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:url"         content="https://wedclick.es" />
     <meta name="twitter:title"       content="WedClick · Invitaciones de boda digitales y personalizadas" />
-    <meta name="twitter:description" content="Invitaciones de boda digitales únicas y personalizadas. Sin plantillas, sin robots. Dos personas que cuidan cada detalle de vuestra invitación como si fuera la suya." />
+    <meta name="twitter:description" content="Invitaciones de boda digitales únicas y personalizadas. Sin plantillas, sin robots." />
     <meta name="twitter:image"       content="https://wedclick.es/og-image.jpg" />
+    <meta name="twitter:image:alt"   content="WedClick — Invitaciones de boda digitales" />
 
-    <!-- Schema.org -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "WedClick",
-  "description": "Invitaciones de boda digitales únicas y personalizadas. Sin plantillas, sin robots.",
-  "url": "https://wedclick.es",
-  "telephone": "+34628355913",
-  "email": "contacto@wedclick.es",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "ES"
-  },
-  "priceRange": "€€",
-  "serviceType": "Invitaciones de boda digitales",
-  "areaServed": "ES",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Invitaciones de boda digitales",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Vuestra Historia",
-          "description": "Invitación de boda digital personalizada hasta 200 invitados"
+    <!-- Schema.org — LocalBusiness + WebSite + FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://wedclick.es/#business",
+          "name": "WedClick",
+          "description": "Invitaciones de boda digitales únicas y personalizadas. Sin plantillas, sin robots. Dos personas que cuidan cada detalle de vuestra invitación como si fuera la suya.",
+          "url": "https://wedclick.es",
+          "logo": "https://wedclick.es/logo_wedclick.png",
+          "image": "https://wedclick.es/og-image.jpg",
+          "telephone": "+34628355913",
+          "email": "contacto@wedclick.es",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Sevilla",
+            "addressRegion": "Andalucía",
+            "addressCountry": "ES"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 37.3891,
+            "longitude": -5.9845
+          },
+          "priceRange": "€€",
+          "currenciesAccepted": "EUR",
+          "paymentAccepted": "Credit Card",
+          "areaServed": {
+            "@type": "Country",
+            "name": "España"
+          },
+          "serviceType": "Invitaciones de boda digitales",
+          "sameAs": [
+            "https://instagram.com/wedclick"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Planes de invitaciones de boda digitales",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "Plan Esencial",
+                "description": "Invitación de boda digital personalizada con confirmación de asistencia, banda sonora y álbum colaborativo",
+                "price": "297",
+                "priceCurrency": "EUR",
+                "availability": "https://schema.org/InStock"
+              },
+              {
+                "@type": "Offer",
+                "name": "Plan Premium",
+                "description": "Todo lo del plan Esencial más funcionalidades avanzadas y soporte prioritario",
+                "price": "497",
+                "priceCurrency": "EUR",
+                "availability": "https://schema.org/InStock"
+              }
+            ]
+          }
         },
-        "price": "200",
-        "priceCurrency": "EUR"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Galería post-boda",
-          "description": "Galería digital para compartir fotos después de la boda"
+        {
+          "@type": "WebSite",
+          "@id": "https://wedclick.es/#website",
+          "url": "https://wedclick.es",
+          "name": "WedClick",
+          "description": "Invitaciones de boda digitales únicas y personalizadas",
+          "publisher": {
+            "@id": "https://wedclick.es/#business"
+          },
+          "inLanguage": "es-ES"
         },
-        "price": "120",
-        "priceCurrency": "EUR"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Invitación pre-boda",
-          "description": "Invitación digital para eventos previos a la boda"
-        },
-        "price": "80",
-        "priceCurrency": "EUR"
-      }
-    ]
-  }
-}
-</script>
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Qué es una invitación de boda digital?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Una invitación de boda digital es una página web personalizada para vuestra boda donde los invitados pueden confirmar asistencia, ver los detalles del evento, escuchar vuestra banda sonora y subir fotos del gran día."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuánto cuesta una invitación de boda digital con WedClick?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nuestros planes empiezan desde 297€ para el Plan Esencial. El pago se divide en dos partes: 50% al contratar y 50% antes de la entrega."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuánto tiempo tardáis en entregar la invitación?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El plazo de entrega habitual es de 7 a 14 días desde que recibimos toda la información necesaria. Lo acordamos contigo al inicio del proyecto."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Puedo ver una demo antes de contratar?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, tenemos una invitación de demostración completa disponible en nuestra web para que podáis ver exactamente cómo quedará vuestra invitación."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Los invitados necesitan descargar alguna app?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, la invitación es una página web accesible desde cualquier dispositivo con un navegador. No se necesita descargar ninguna aplicación."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
   </head>
   <body>
     <div id="root"></div>

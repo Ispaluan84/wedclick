@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -10,7 +9,7 @@
   }
 
   body {
-    @apply bg-warmWhite text-slateGray font-sans;
+    @apply bg-crema text-marron font-sans;
     overflow-x: hidden;
   }
 
@@ -21,24 +20,28 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-blueWillow text-white px-8 py-3 rounded-full 
-           hover:bg-opacity-90 transition-all duration-300 
+    @apply bg-azul-oscuro text-crema px-8 py-3 rounded-xl
+           border border-beige-claro
+           hover:bg-beige-claro hover:text-azul-oscuro
+           transition-all duration-300
            font-sans font-semibold tracking-wide shadow-md;
   }
 
   .btn-secondary {
-    @apply border-2 border-blueWillow text-blueWillow px-8 py-3 
-           rounded-full hover:bg-blueWillow hover:text-white 
-           transition-all duration-300 font-sans font-semibold tracking-wide;
+    @apply border-2 border-azul-oscuro text-azul-oscuro px-8 py-3
+           rounded-xl
+           hover:bg-azul-oscuro hover:text-crema
+           transition-all duration-300
+           font-sans font-semibold tracking-wide;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-serif text-slateGray 
+    @apply text-3xl md:text-4xl font-serif text-azul-oscuro
            text-center mb-4;
   }
 
   .section-subtitle {
-    @apply text-center text-gray-500 font-sans font-light 
+    @apply text-center text-marron font-sans font-light
            max-w-xl mx-auto mb-12;
   }
 }

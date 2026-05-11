@@ -10,7 +10,7 @@ const fadeUp = (delay = 0) => ({
 
 function Historia() {
   return (
-    <section className="relative bg-crema py-24 px-6 overflow-hidden">
+    <section id="historia" className="relative bg-crema py-24 px-6 overflow-hidden">
 
       {/* Elementos decorativos de fondo */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
