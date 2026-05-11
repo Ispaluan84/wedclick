@@ -46,7 +46,7 @@ function App() {
 
           {/* Panel de novios */}
           <Route path="/panel" element={<Login />} />
-          <Route path="/panel" element={<Dashboard />}>
+          <Route path="/panel/*" element={<Dashboard />}>
             <Route path="dashboard"      element={<DashboardHome />} />
             <Route path="confirmaciones" element={<Confirmaciones />} />
             <Route path="canciones"      element={<Canciones />} />
@@ -55,7 +55,7 @@ function App() {
 
           {/* Panel Admin */}
           <Route path="/admin" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />}>
+          <Route path="/admin/*" element={<AdminDashboard />}>
             <Route path="dashboard"    element={<AdminHome />} />
             <Route path="ordenes"      element={<AdminOrdenes />} />
             <Route path="clientes"     element={<AdminClientes />} />

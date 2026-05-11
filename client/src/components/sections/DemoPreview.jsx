@@ -156,7 +156,7 @@ function DemoPreview() {
               {miniaturas.map((mini, index) => (
                 <motion.a
                   key={mini.id}
-                  href="https://demo.wedclick.es"
+                  href="https://elena-marcos.wedclick.es"
                   target="_blank"
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -207,7 +207,7 @@ function DemoPreview() {
               </p>
 
               <a
-                href="https://demo.wedclick.es"
+                href="https://elena-marcos.wedclick.es"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 px-6 py-3.5 rounded-xl
