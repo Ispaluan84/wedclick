@@ -62,6 +62,9 @@ function DemoPreview() {
                   <img
                     src="/screenshots/demo-portada.jpg"
                     alt="Demo Elena & Marcos"
+                    width={288}
+                    height={560}
+                    loading="eager"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-3 flex flex-col items-center
@@ -150,6 +153,10 @@ function DemoPreview() {
                   <img
                     src={mini.imagen}
                     alt={mini.titulo}
+                    width={400}
+                    height={533}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform
                                duration-500 group-hover:scale-110"
                   />
