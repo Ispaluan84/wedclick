@@ -62,11 +62,22 @@ function DemoPreview() {
                   <img
                     src="/screenshots/demo-portada.jpg"
                     alt="Demo Elena & Marcos"
-                    width={288}
-                    height={560}
-                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
+                  <div className="absolute inset-3 flex flex-col items-center
+                                  justify-center text-center">
+                    <span className="font-sans text-[9px] tracking-[0.2em] uppercase
+                                     text-azul-oscuro/80 mb-2">
+                      Nos casamos
+                    </span>
+                    <h3 className="font-serif text-xl text-azul-oscuro mb-1 drop-shadow-lg">
+                      Elena & Marcos
+                    </h3>
+                    <div className="w-8 h-px bg-tierra my-2" />
+                    <p className="font-sans text-[10px] text-marron/80">
+                      15 de Septiembre, 2025
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -139,10 +150,6 @@ function DemoPreview() {
                   <img
                     src={mini.imagen}
                     alt={mini.titulo}
-                    width={400}
-                    height={533}
-                    loading="lazy"
-                    decoding="async"
                     className="w-full h-full object-cover transition-transform
                                duration-500 group-hover:scale-110"
                   />
