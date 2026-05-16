@@ -1,17 +1,16 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Heart, Sparkles } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useIsMobile } from '../../hooks/useIsMobile'
 
-const fadeUp = (delay = 0, isMobile = false) => ({
-  initial:     isMobile ? {} : { opacity: 0, y: 30 },
-  whileInView: isMobile ? {} : { opacity: 1, y: 0 },
+
+const fadeUp = (delay = 0) => ({
+  initial:     { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
   viewport:    { once: true, margin: '-60px' },
-  transition:  isMobile ? {} : { duration: 0.8, delay, ease: 'easeOut' },
+  transition:  { duration: 0.8, delay, ease: 'easeOut' },
 })
 
 function CTAFinal() {
-  const isMobile = useIsMobile()
   const navigate = useNavigate()
 
   return (
@@ -27,7 +26,7 @@ function CTAFinal() {
       <div className="relative max-w-3xl mx-auto text-center">
 
         {/* Icono */}
-        <motion.div {...fadeUp(0, isMobile)} className="flex justify-center mb-8">
+        <motion.div {...fadeUp(0)} className="flex justify-center mb-8">
           <div className="w-16 h-16 rounded-full bg-crema/10 border border-crema/20
                           flex items-center justify-center">
             <Heart size={28} className="text-crema" />
@@ -52,7 +51,7 @@ function CTAFinal() {
         </motion.p>
 
         {/* Botones */}
-        <motion.div {...fadeUp(0.3, isMobile)} className="flex flex-wrap justify-center gap-4 mb-12">
+        <motion.div {...fadeUp(0.3)} className="flex flex-wrap justify-center gap-4 mb-12">
           <a
             href="https://wa.me/34600000000?text=Hola!%20Queremos%20crear%20nuestra%20invitación%20de%20boda"
             target="_blank"
@@ -81,7 +80,7 @@ function CTAFinal() {
         </motion.div>
 
         {/* Garantías */}
-        <motion.div {...fadeUp(0.4, isMobile)}
+        <motion.div {...fadeUp(0.4)}
           className="flex flex-wrap justify-center gap-8"
         >
           {[

@@ -5,11 +5,11 @@ import {
 } from 'lucide-react'
 import { useIsMobile } from '../../hooks/useIsMobile'
 
-const fadeUp = (delay = 0, isMobile = false) => ({
-  initial:     isMobile ? {} : { opacity: 0, y: 30 },
-  whileInView: isMobile ? {} : { opacity: 1, y: 0 },
+const fadeUp = (delay = 0) => ({
+  initial:     { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
   viewport:    { once: true, margin: '-60px' },
-  transition:  isMobile ? {} : { duration: 0.8, delay, ease: 'easeOut' },
+  transition:  { duration: 0.8, delay, ease: 'easeOut' },
 })
 
 const features = [
@@ -64,7 +64,6 @@ const features = [
 ]
 
 function FeatureCard({ feature, index }) {
-  const isMobile = useIsMobile()
   const colorBg   = feature.color === 'sage' ? 'bg-sage/10' : 'bg-tierra/10'
   const colorText = feature.color === 'sage' ? 'text-sage' : 'text-tierra'
   const colorHover = feature.color === 'sage' ? 'group-hover:bg-sage/15' : 'group-hover:bg-tierra/15'
@@ -100,7 +99,7 @@ function Features() {
       <div className="max-w-6xl mx-auto">
 
         {/* Encabezado */}
-        <motion.div {...fadeUp(0, isMobile)} className="text-center mb-16">
+        <motion.div {...fadeUp(0)} className="text-center mb-16">
           <span className="font-sans text-xs tracking-widest uppercase text-sage mb-4 block">
             Funcionalidades
           </span>
@@ -128,7 +127,7 @@ function Features() {
         </div>
 
         {/* Nota inferior */}
-        <motion.div {...fadeUp(0.5, isMobile)} className="mt-14 text-center">
+        <motion.div {...fadeUp(0.5)} className="mt-14 text-center">
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full
                           bg-sage/10 border border-sage/20">
             <Sparkles size={14} className="text-sage" />

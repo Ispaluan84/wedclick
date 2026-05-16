@@ -13,7 +13,7 @@ const WHATSAPP_MESSAGE = encodeURIComponent(
   'Hola, me gustaría información sobre las invitaciones de boda de WedClick 💍'
 )
 
-const fadeUp = (delay = 0, isMobile = false) => ({
+const fadeUp = (delay = 0) => ({
   initial:     { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport:    { once: true, margin: '-60px' },
@@ -91,7 +91,6 @@ const planes = [
 ]
 
 function PlanCard({ plan, index }) {
-  const isMobile = useIsMobile()
   const navigate = useNavigate()
   const Icono = plan.icono
 
@@ -239,7 +238,7 @@ function Pricing() {
       <div className="max-w-6xl mx-auto">
 
         {/* Encabezado */}
-        <motion.div {...fadeUp(0, isMobile)} className="text-center mb-20">
+        <motion.div {...fadeUp(0)} className="text-center mb-20">
           <span className="font-sans text-xs tracking-widest uppercase text-verde-suave mb-4 block">
             Precios
           </span>
@@ -267,7 +266,7 @@ function Pricing() {
         </div>
 
         {/* Nota más de 200 invitados */}
-        <motion.div {...fadeUp(0.5, isMobile)} className="mt-16 text-center">
+        <motion.div {...fadeUp(0.5)} className="mt-16 text-center">
           <div className="bg-white rounded-2xl px-8 py-6 shadow-sm
                           border border-black/5 inline-block">
             <p className="font-sans text-sm text-marron font-light">
