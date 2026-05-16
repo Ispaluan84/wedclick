@@ -3,7 +3,7 @@ import {
   Smartphone, MapPin, Music, Camera, CheckSquare,
   Shirt, Clock, Heart, Sparkles
 } from 'lucide-react'
-import { useIsMobile } from '../../hooks/useIsMobile'
+
 
 const fadeUp = (delay = 0) => ({
   initial:     { opacity: 0, y: 30 },
