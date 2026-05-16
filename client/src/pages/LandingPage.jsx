@@ -18,7 +18,7 @@ function LandingPage() {
       <SEO
         titulo="WedClick · Invitaciones de boda digitales y personalizadas"
         descripcion="Invitaciones de boda digitales únicas y personalizadas. Sin plantillas, sin robots. Dos personas que cuidan cada detalle de vuestra invitación."
-        url="https://wedclick.es/landing"
+        url="https://wedclick.es/"
       />
       <Navbar />
       <main>

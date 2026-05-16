@@ -56,7 +56,7 @@ function HeroLanding() {
 
             <motion.div {...fadeUp(0.3)} className="flex flex-wrap items-center gap-4">
               <a
-                href="https://demo.wedclick.es"
+                href="https://elena-marcos.wedclick.es"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 px-6 py-3.5 rounded-xl
@@ -94,8 +94,11 @@ function HeroLanding() {
             className="flex justify-center"
           >
             <img
-              src="/Logo_WedClick.png" // Ajusta ruta según donde esté alojado el logo
+              src="/Logo_WedClick.png" 
               alt="Logo WedClick"
+              width={288}
+              height={288}
+              fetchPriority="high"
               className="w-72 h-auto"
             />
           </motion.div>
