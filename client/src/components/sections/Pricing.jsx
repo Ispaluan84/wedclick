@@ -6,7 +6,6 @@ import {
   Shirt, Clock, Heart, Camera, Check, Sparkles,
   Mail, Star, Zap
 } from 'lucide-react'
-import { useIsMobile } from '../../hooks/useIsMobile'
 
 const WHATSAPP_NUMBER  = '34627147039'
 const WHATSAPP_MESSAGE = encodeURIComponent(
