@@ -64,23 +64,9 @@ function DemoPreview() {
                     alt="Demo Elena & Marcos"
                     width={288}
                     height={560}
-                    loading="eager"
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-3 flex flex-col items-center
-                                  justify-center text-center">
-                    <span className="font-sans text-[9px] tracking-[0.2em] uppercase
-                                     text-azul-oscuro/80 mb-2">
-                      Nos casamos
-                    </span>
-                    <h3 className="font-serif text-xl text-azul-oscuro mb-1 drop-shadow-lg">
-                      Elena & Marcos
-                    </h3>
-                    <div className="w-8 h-px bg-tierra my-2" />
-                    <p className="font-sans text-[10px] text-marron/80">
-                      15 de Septiembre, 2025
-                    </p>
-                  </div>
                 </div>
               </div>
 
