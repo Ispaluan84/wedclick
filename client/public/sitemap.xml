@@ -4,23 +4,15 @@
   <!-- Página principal -->
   <url>
     <loc>https://wedclick.es/</loc>
-    <lastmod>2025-05-02</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-
-  <!-- Landing -->
-  <url>
-    <loc>https://wedclick.es/landing</loc>
-    <lastmod>2025-05-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
   </url>
 
   <!-- Privacidad -->
   <url>
     <loc>https://wedclick.es/privacidad</loc>
-    <lastmod>2025-05-02</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -28,7 +20,7 @@
   <!-- Aviso Legal -->
   <url>
     <loc>https://wedclick.es/aviso-legal</loc>
-    <lastmod>2025-05-02</lastmod>
+    <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
