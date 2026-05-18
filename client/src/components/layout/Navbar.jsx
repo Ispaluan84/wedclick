@@ -14,7 +14,7 @@ function Navbar() {
 
   const navLinks = [
     { href: '#como-funciona', label: 'Cómo funciona' },
-    { href: '#invitacion',    label: 'La invitación'  },
+    { href: '#demo',    label: 'La invitación'  },
     { href: '#precios',       label: 'Precios'        },
     { href: '#faq',           label: 'FAQ'            },
   ]

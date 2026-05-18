@@ -13,7 +13,7 @@ const testimonios = [
   {
     id: 1,
     nombre: 'Laura & Daniel',
-    fecha: 'Boda en Junio 2024',
+    fecha: 'Boda en Junio 2025',
     avatar: 'L',
     texto: 'Nuestra invitación fue un éxito total. Los invitados no paraban de decirnos lo bonita y original que era. La playlist colaborativa fue lo más divertido, ¡todos querían poner su canción!',
     estrellas: 5,
@@ -22,7 +22,7 @@ const testimonios = [
   {
     id: 2,
     nombre: 'Carmen & Alejandro',
-    fecha: 'Boda en Septiembre 2024',
+    fecha: 'Boda en Septiembre 2025',
     avatar: 'C',
     texto: 'El álbum colaborativo fue una idea genial. Al día siguiente de la boda ya teníamos cientos de fotos de todos los invitados. Un recuerdo increíble que no habríamos tenido de otra forma.',
     estrellas: 5,
@@ -31,7 +31,7 @@ const testimonios = [
   {
     id: 3,
     nombre: 'Marta & Pablo',
-    fecha: 'Boda en Abril 2024',
+    fecha: 'Boda en Abril 2025',
     avatar: 'M',
     texto: 'Nos encantó poder personalizar cada detalle. Desde los colores hasta el texto, todo era exactamente como lo habíamos soñado. El equipo fue súper atento y rápido con los cambios.',
     estrellas: 5,
@@ -40,7 +40,7 @@ const testimonios = [
   {
     id: 4,
     nombre: 'Sofía & Javier',
-    fecha: 'Boda en Julio 2024',
+    fecha: 'Boda en Julio 2025',
     avatar: 'S',
     texto: 'La confirmación de asistencia nos quitó un peso enorme de encima. Todo organizado, sin tener que llamar uno por uno. Y el itinerario ayudó mucho a que todos supieran qué hacer en cada momento.',
     estrellas: 5,

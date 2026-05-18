@@ -263,25 +263,6 @@ function Pricing() {
             <PlanCard key={plan.id} plan={plan} index={index} />
           ))}
         </div>
-
-        {/* Nota más de 200 invitados */}
-        <motion.div {...fadeUp(0.5)} className="mt-16 text-center">
-          <div className="bg-white rounded-2xl px-8 py-6 shadow-sm
-                          border border-black/5 inline-block">
-            <p className="font-sans text-sm text-marron font-light">
-              ¿Más de 200 invitados?{' '}
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-azul-oscuro font-semibold hover:underline"
-              >
-                Consúltanos sin compromiso
-              </a>
-            </p>
-          </div>
-        </motion.div>
-
       </div>
     </section>
   )

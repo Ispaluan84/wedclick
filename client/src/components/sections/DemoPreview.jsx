@@ -130,50 +130,7 @@ function DemoPreview() {
 
           {/* Columna derecha — Miniaturas + CTA */}
           <div className="flex flex-col gap-8">
-
-            {/* Grid de miniaturas */}
-            <div className="grid grid-cols-3 gap-3">
-              {miniaturas.map((mini, index) => (
-                <motion.a
-                  key={mini.id}
-                  href="https://elena-marcos.wedclick.es"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
-                  className="group relative rounded-2xl overflow-hidden
-                             aspect-[3/4] cursor-pointer shadow-sm
-                             border border-beige-claro block"
-                >
-                  <img
-                    src={mini.imagen}
-                    alt={mini.titulo}
-                    className="w-full h-full object-cover transition-transform
-                               duration-500 group-hover:scale-110"
-                  />
-
-                  {/* Título inferior */}
-                  <div className="absolute inset-0 bg-gradient-to-t
-                                  from-black/60 via-black/10 to-transparent
-                                  flex items-end p-3">
-                    <span className="font-sans text-xs text-crema font-medium">
-                      {mini.titulo}
-                    </span>
-                  </div>
-
-                  {/* Overlay hover */}
-                  <div className="absolute inset-0 bg-verde-suave/0
-                                  group-hover:bg-verde-suave/30 transition-colors
-                                  flex items-center justify-center">
-                    <Eye size={20} className="text-crema opacity-0
-                                              group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </motion.a>
-              ))}
-            </div>
-
+            
             {/* Info + CTA */}
             <motion.div {...fadeUp(0.4)} className="bg-crema rounded-3xl p-8
                                                      shadow-sm border border-beige-claro">
