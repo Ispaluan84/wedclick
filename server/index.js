@@ -7,6 +7,8 @@ import { createRequire } from 'module'
 import checkoutRoutes from './routes/checkout.js'
 import ordersRoutes   from './routes/orders.js'
 import stripeWebhook  from './webhooks/stripe.js'
+import contactoRouter from './routes/contacto.js'
+
 
 dotenv.config()
 
@@ -25,6 +27,7 @@ app.use(cors({
 // ─── Rutas ───────────────────────────────────────────────────
 app.use('/api/checkout', checkoutRoutes)
 app.use('/api/orders',   ordersRoutes)
+app.use('/api/contacto', contactoRouter)
 app.use('/webhook',      stripeWebhook)
 
 // ─── Health check ────────────────────────────────────────────
