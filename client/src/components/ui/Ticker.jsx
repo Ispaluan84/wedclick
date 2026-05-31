@@ -26,7 +26,7 @@ function Ticker() {
             <span className="font-sans text-[0.62rem] tracking-[0.18em] uppercase text-cream/50">
               {item}
             </span>
-            <span className="text-gold text-[0.5rem]">✦</span>
+            <span className="text-w-gold text-[0.5rem]">✦</span>
           </span>
         ))}
       </div>

@@ -61,7 +61,7 @@ function HeroLanding() {
           className="font-serif font-black text-display-xl text-ink mb-6 leading-[0.9]"
         >
           Tu boda merece<br />
-          <em className="italic text-rose not-italic">una invitación</em><br />
+          <em className="italic text-w-rose not-italic">una invitación</em><br />
           única
         </motion.h1>
 
@@ -86,7 +86,7 @@ function HeroLanding() {
             rel="noopener noreferrer"
             className="group flex items-center gap-3 font-sans text-[0.68rem]
                        tracking-[0.14em] uppercase px-8 py-4
-                       bg-ink text-cream hover:bg-rose
+                       bg-ink text-cream hover:bg-w-rose
                        transition-all duration-300"
             data-hover
           >
@@ -104,7 +104,7 @@ function HeroLanding() {
                        border-b border-ink/20 pb-0.5"
             data-hover
           >
-            <Play size={12} className="text-gold" />
+            <Play size={12} className="text-w-gold" />
             Cómo funciona
           </button>
         </motion.div>
@@ -121,7 +121,7 @@ function HeroLanding() {
 
       {/* ── COLUMNA DERECHA ────────────────────────── */}
       <div className="relative min-h-[60vh] md:min-h-0 overflow-hidden">
-        <div className="absolute inset-0 md:inset-y-12 md:inset-r-10 md:left-0 bg-gold-light">
+        <div className="absolute inset-0 md:inset-y-12 md:inset-r-10 md:left-0 bg-w-gold-light">
 
           {/* Ornamento SVG */}
           <OrnamentalSVG />
@@ -129,36 +129,38 @@ function HeroLanding() {
           {/* Mockups de invitación apilados */}
           <div className="absolute inset-0 flex items-center justify-center">
 
-            {/* Tarjeta de atrás */}
-            <div className="absolute rotate-[5deg] translate-x-10 translate-y-6 z-10">
-              <div className="bg-cream w-44 md:w-52 p-6 shadow-[0_20px_60px_rgba(26,20,16,0.12)]">
-                <p className="font-sans text-[0.48rem] tracking-[0.16em] uppercase text-gold mb-3">
+            {/* Tarjeta de atrás — desplazada */}
+            <div className="absolute z-10"
+                 style={{ transform: 'rotate(5deg) translate(55px, 18px)' }}>
+              <div className="bg-cream w-44 md:w-48 p-6 shadow-[0_20px_60px_rgba(26,20,16,0.12)]">
+                <p className="font-sans text-[0.48rem] tracking-[0.16em] uppercase text-w-gold mb-3">
                   Save the date
                 </p>
-                <p className="font-serif italic text-[1rem] text-ink leading-snug">
+                <p className="font-serif italic text-[0.95rem] text-ink leading-snug">
                   Elena & Marcos
                 </p>
-                <div className="w-5 h-px bg-gold my-3" />
+                <div className="w-5 h-px bg-w-gold my-3" />
                 <p className="font-sans text-[0.46rem] tracking-[0.12em] uppercase text-warm-gray leading-loose">
                   14 · IX · 2025<br />
-                  Hacienda Los Olivos · Sevilla
+                  Hacienda Los Olivos<br />
+                  Sevilla
                 </p>
               </div>
             </div>
 
-            {/* Tarjeta principal */}
+            {/* Tarjeta principal — encima y ligeramente inclinada */}
             <div className="relative z-20 inv-card-tilt">
-              <div className="bg-paper w-48 md:w-60 px-7 py-10 text-center
+              <div className="bg-paper w-44 md:w-56 px-7 py-10 text-center
                               shadow-[0_40px_80px_rgba(26,20,16,0.18)]">
-                <p className="font-sans text-[0.46rem] tracking-[0.18em] uppercase text-gold mb-4">
+                <p className="font-sans text-[0.44rem] tracking-[0.18em] uppercase text-w-gold mb-4">
                   — Os invitamos —
                 </p>
-                <p className="font-serif italic text-xl text-ink">Claudia</p>
-                <p className="font-serif italic text-4xl text-gold leading-none my-1">&</p>
-                <p className="font-serif italic text-xl text-ink">Daniel</p>
-                <div className="w-5 h-px bg-gold mx-auto my-5" />
-                <p className="font-sans text-[0.44rem] tracking-[0.12em] uppercase
-                               text-warm-gray leading-[2.2]">
+                <p className="font-serif italic text-lg text-ink">Claudia</p>
+                <p className="font-serif italic text-4xl text-w-gold leading-none my-1">&</p>
+                <p className="font-serif italic text-lg text-ink">Daniel</p>
+                <div className="w-5 h-px bg-w-gold mx-auto my-4" />
+                <p className="font-sans text-[0.42rem] tracking-[0.1em] uppercase
+                               text-warm-gray leading-[2.1]">
                   Sábado, 21 de junio de 2025<br />
                   6:00 de la tarde<br />
                   Finca La Encina · Valencia

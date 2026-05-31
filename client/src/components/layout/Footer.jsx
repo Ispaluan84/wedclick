@@ -21,7 +21,7 @@ function FooterLanding() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 border border-warm-gray/30 flex items-center justify-center
-                           hover:border-gold hover:text-gold transition-all duration-300"
+                           hover:border-w-gold hover:text-w-gold transition-all duration-300"
                 data-hover
               >
                 <Instagram size={15} />
@@ -29,7 +29,7 @@ function FooterLanding() {
               <a
                 href="mailto:contacto@wedclick.es"
                 className="w-9 h-9 border border-warm-gray/30 flex items-center justify-center
-                           hover:border-gold hover:text-gold transition-all duration-300"
+                           hover:border-w-gold hover:text-w-gold transition-all duration-300"
                 data-hover
               >
                 <Mail size={15} />
@@ -39,7 +39,7 @@ function FooterLanding() {
 
           {/* Columna 2 — Navegación */}
           <div>
-            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-gold mb-6">
+            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-w-gold mb-6">
               Navegación
             </p>
             <ul className="flex flex-col gap-3 list-none">
@@ -66,7 +66,7 @@ function FooterLanding() {
 
           {/* Columna 3 — Servicio */}
           <div>
-            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-gold mb-6">
+            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-w-gold mb-6">
               Servicio
             </p>
             <ul className="flex flex-col gap-3 list-none">
@@ -87,12 +87,12 @@ function FooterLanding() {
 
           {/* Columna 4 — Contacto */}
           <div>
-            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-gold mb-6">
+            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-w-gold mb-6">
               Contacto
             </p>
             <ul className="flex flex-col gap-4 text-warm-gray">
               <li className="flex items-center gap-3">
-                <Phone size={14} className="flex-shrink-0 text-gold/60" />
+                <Phone size={14} className="flex-shrink-0 text-w-gold/60" />
                 <a href="tel:+34628355913"
                    className="font-sans font-light text-[0.82rem] hover:text-cream transition-colors"
                    data-hover>
@@ -100,7 +100,7 @@ function FooterLanding() {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={14} className="flex-shrink-0 text-gold/60" />
+                <Mail size={14} className="flex-shrink-0 text-w-gold/60" />
                 <a href="mailto:contacto@wedclick.es"
                    className="font-sans font-light text-[0.82rem] hover:text-cream transition-colors"
                    data-hover>
@@ -108,7 +108,7 @@ function FooterLanding() {
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin size={14} className="flex-shrink-0 mt-0.5 text-gold/60" />
+                <MapPin size={14} className="flex-shrink-0 mt-0.5 text-w-gold/60" />
                 <span className="font-sans font-light text-[0.82rem]">Sevilla, España</span>
               </li>
             </ul>
@@ -119,7 +119,7 @@ function FooterLanding() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-6 font-sans text-[0.65rem]
                          tracking-[0.1em] uppercase px-5 py-3
-                         border border-gold/40 text-gold hover:bg-gold hover:text-ink
+                         border border-w-gold/40 text-w-gold hover:bg-w-gold hover:text-ink
                          transition-all duration-300"
               data-hover
             >
@@ -155,7 +155,7 @@ function FooterLanding() {
           </div>
 
           <p className="font-sans text-[0.6rem] text-warm-gray/50 flex items-center gap-1">
-            Hecho con <Heart size={11} className="text-gold" fill="#C9A96E" /> en Sevilla
+            Hecho con <Heart size={11} className="text-w-gold" fill="#C9A96E" /> en Sevilla
           </p>
         </div>
       </div>

@@ -85,28 +85,28 @@ function PlanCard({ plan, index }) {
       className={`relative flex flex-col p-10 border transition-all duration-400 group
                   hover:-translate-y-2 hover:shadow-[0_40px_80px_rgba(26,20,16,0.08)]
                   ${plan.featured
-                    ? 'bg-ink border-gold text-cream'
-                    : 'bg-paper border-gold-light hover:border-gold/50'}`}
+                    ? 'bg-ink border-w-gold text-cream'
+                    : 'bg-paper border-w-gold-light hover:border-w-gold/50'}`}
       data-hover
     >
       {/* Badge */}
       {(plan.badge || plan.featured) && (
         <span className={`absolute -top-px left-1/2 -translate-x-1/2
                           font-sans text-[0.52rem] tracking-[0.16em] uppercase px-5 py-1.5
-                          ${plan.featured ? 'bg-gold text-ink' : 'bg-ink text-cream'}`}>
+                          ${plan.featured ? 'bg-w-gold text-ink' : 'bg-ink text-cream'}`}>
           {plan.badge || 'Más popular'}
         </span>
       )}
 
       {/* Nombre */}
       <p className={`font-sans text-[0.62rem] tracking-[0.2em] uppercase mb-6 mt-2
-                     ${plan.featured ? 'text-gold' : 'text-warm-gray'}`}>
+                     ${plan.featured ? 'text-w-gold' : 'text-warm-gray'}`}>
         {plan.nombre}
       </p>
 
       {/* Precio */}
       <div className="flex items-baseline gap-1 mb-4">
-        <span className="font-serif text-xl text-gold">€</span>
+        <span className="font-serif text-xl text-w-gold">€</span>
         <span className={`font-serif text-6xl font-bold leading-none
                           ${plan.featured ? 'text-cream' : 'text-ink'}`}>
           {plan.precio}
@@ -118,13 +118,13 @@ function PlanCard({ plan, index }) {
         {plan.descripcion}
       </p>
 
-      <div className={`w-full h-px mb-8 ${plan.featured ? 'bg-white/10' : 'bg-gold-light'}`} />
+      <div className={`w-full h-px mb-8 ${plan.featured ? 'bg-white/10' : 'bg-w-gold-light'}`} />
 
       {/* Features */}
       <ul className="flex-1 flex flex-col gap-3 mb-10 list-none">
         {plan.incluye.map((item) => (
           <li key={item.texto} className="flex items-start gap-3">
-            <span className="mt-[6px] w-3.5 h-px bg-gold flex-shrink-0" />
+            <span className="mt-[6px] w-3.5 h-px bg-w-gold flex-shrink-0" />
             <span className={`font-sans font-light text-[0.82rem] leading-snug
                               ${plan.featured ? 'text-cream/85' : 'text-warm-gray'}`}>
               {item.texto}
@@ -149,8 +149,8 @@ function PlanCard({ plan, index }) {
                    font-sans text-[0.65rem] tracking-[0.14em] uppercase py-4 border
                    transition-all duration-300
                    ${plan.featured
-                     ? 'bg-gold border-gold text-ink hover:bg-cream hover:border-cream'
-                     : 'bg-transparent border-gold-light text-ink hover:bg-gold hover:border-gold'}`}
+                     ? 'bg-w-gold border-w-gold text-ink hover:bg-cream hover:border-cream'
+                     : 'bg-transparent border-w-gold-light text-ink hover:bg-w-gold hover:border-w-gold'}`}
       >
         <MessageCircle size={14} />
         {plan.cta}
@@ -176,7 +176,7 @@ function Pricing() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <h2 className="font-serif font-bold text-display-lg text-ink leading-[1.0]">
               Una inversión única para{' '}
-              <em className="italic text-rose">un día irrepetible</em>
+              <em className="italic text-w-rose">un día irrepetible</em>
             </h2>
             <p className="font-sans font-light text-[0.88rem] text-warm-gray max-w-xs leading-relaxed">
               Sin sorpresas. Sin letra pequeña.

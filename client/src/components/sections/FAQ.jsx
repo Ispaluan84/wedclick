@@ -23,7 +23,7 @@ function PreguntaItem({ pregunta, index }) {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.7, delay: index * 0.05, ease: [0.19, 1, 0.22, 1] }}
       className={`border-b transition-colors duration-300
-                  ${abierta ? 'border-gold' : 'border-gold-light/40'}`}
+                  ${abierta ? 'border-w-gold' : 'border-w-gold-light/40'}`}
     >
       <button
         onClick={() => setAbierta(!abierta)}
@@ -35,7 +35,7 @@ function PreguntaItem({ pregunta, index }) {
         </h3>
         <div className={`w-8 h-8 flex-shrink-0 border flex items-center justify-center
                          transition-all duration-300
-                         ${abierta ? 'border-gold bg-gold text-ink' : 'border-gold-light text-warm-gray'}`}>
+                         ${abierta ? 'border-w-gold bg-w-gold text-ink' : 'border-w-gold-light text-warm-gray'}`}>
           {abierta
             ? <Minus size={14} />
             : <Plus size={14} />}
@@ -63,7 +63,7 @@ function PreguntaItem({ pregunta, index }) {
 
 function FAQ() {
   return (
-    <section id="faq" className="bg-cream px-8 md:px-14 py-36 overflow-hidden">
+    <section id="faq" className="bg-cream px-8 md:px-14 pt-20 pb-36 overflow-hidden">
       <div className="max-w-3xl mx-auto">
 
         {/* Header */}
@@ -77,12 +77,12 @@ function FAQ() {
           <p className="section-label mb-6" data-number="06">Dudas</p>
           <h2 className="font-serif font-bold text-display-md text-ink leading-[1.0]">
             Preguntas{' '}
-            <em className="italic text-rose">frecuentes</em>
+            <em className="italic text-w-rose">frecuentes</em>
           </h2>
         </motion.div>
 
         {/* Acordeón */}
-        <div className="border-t border-gold-light/40">
+        <div className="border-t border-w-gold-light/40">
           {preguntas.map((pregunta, index) => (
             <PreguntaItem key={index} pregunta={pregunta} index={index} />
           ))}
@@ -106,7 +106,7 @@ function FAQ() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-sans text-[0.68rem] tracking-[0.12em] uppercase text-ink
-                         border-b border-gold pb-0.5 hover:border-ink transition-colors duration-300"
+                         border-b border-w-gold pb-0.5 hover:border-ink transition-colors duration-300"
               data-hover
             >
               💬 Escríbenos por WhatsApp

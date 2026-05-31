@@ -45,7 +45,7 @@ function Testimonials() {
   const anterior  = () => setActual((p) => (p <= 0 ? testimonios.length - 1 : p - 1))
 
   return (
-    <section id="testimonios" className="bg-rose px-8 md:px-14 py-32 relative overflow-hidden">
+    <section id="testimonios" className="bg-w-rose px-8 md:px-14 py-32 relative overflow-hidden">
 
       {/* Texto fantasma decorativo */}
       <span
@@ -87,7 +87,7 @@ function Testimonials() {
             className="text-center"
           >
             {/* Estrellas */}
-            <div className="text-gold-light text-sm tracking-[0.3em] mb-8" aria-label="5 estrellas">
+            <div className="text-w-gold-light text-sm tracking-[0.3em] mb-8" aria-label="5 estrellas">
               ✦ ✦ ✦ ✦ ✦
             </div>
 

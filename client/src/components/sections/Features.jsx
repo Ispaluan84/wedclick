@@ -16,9 +16,9 @@ const features = [
 ]
 
 const accentMap = {
-  gold: { border: 'border-gold/30', iconBg: 'bg-gold-light/50', iconColor: 'text-gold', line: 'bg-gold' },
-  rose: { border: 'border-rose/30', iconBg: 'bg-rose/10',       iconColor: 'text-rose', line: 'bg-rose' },
-  sage: { border: 'border-sage/30', iconBg: 'bg-sage/10',       iconColor: 'text-sage', line: 'bg-sage' },
+  gold: { border: 'border-w-gold/30', iconBg: 'bg-w-gold-light/50', iconColor: 'text-w-gold', line: 'bg-w-gold' },
+  rose: { border: 'border-w-rose/30', iconBg: 'bg-w-rose/10',       iconColor: 'text-w-rose', line: 'bg-w-rose' },
+  sage: { border: 'border-w-sage/30', iconBg: 'bg-w-sage/10',       iconColor: 'text-w-sage', line: 'bg-w-sage' },
 }
 
 function FeatureCard({ feature, index }) {
@@ -71,7 +71,7 @@ function Features() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <h2 className="font-serif font-bold text-display-lg text-ink leading-[1.0] max-w-md">
               Todo lo que necesitas{' '}
-              <em className="italic text-rose">en una invitación</em>
+              <em className="italic text-w-rose">en una invitación</em>
             </h2>
             <p className="font-sans font-light text-[0.9rem] text-warm-gray max-w-sm leading-relaxed">
               Cada detalle pensado para que vuestra invitación sea una experiencia completa.

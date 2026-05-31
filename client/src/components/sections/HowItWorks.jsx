@@ -26,13 +26,14 @@ function HowItWorks() {
   return (
     <section id="como-funciona" className="px-8 md:px-14 py-36 relative overflow-hidden bg-paper">
 
-      {/* Número fantasma de fondo */}
+      {/* Número fantasma de fondo — recortado para no tapar contenido */}
       <span
-        className="pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2
-                   font-serif font-black text-[22rem] leading-none text-ink/[0.025]"
+        className="pointer-events-none select-none absolute right-0 bottom-0
+                   font-serif font-black text-[14rem] leading-none text-ink/[0.04]
+                   overflow-hidden"
         aria-hidden="true"
       >
-        03
+        ✦
       </span>
 
       {/* Header */}
@@ -46,7 +47,7 @@ function HowItWorks() {
           <p className="section-label mb-6" data-number="02">El proceso</p>
           <h2 className="font-serif font-bold text-display-md text-ink leading-[1.0] max-w-lg">
             Así de fácil, en{' '}
-            <em className="italic text-rose">tres pasos</em>
+            <em className="italic text-w-rose">tres pasos</em>
           </h2>
         </motion.div>
       </div>
@@ -56,7 +57,7 @@ function HowItWorks() {
 
         {/* Línea conectora desktop */}
         <div
-          className="hidden md:block absolute top-5 left-0 right-0 h-px bg-gold-light"
+          className="hidden md:block absolute top-5 left-0 right-0 h-px bg-w-gold-light"
           aria-hidden="true"
         />
 
@@ -72,9 +73,9 @@ function HowItWorks() {
               className="relative pt-14"
             >
               {/* Badge número */}
-              <div className="absolute top-0 left-0 w-11 h-11 border border-gold bg-paper
+              <div className="absolute top-0 left-0 w-11 h-11 border border-w-gold bg-paper
                               flex items-center justify-center">
-                <span className="font-serif italic text-[0.75rem] text-gold">{paso.numero}</span>
+                <span className="font-serif italic text-[0.75rem] text-w-gold">{paso.numero}</span>
               </div>
 
               <h3 className="font-serif italic text-[1.3rem] text-ink mb-4 leading-snug">
