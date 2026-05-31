@@ -14,21 +14,21 @@
   }
 
   body {
-    background-color: #F7F2EB;
-    color: #1A1410;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-    cursor: none;
-  }
+  background-color: #F7F2EB;
+  color: #1A1410;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
 
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+  
   /* Panel y admin: cursor normal (no afectamos rutas internas) */
   body.cursor-default-override {
     cursor: auto;
-  }
-
-  h1, h2, h3, h4 {
-    @apply font-serif;
   }
 
   ::selection {
