@@ -14,36 +14,36 @@
   }
 
   body {
-  background-color: #F7F2EB;
-  color: #1A1410;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-weight: 300;
-  overflow-x: hidden;
-  cursor: none;
-}
+    background-color: #F7F2EB;
+    color: #1A1410;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-h1, h2, h3, h4 {
-  font-family: 'Playfair Display', Georgia, serif;
-}
-  
-  /* Panel y admin: cursor normal (no afectamos rutas internas) */
   body.cursor-default-override {
     cursor: auto;
+  }
+
+  body.wedclick-landing * {
+    cursor: none !important;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', Georgia, serif;
   }
 
   ::selection {
     background-color: #C9A96E;
     color: #1A1410;
   }
-
-  /* Cursor none sólo en landing (lo activa el componente Cursor) */
-  body.wedclick-landing * {
-    cursor: none !important;
-  }
 }
 
-/* ─── Custom Cursor ─────────────────────────────────── */
+/* ─── Components ────────────────────────────────────── */
 @layer components {
+
+  /* Cursor personalizado */
   .cursor-dot {
     position: fixed;
     width: 8px;
@@ -74,7 +74,7 @@ h1, h2, h3, h4 {
   .cursor-dot.is-hover  { width: 14px; height: 14px; background: #C9A96E; }
   .cursor-ring.is-hover { width: 54px; height: 54px; border-color: #C9A96E; opacity: 0.5; }
 
-  /* ─── Ornament line ─── */
+  /* Ornament line */
   .ornament-line {
     display: block;
     width: 2.5rem;
@@ -82,7 +82,7 @@ h1, h2, h3, h4 {
     background: #C9A96E;
   }
 
-  /* ─── Section label ─── */
+  /* Section label */
   .section-label {
     display: flex;
     align-items: center;
@@ -102,7 +102,7 @@ h1, h2, h3, h4 {
     font-style: italic;
   }
 
-  /* ─── Ticker ─── */
+  /* Ticker */
   .ticker-track {
     display: flex;
     gap: 3.5rem;
@@ -110,26 +110,20 @@ h1, h2, h3, h4 {
     white-space: nowrap;
   }
 
-  /* ─── Nav blur ─── */
+  /* Nav blur */
   .nav-blur {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
 
-  /* ─── Invitation card tilt ─── */
+  /* Invitation card tilt */
   .inv-card-tilt {
     transform: rotate(-2deg);
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .inv-card-tilt:hover { transform: rotate(0deg) scale(1.02); }
 
-  /* ─── Style grid item ─── */
-  .style-item .style-inner {
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .style-item:hover .style-inner { transform: scale(1.04); }
-
-  /* ─── Underline link hover ─── */
+  /* Underline link */
   .link-underline {
     position: relative;
     text-decoration: none;
@@ -137,35 +131,72 @@ h1, h2, h3, h4 {
   .link-underline::after {
     content: '';
     position: absolute;
-    bottom: -2px; left: 0;
-    width: 100%; height: 1px;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
     background: currentColor;
     transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  .link-underline:hover::after { transform: scaleX(0); transform-origin: right; }
+  .link-underline:hover::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
 
-  /* ─── Botones globales nuevos ─── */
+  /* Botones — sin @apply con tokens custom */
   .btn-primary {
-    @apply bg-ink text-cream font-sans font-normal text-[0.68rem] tracking-[0.14em]
-           uppercase px-8 py-4 border-0
-           hover:bg-rose hover:text-cream
-           transition-all duration-300;
+    background-color: #1A1410;
+    color: #F7F2EB;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: none;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    background-color: #C4786A;
   }
 
   .btn-secondary {
-    @apply border border-gold-light text-ink font-sans font-normal text-[0.68rem]
-           tracking-[0.14em] uppercase px-8 py-4
-           hover:bg-gold hover:border-gold hover:text-ink
-           transition-all duration-300;
+    background-color: transparent;
+    color: #1A1410;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: 1px solid #E8D5B0;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover {
+    background-color: #C9A96E;
+    border-color: #C9A96E;
   }
 
   .section-title {
-    @apply font-serif font-bold text-display-md text-ink text-center mb-4 leading-tight;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #1A1410;
+    text-align: center;
+    margin-bottom: 1rem;
+    line-height: 1.05;
   }
 
   .section-subtitle {
-    @apply text-center text-warm-gray font-sans font-light max-w-xl mx-auto mb-12 leading-relaxed;
+    text-align: center;
+    color: #8B8177;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
+    line-height: 1.75;
   }
 }
 
