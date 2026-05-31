@@ -1,47 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Base ──────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-crema text-marron font-sans;
+    @apply bg-cream text-ink font-sans font-light;
     overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Panel y admin: cursor normal (no afectamos rutas internas) */
+  body.cursor-default-override {
+    cursor: auto;
   }
 
   h1, h2, h3, h4 {
     @apply font-serif;
   }
+
+  ::selection {
+    background-color: #C9A96E;
+    color: #1A1410;
+  }
+
+  /* Cursor none sólo en landing (lo activa el componente Cursor) */
+  body.wedclick-landing * {
+    cursor: none !important;
+  }
 }
 
+/* ─── Custom Cursor ─────────────────────────────────── */
 @layer components {
+  .cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #1A1410;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
+    will-change: transform;
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #1A1410;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    opacity: 0.35;
+    will-change: transform;
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  }
+
+  .cursor-dot.is-hover  { width: 14px; height: 14px; background: #C9A96E; }
+  .cursor-ring.is-hover { width: 54px; height: 54px; border-color: #C9A96E; opacity: 0.5; }
+
+  /* ─── Ornament line ─── */
+  .ornament-line {
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: #C9A96E;
+  }
+
+  /* ─── Section label ─── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8B8177;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .section-label[data-number]::before {
+    content: attr(data-number);
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: #C9A96E;
+    font-style: italic;
+  }
+
+  /* ─── Ticker ─── */
+  .ticker-track {
+    display: flex;
+    gap: 3.5rem;
+    animation: ticker 26s linear infinite;
+    white-space: nowrap;
+  }
+
+  /* ─── Nav blur ─── */
+  .nav-blur {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* ─── Invitation card tilt ─── */
+  .inv-card-tilt {
+    transform: rotate(-2deg);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .inv-card-tilt:hover { transform: rotate(0deg) scale(1.02); }
+
+  /* ─── Style grid item ─── */
+  .style-item .style-inner {
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .style-item:hover .style-inner { transform: scale(1.04); }
+
+  /* ─── Underline link hover ─── */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 100%; height: 1px;
+    background: currentColor;
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .link-underline:hover::after { transform: scaleX(0); transform-origin: right; }
+
+  /* ─── Botones globales nuevos ─── */
   .btn-primary {
-    @apply bg-azul-oscuro text-crema px-8 py-3 rounded-xl
-           border border-beige-claro
-           hover:bg-beige-claro hover:text-azul-oscuro
-           transition-all duration-300
-           font-sans font-semibold tracking-wide shadow-md;
+    @apply bg-ink text-cream font-sans font-normal text-[0.68rem] tracking-[0.14em]
+           uppercase px-8 py-4 border-0
+           hover:bg-rose hover:text-cream
+           transition-all duration-300;
   }
 
   .btn-secondary {
-    @apply border-2 border-azul-oscuro text-azul-oscuro px-8 py-3
-           rounded-xl
-           hover:bg-azul-oscuro hover:text-crema
-           transition-all duration-300
-           font-sans font-semibold tracking-wide;
+    @apply border border-gold-light text-ink font-sans font-normal text-[0.68rem]
+           tracking-[0.14em] uppercase px-8 py-4
+           hover:bg-gold hover:border-gold hover:text-ink
+           transition-all duration-300;
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-serif text-azul-oscuro
-           text-center mb-4;
+    @apply font-serif font-bold text-display-md text-ink text-center mb-4 leading-tight;
   }
 
   .section-subtitle {
-    @apply text-center text-marron font-sans font-light
-           max-w-xl mx-auto mb-12;
+    @apply text-center text-warm-gray font-sans font-light max-w-xl mx-auto mb-12 leading-relaxed;
   }
+}
+
+/* ─── Keyframes ─────────────────────────────────────── */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

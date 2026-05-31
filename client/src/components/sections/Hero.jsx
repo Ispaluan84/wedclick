@@ -1,109 +1,175 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Play, Heart } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { ArrowRight, Play } from 'lucide-react'
 
-const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true },
-  transition:  { duration: 0.8, delay, ease: 'easeOut' },
+// SVG ornamental para el fondo del panel derecho
+function OrnamentalSVG() {
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full opacity-[0.13]"
+      viewBox="0 0 500 600"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <g fill="none" stroke="#C9A96E" strokeWidth="0.6">
+        <ellipse cx="250" cy="300" rx="220" ry="270" />
+        <ellipse cx="250" cy="300" rx="185" ry="225" />
+        <ellipse cx="250" cy="300" rx="150" ry="180" />
+        <ellipse cx="250" cy="300" rx="115" ry="135" />
+        <line x1="250" y1="10"  x2="250" y2="590" />
+        <line x1="10"  y1="300" x2="490" y2="300" />
+        <path d="M250,30 Q340,120 470,120 Q340,240 470,300 Q340,360 470,480 Q340,480 250,570" />
+        <path d="M250,30 Q160,120 30,120  Q160,240 30,300  Q160,360 30,480  Q160,480 250,570" />
+        <path d="M250,30 L260,52 L250,74 L240,52 Z" />
+        <path d="M250,526 L260,548 L250,570 L240,548 Z" />
+        <circle cx="250" cy="300" r="12" />
+        <circle cx="250" cy="300" r="5" fill="#C9A96E" opacity="0.4" />
+        <circle cx="250" cy="30"  r="3" fill="#C9A96E" opacity="0.5" />
+        <circle cx="250" cy="570" r="3" fill="#C9A96E" opacity="0.5" />
+        <circle cx="30"  cy="300" r="3" fill="#C9A96E" opacity="0.5" />
+        <circle cx="470" cy="300" r="3" fill="#C9A96E" opacity="0.5" />
+      </g>
+    </svg>
+  )
+}
+
+const anim = (delay = 0) => ({
+  initial:    { opacity: 0, y: 32 },
+  animate:    { opacity: 1, y: 0 },
+  transition: { duration: 0.9, delay, ease: [0.19, 1, 0.22, 1] },
 })
 
 function HeroLanding() {
-  const navigate = useNavigate()
-
   return (
-    <section
-      className="relative min-h-screen flex items-center overflow-hidden
-                 bg-gradient-to-b from-crema via-blanco-roto to-blanco-roto"
-    >
-      <div className="relative max-w-7xl mx-auto px-6 py-32 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section className="min-h-screen grid grid-cols-1 md:grid-cols-2 relative overflow-hidden">
 
-          {/* Columna izquierda — Texto */}
-          <div className="flex flex-col gap-8">
-            <motion.div {...fadeUp(0)}>
-              <div
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                           bg-verde-suave/20 border border-beige-claro"
-              >
-                <Heart size={14} className="text-verde-suave" />
-                <span className="font-sans text-xs tracking-widest uppercase text-verde-suave">
-                  Invitaciones de boda digitales
-                </span>
-              </div>
-            </motion.div>
+      {/* ── COLUMNA IZQUIERDA ──────────────────────── */}
+      <div className="flex flex-col justify-end px-8 md:px-14 pt-36 pb-20 relative z-10">
 
-            <motion.h1
-              {...fadeUp(0.1)}
-              className="font-serif text-5xl md:text-6xl lg:text-7xl text-azul-oscuro leading-tight"
-            >
-              Tu boda merece
-              <br />
-              <span className="italic text-tierra">una invitación</span>
-              <br />
-              única
-            </motion.h1>
+        {/* Eyebrow */}
+        <motion.p
+          {...anim(0.05)}
+          className="section-label mb-10"
+          data-number=""
+        >
+          Invitaciones digitales de boda
+        </motion.p>
 
-            <motion.p
-              {...fadeUp(0.2)}
-              className="font-sans font-light text-marron text-lg md:text-xl leading-relaxed max-w-lg"
-            >
-              Creamos invitaciones digitales personalizadas que enamoran.
-              Interactivas, elegantes y con todas las funcionalidades que
-              necesitas para tu gran día.
-            </motion.p>
+        {/* H1 */}
+        <motion.h1
+          {...anim(0.15)}
+          className="font-serif font-black text-display-xl text-ink mb-6 leading-[0.9]"
+        >
+          Tu boda merece<br />
+          <em className="italic text-rose not-italic">una invitación</em><br />
+          única
+        </motion.h1>
 
-            <motion.div {...fadeUp(0.3)} className="flex flex-wrap items-center gap-4">
-              <a
-                href="https://elena-marcos.wedclick.es"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 px-6 py-3.5 rounded-xl
-                           bg-azul-oscuro text-crema border border-beige-claro
-                           font-sans font-semibold text-sm uppercase
-                           hover:bg-beige-claro hover:text-azul-oscuro
-                           transition-colors duration-300 shadow-md"
-              >
-                Ver demo en vivo
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </a>
+        {/* Ornament */}
+        <motion.span {...anim(0.25)} className="ornament-line mb-8" />
 
-              <button
-                onClick={() =>
-                  document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="group flex items-center gap-3 px-6 py-4 rounded-2xl
-                           bg-crema text-azul-oscuro font-sans text-sm
-                           tracking-wide border border-beige-claro
-                           hover:border-tierra hover:bg-tierra/30
-                           transition-all"
-              >
-                <Play size={16} className="text-tierra" />
-                Cómo funciona
-              </button>
-            </motion.div>
-          </div>
+        {/* Subtítulo */}
+        <motion.p
+          {...anim(0.3)}
+          className="font-sans font-light text-[0.95rem] leading-[1.85] text-warm-gray max-w-sm mb-12"
+        >
+          Creamos invitaciones digitales personalizadas que enamoran.
+          Interactivas, elegantes y con todas las funcionalidades que
+          necesitas para tu gran día.
+        </motion.p>
 
-          {/* Columna derecha — Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-            className="flex justify-center"
+        {/* CTAs */}
+        <motion.div {...anim(0.4)} className="flex flex-wrap items-center gap-6">
+          <a
+            href="https://elena-marcos.wedclick.es"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 font-sans text-[0.68rem]
+                       tracking-[0.14em] uppercase px-8 py-4
+                       bg-ink text-cream hover:bg-rose
+                       transition-all duration-300"
+            data-hover
           >
-            <img
-              src="/Logo_WedClick.png" 
-              alt="Logo WedClick"
-              width={288}
-              height={288}
-              fetchPriority="high"
-              className="w-72 h-auto"
-            />
-          </motion.div>
+            Ver demo en vivo
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+
+          <button
+            onClick={() =>
+              document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })
+            }
+            className="flex items-center gap-3 font-sans text-[0.68rem]
+                       tracking-[0.12em] uppercase text-ink/50
+                       hover:text-ink transition-colors duration-300
+                       border-b border-ink/20 pb-0.5"
+            data-hover
+          >
+            <Play size={12} className="text-gold" />
+            Cómo funciona
+          </button>
+        </motion.div>
+
+        {/* Stat flotante */}
+        <motion.div {...anim(0.55)} className="flex items-baseline gap-3 mt-20">
+          <span className="font-serif text-5xl font-bold text-ink leading-none">+2K</span>
+          <span className="font-sans text-[0.65rem] tracking-[0.1em] uppercase
+                           text-warm-gray leading-relaxed max-w-[7rem]">
+            bodas celebradas con Wedclick
+          </span>
+        </motion.div>
+      </div>
+
+      {/* ── COLUMNA DERECHA ────────────────────────── */}
+      <div className="relative min-h-[60vh] md:min-h-0 overflow-hidden">
+        <div className="absolute inset-0 md:inset-y-12 md:inset-r-10 md:left-0 bg-gold-light">
+
+          {/* Ornamento SVG */}
+          <OrnamentalSVG />
+
+          {/* Mockups de invitación apilados */}
+          <div className="absolute inset-0 flex items-center justify-center">
+
+            {/* Tarjeta de atrás */}
+            <div className="absolute rotate-[5deg] translate-x-10 translate-y-6 z-10">
+              <div className="bg-cream w-44 md:w-52 p-6 shadow-[0_20px_60px_rgba(26,20,16,0.12)]">
+                <p className="font-sans text-[0.48rem] tracking-[0.16em] uppercase text-gold mb-3">
+                  Save the date
+                </p>
+                <p className="font-serif italic text-[1rem] text-ink leading-snug">
+                  Elena & Marcos
+                </p>
+                <div className="w-5 h-px bg-gold my-3" />
+                <p className="font-sans text-[0.46rem] tracking-[0.12em] uppercase text-warm-gray leading-loose">
+                  14 · IX · 2025<br />
+                  Hacienda Los Olivos · Sevilla
+                </p>
+              </div>
+            </div>
+
+            {/* Tarjeta principal */}
+            <div className="relative z-20 inv-card-tilt">
+              <div className="bg-paper w-48 md:w-60 px-7 py-10 text-center
+                              shadow-[0_40px_80px_rgba(26,20,16,0.18)]">
+                <p className="font-sans text-[0.46rem] tracking-[0.18em] uppercase text-gold mb-4">
+                  — Os invitamos —
+                </p>
+                <p className="font-serif italic text-xl text-ink">Claudia</p>
+                <p className="font-serif italic text-4xl text-gold leading-none my-1">&</p>
+                <p className="font-serif italic text-xl text-ink">Daniel</p>
+                <div className="w-5 h-px bg-gold mx-auto my-5" />
+                <p className="font-sans text-[0.44rem] tracking-[0.12em] uppercase
+                               text-warm-gray leading-[2.2]">
+                  Sábado, 21 de junio de 2025<br />
+                  6:00 de la tarde<br />
+                  Finca La Encina · Valencia
+                </p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
+
     </section>
   )
 }

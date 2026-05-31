@@ -2,63 +2,60 @@ import { Heart, Instagram, Mail, Phone, MapPin, Shield, Scale } from 'lucide-rea
 
 function FooterLanding() {
   return (
-    <footer className="bg-verde-oscuro text-crema">
+    <footer className="bg-ink text-cream">
 
       {/* Contenido principal */}
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-8 md:px-14 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-14">
 
           {/* Columna 1 — Marca */}
           <div>
-            <h3 className="font-serif text-2xl mb-4 text-crema">
-              Wed<span className="text-tierra">Click</span>
-            </h3>
-            <p className="font-sans font-light text-crema/80 text-sm
-                          leading-relaxed mb-6">
-              Creamos invitaciones de boda digitales que enamoran.
-              Cada detalle pensado para que vuestro gran día empiece
-              desde el primer clic.
+            <p className="font-serif italic text-[1.9rem] text-cream mb-4">Wedclick</p>
+            <p className="font-sans font-light text-[0.82rem] leading-[1.85] text-warm-gray max-w-xs mb-8">
+              Invitaciones digitales diseñadas para que el primer recuerdo de vuestra boda sea perfecto.
             </p>
+            <span className="ornament-line mb-8 block" />
             <div className="flex items-center gap-3">
               <a
                 href="https://instagram.com/wedclick"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-crema/10 hover:bg-crema/20
-                           flex items-center justify-center transition-colors"
+                className="w-9 h-9 border border-warm-gray/30 flex items-center justify-center
+                           hover:border-gold hover:text-gold transition-all duration-300"
+                data-hover
               >
-                <Instagram size={18} className="text-crema" />
+                <Instagram size={15} />
               </a>
               <a
                 href="mailto:contacto@wedclick.es"
-                className="w-10 h-10 rounded-full bg-crema/10 hover:bg-crema/20
-                           flex items-center justify-center transition-colors"
+                className="w-9 h-9 border border-warm-gray/30 flex items-center justify-center
+                           hover:border-gold hover:text-gold transition-all duration-300"
+                data-hover
               >
-                <Mail size={18} className="text-crema" />
+                <Mail size={15} />
               </a>
             </div>
           </div>
 
           {/* Columna 2 — Navegación */}
           <div>
-            <h4 className="font-sans text-xs tracking-widest uppercase
-                           text-crema/50 mb-6">
+            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-gold mb-6">
               Navegación
-            </h4>
-            <ul className="flex flex-col gap-3">
+            </p>
+            <ul className="flex flex-col gap-3 list-none">
               {[
-                { href: '#como-funciona',   label: 'Cómo funciona'   },
-                { href: '#invitacion',       label: 'La invitación'   },
-                { href: '#precios',          label: 'Precios'         },
-                { href: '#testimonios',      label: 'Testimonios'     },
-                { href: '#faq',              label: 'FAQ'             },
-                { href: '/landing#precios',  label: 'Ver demo'        },
+                { href: '#como-funciona', label: 'Cómo funciona'  },
+                { href: '#demo',          label: 'La invitación'  },
+                { href: '#precios',       label: 'Precios'        },
+                { href: '#testimonios',   label: 'Testimonios'    },
+                { href: '#faq',           label: 'FAQ'            },
               ].map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="font-sans text-sm text-crema/80
-                               hover:text-tierra transition-colors"
+                    className="font-sans font-light text-[0.82rem] text-warm-gray
+                               hover:text-cream transition-colors duration-300"
+                    data-hover
                   >
                     {link.label}
                   </a>
@@ -67,45 +64,64 @@ function FooterLanding() {
             </ul>
           </div>
 
-          {/* Columna 3 — Contacto */}
+          {/* Columna 3 — Servicio */}
           <div>
-            <h4 className="font-sans text-xs tracking-widest uppercase
-                           text-crema/50 mb-6">
+            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-gold mb-6">
+              Servicio
+            </p>
+            <ul className="flex flex-col gap-3 list-none">
+              {['Plan Esencial', 'Plan Premium', 'Oferta Lanzamiento', 'Ver demo en vivo'].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#precios"
+                    className="font-sans font-light text-[0.82rem] text-warm-gray
+                               hover:text-cream transition-colors duration-300"
+                    data-hover
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna 4 — Contacto */}
+          <div>
+            <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-gold mb-6">
               Contacto
-            </h4>
-            <ul className="flex flex-col gap-4 text-crema/80">
+            </p>
+            <ul className="flex flex-col gap-4 text-warm-gray">
               <li className="flex items-center gap-3">
-                <Phone size={16} className="flex-shrink-0" />
-                <a
-                  href="tel:+34628355913"
-                  className="font-sans text-sm hover:text-tierra transition-colors"
-                >
+                <Phone size={14} className="flex-shrink-0 text-gold/60" />
+                <a href="tel:+34628355913"
+                   className="font-sans font-light text-[0.82rem] hover:text-cream transition-colors"
+                   data-hover>
                   +34 628 355 913
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={16} className="flex-shrink-0" />
-                <a
-                  href="mailto:contacto@wedclick.es"
-                  className="font-sans text-sm hover:text-tierra transition-colors"
-                >
+                <Mail size={14} className="flex-shrink-0 text-gold/60" />
+                <a href="mailto:contacto@wedclick.es"
+                   className="font-sans font-light text-[0.82rem] hover:text-cream transition-colors"
+                   data-hover>
                   contacto@wedclick.es
                 </a>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="flex-shrink-0 mt-0.5" />
-                <span className="font-sans text-sm">Sevilla, España</span>
+                <MapPin size={14} className="flex-shrink-0 mt-0.5 text-gold/60" />
+                <span className="font-sans font-light text-[0.82rem]">Sevilla, España</span>
               </li>
             </ul>
 
-            {/* WhatsApp CTA */}
             <a
               href="https://wa.me/34628355913"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-6 px-5 py-2.5
-                         rounded-xl bg-tierra/60 hover:bg-tierra/80
-                         text-crema text-sm font-sans transition-colors"
+              className="inline-flex items-center gap-2 mt-6 font-sans text-[0.65rem]
+                         tracking-[0.1em] uppercase px-5 py-3
+                         border border-gold/40 text-gold hover:bg-gold hover:text-ink
+                         transition-all duration-300"
+              data-hover
             >
               💬 WhatsApp directo
             </a>
@@ -115,42 +131,35 @@ function FooterLanding() {
       </div>
 
       {/* Barra inferior */}
-      <div className="border-t border-tierra/30">
-        <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col md:flex-row
-                        items-center justify-between gap-4">
+      <div className="border-t border-warm-dark/60">
+        <div className="max-w-7xl mx-auto px-8 md:px-14 py-7
+                        flex flex-col md:flex-row items-center justify-between gap-4">
 
-          {/* Copyright */}
-          <p className="font-sans text-xs text-crema/50">
+          <p className="font-sans text-[0.6rem] tracking-[0.06em] text-warm-gray/50">
             © {new Date().getFullYear()} WedClick. Todos los derechos reservados.
           </p>
 
-          {/* Enlaces legales */}
           <div className="flex items-center gap-6">
-            <a
-              href="/privacidad"
-              className="flex items-center gap-1.5 font-sans text-xs
-                         text-crema/50 hover:text-crema transition-colors"
-            >
-              <Shield size={12} />
-              Privacidad
+            <a href="/privacidad"
+               className="flex items-center gap-1.5 font-sans text-[0.58rem] tracking-[0.08em]
+                          uppercase text-warm-gray/50 hover:text-warm-gray transition-colors"
+               data-hover>
+              <Shield size={11} /> Privacidad
             </a>
-            <a
-              href="/aviso-legal"
-              className="flex items-center gap-1.5 font-sans text-xs
-                         text-crema/50 hover:text-crema transition-colors"
-            >
-              <Scale size={12} />
-              Aviso Legal
+            <a href="/aviso-legal"
+               className="flex items-center gap-1.5 font-sans text-[0.58rem] tracking-[0.08em]
+                          uppercase text-warm-gray/50 hover:text-warm-gray transition-colors"
+               data-hover>
+              <Scale size={11} /> Aviso Legal
             </a>
           </div>
 
-          {/* Hecho con amor */}
-          <p className="font-sans text-xs text-crema/50 flex items-center gap-1">
-            Hecho con <Heart size={12} className="text-tierra" fill="#C4956A" /> en Sevilla
+          <p className="font-sans text-[0.6rem] text-warm-gray/50 flex items-center gap-1">
+            Hecho con <Heart size={11} className="text-gold" fill="#C9A96E" /> en Sevilla
           </p>
-
         </div>
       </div>
+
     </footer>
   )
 }

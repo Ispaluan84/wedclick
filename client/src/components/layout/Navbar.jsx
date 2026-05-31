@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Heart, Shield, LayoutDashboard } from 'lucide-react'
+import { Heart, Shield } from 'lucide-react'
 
 function Navbar() {
-  const [menuOpen, setMenuOpen]   = useState(false)
-  const [scrolled, setScrolled]   = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const navLinks = [
     { href: '#como-funciona', label: 'Cómo funciona' },
-    { href: '#demo',    label: 'La invitación'  },
+    { href: '#demo',          label: 'La invitación'  },
     { href: '#precios',       label: 'Precios'        },
     { href: '#faq',           label: 'FAQ'            },
   ]
@@ -23,113 +23,110 @@ function Navbar() {
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
+      transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500
                   ${scrolled
-                    ? 'bg-crema/95 backdrop-blur-md shadow-sm border-b border-beige-claro'
-                    : 'bg-transparent'
-                  }`}
+                    ? 'nav-blur bg-cream/85 border-b border-gold-light/30 py-4'
+                    : 'bg-transparent py-7'}`}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
 
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
+        <a href="/" className="flex items-center gap-3" data-hover>
           <img
             src="/Logo_WedClick.png"
             alt="WedClick"
-            className="h-10"
+            className="h-9 w-auto"
           />
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-10 list-none">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="font-sans text-sm text-azul-oscuro/70
-                         hover:text-azul-oscuro transition-colors"
-            >
-              {link.label}
-            </a>
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="link-underline font-sans text-[0.68rem] tracking-[0.14em]
+                           uppercase text-ink/60 hover:text-ink transition-colors duration-300"
+                data-hover
+              >
+                {link.label}
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Desktop botones */}
-        <div className="hidden md:flex items-center gap-2">
+        {/* Desktop — botones derechos */}
+        <div className="hidden md:flex items-center gap-3">
 
           {/* Panel novios */}
           <a
             href="/panel"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl
-                       bg-crema border border-beige-claro font-sans text-xs
-                       text-azul-oscuro hover:bg-beige-claro transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5
+                       font-sans text-[0.65rem] tracking-[0.1em] uppercase
+                       text-ink/60 border border-gold-light/60
+                       hover:border-gold hover:text-ink transition-all duration-300"
+            data-hover
           >
-            <Heart size={12} className="text-tierra" fill="#CFC29B" />
+            <Heart size={11} className="text-gold" fill="#C9A96E" />
             Panel novios
           </a>
 
           {/* Admin — discreto */}
           <a
             href="/admin"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl
-                       bg-azul-oscuro/5 border border-azul-oscuro/10
-                       font-sans text-xs text-azul-oscuro/50
-                       hover:bg-azul-oscuro/10 hover:text-azul-oscuro
-                       transition-colors"
+            className="w-9 h-9 flex items-center justify-center
+                       border border-ink/10 text-ink/30
+                       hover:border-ink/30 hover:text-ink/60 transition-all duration-300"
             title="Administración"
+            data-hover
           >
-            <Shield size={12} />
+            <Shield size={13} />
           </a>
 
-          {/* CTA */}
+          {/* CTA principal */}
           <a
             href="#precios"
-            className="px-5 py-2.5 rounded-xl bg-azul-oscuro text-crema
-                       font-sans text-sm font-medium border border-beige-claro
-                       hover:bg-beige-claro hover:text-azul-oscuro
-                       transition-colors duration-300 shadow-sm"
+            className="font-sans text-[0.65rem] tracking-[0.14em] uppercase
+                       px-6 py-3 bg-ink text-cream
+                       hover:bg-rose transition-all duration-300"
+            data-hover
           >
             Crear mi invitación
           </a>
         </div>
 
-        {/* Mobile — botones + hamburguesa */}
+        {/* Mobile — panel + hamburguesa */}
         <div className="md:hidden flex items-center gap-2">
-
-          {/* Panel novios mobile */}
           <a
             href="/panel"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl
-                       bg-crema border border-beige-claro font-sans text-xs
-                       text-azul-oscuro hover:bg-beige-claro transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2
+                       border border-gold-light/60 font-sans text-xs text-ink/60"
+            data-hover
           >
-            <Heart size={12} className="text-tierra" fill="#CFC29B" />
+            <Heart size={11} className="text-gold" fill="#C9A96E" />
             <span className="hidden sm:block">Panel</span>
           </a>
 
-          {/* Admin mobile — solo icono */}
           <a
             href="/admin"
-            className="w-8 h-8 rounded-xl bg-azul-oscuro/5 border border-azul-oscuro/10
-                       flex items-center justify-center
-                       hover:bg-azul-oscuro/10 transition-colors"
+            className="w-9 h-9 flex items-center justify-center
+                       border border-ink/10 text-ink/30"
             title="Admin"
+            data-hover
           >
-            <Shield size={14} className="text-azul-oscuro/40" />
+            <Shield size={13} />
           </a>
 
-          {/* Hamburguesa */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="w-10 h-10 rounded-xl bg-crema border border-beige-claro
-                       flex items-center justify-center
-                       hover:bg-beige-claro transition-colors"
+            className="w-10 h-10 flex flex-col gap-[5px] items-center justify-center
+                       border border-ink/15 hover:border-gold transition-all"
+            data-hover
           >
-            {menuOpen
-              ? <X size={18} className="text-azul-oscuro" />
-              : <Menu size={18} className="text-azul-oscuro" />
-            }
+            <span className={`block w-5 h-px bg-ink transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[6px]' : ''}`} />
+            <span className={`block w-5 h-px bg-ink transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-5 h-px bg-ink transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[6px]' : ''}`} />
           </button>
         </div>
       </div>
@@ -141,33 +138,28 @@ function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-crema/98 backdrop-blur-md
-                       border-t border-beige-claro overflow-hidden"
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="md:hidden nav-blur bg-cream/95 border-t border-gold-light/20 overflow-hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-1">
+            <div className="px-8 py-6 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="font-sans text-sm text-azul-oscuro/70
-                             hover:text-azul-oscuro py-3 border-b
-                             border-beige-claro/50 transition-colors"
+                  className="font-sans text-[0.75rem] tracking-[0.12em] uppercase
+                             text-ink/60 hover:text-ink py-4
+                             border-b border-gold-light/20 transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
-
-              {/* CTA mobile */}
               <a
                 href="#precios"
                 onClick={() => setMenuOpen(false)}
-                className="mt-3 w-full py-3 rounded-xl bg-azul-oscuro text-crema
-                           font-sans text-sm font-medium text-center
-                           border border-beige-claro
-                           hover:bg-beige-claro hover:text-azul-oscuro
-                           transition-colors duration-300"
+                className="mt-4 w-full py-4 bg-ink text-cream font-sans text-[0.68rem]
+                           tracking-[0.14em] uppercase text-center
+                           hover:bg-rose transition-all duration-300"
               >
                 Crear mi invitación
               </a>

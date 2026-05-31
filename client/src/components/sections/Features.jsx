@@ -1,92 +1,53 @@
 import { motion } from 'framer-motion'
 import {
   Smartphone, MapPin, Music, Camera, CheckSquare,
-  Shirt, Clock, Heart, Sparkles
+  Shirt, Clock, Heart,
 } from 'lucide-react'
 
-
-const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, margin: '-60px' },
-  transition:  { duration: 0.8, delay, ease: 'easeOut' },
-})
-
 const features = [
-  {
-    icono:       Smartphone,
-    titulo:      'Diseño personalizado',
-    descripcion: 'Cada invitación es única, diseñada a medida con vuestra historia, colores y estilo.',
-    color:       'sage',
-  },
-  {
-    icono:       MapPin,
-    titulo:      'Ubicaciones interactivas',
-    descripcion: 'Mapas integrados con enlaces directos a Google Maps y Waze para cada lugar.',
-    color:       'tierra',
-  },
-  {
-    icono:       CheckSquare,
-    titulo:      'Confirmación de asistencia',
-    descripcion: 'Formulario RSVP integrado. Controla las confirmaciones desde tu panel.',
-    color:       'sage',
-  },
-  {
-    icono:       Music,
-    titulo:      'Playlist colaborativa',
-    descripcion: 'Tus invitados sugieren canciones y votan sus favoritas para la fiesta.',
-    color:       'tierra',
-  },
-  {
-    icono:       Camera,
-    titulo:      'Álbum colaborativo',
-    descripcion: 'Los invitados suben fotos del gran día y creáis juntos el mejor álbum.',
-    color:       'sage',
-  },
-  {
-    icono:       Shirt,
-    titulo:      'Dress Code',
-    descripcion: 'Paleta de colores y recomendaciones de vestimenta para tus invitados.',
-    color:       'tierra',
-  },
-  {
-    icono:       Clock,
-    titulo:      'Itinerario del día',
-    descripcion: 'Timeline visual con cada momento del gran día, hora a hora.',
-    color:       'sage',
-  },
-  {
-    icono:       Heart,
-    titulo:      'Vuestra historia',
-    descripcion: 'Sección dedicada a contar vuestra historia de amor con fotos y texto.',
-    color:       'tierra',
-  },
+  { icono: Heart,       titulo: 'Diseño personalizado',       descripcion: 'Cada invitación es única, diseñada a medida con vuestra historia, colores y estilo.', accent: 'gold' },
+  { icono: MapPin,      titulo: 'Ubicaciones interactivas',   descripcion: 'Mapas integrados con enlaces directos a Google Maps y Waze para cada lugar.',          accent: 'rose' },
+  { icono: CheckSquare, titulo: 'Confirmación de asistencia', descripcion: 'Formulario RSVP integrado. Controla las confirmaciones desde tu panel en tiempo real.', accent: 'sage' },
+  { icono: Music,       titulo: 'Playlist colaborativa',      descripcion: 'Tus invitados sugieren canciones y votan sus favoritas para la fiesta.',                accent: 'gold' },
+  { icono: Camera,      titulo: 'Álbum colaborativo',         descripcion: 'Los invitados suben fotos del gran día y creáis juntos el mejor álbum.',                accent: 'rose' },
+  { icono: Shirt,       titulo: 'Dress Code',                 descripcion: 'Paleta de colores y recomendaciones de vestimenta para tus invitados.',                 accent: 'sage' },
+  { icono: Clock,       titulo: 'Itinerario del día',         descripcion: 'Timeline visual con cada momento del gran día, hora a hora.',                           accent: 'gold' },
+  { icono: Smartphone,  titulo: 'Enlace único',               descripcion: 'Un link directo, sin apps, que se abre perfectamente en cualquier dispositivo.',        accent: 'rose' },
 ]
 
+const accentMap = {
+  gold: { border: 'border-gold/30', iconBg: 'bg-gold-light/50', iconColor: 'text-gold', line: 'bg-gold' },
+  rose: { border: 'border-rose/30', iconBg: 'bg-rose/10',       iconColor: 'text-rose', line: 'bg-rose' },
+  sage: { border: 'border-sage/30', iconBg: 'bg-sage/10',       iconColor: 'text-sage', line: 'bg-sage' },
+}
+
 function FeatureCard({ feature, index }) {
-  const colorBg   = feature.color === 'sage' ? 'bg-sage/10' : 'bg-tierra/10'
-  const colorText = feature.color === 'sage' ? 'text-sage' : 'text-tierra'
-  const colorHover = feature.color === 'sage' ? 'group-hover:bg-sage/15' : 'group-hover:bg-tierra/15'
+  const Icono = feature.icono
+  const a = accentMap[feature.accent]
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
-      className="group bg-white rounded-3xl p-8 shadow-sm border border-black/5
-                 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+      transition={{ duration: 0.8, delay: index * 0.07, ease: [0.19, 1, 0.22, 1] }}
+      className={`group bg-paper border ${a.border} p-8
+                  hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(26,20,16,0.06)]
+                  transition-all duration-400`}
+      data-hover
     >
-      <div className={`w-14 h-14 rounded-2xl ${colorBg} ${colorHover}
-                       flex items-center justify-center mb-5 transition-colors`}>
-        <feature.icono size={24} className={colorText} />
+      <div className={`w-12 h-12 ${a.iconBg} flex items-center justify-center mb-6
+                       group-hover:scale-110 transition-transform duration-300`}>
+        <Icono size={22} className={a.iconColor} />
       </div>
 
-      <h3 className="font-serif text-xl text-verde-oscuro mb-3">
+      <h3 className="font-serif italic text-[1.1rem] text-ink mb-3 leading-snug">
         {feature.titulo}
       </h3>
 
-            <p className="font-sans font-light text-marron text-sm leading-relaxed">
+      <div className={`w-6 h-px ${a.line} mb-3 group-hover:w-10 transition-all duration-400`} />
+
+      <p className="font-sans font-light text-[0.85rem] leading-[1.8] text-warm-gray">
         {feature.descripcion}
       </p>
     </motion.div>
@@ -95,47 +56,35 @@ function FeatureCard({ feature, index }) {
 
 function Features() {
   return (
-    <section id="funcionalidades" className="bg-blanco-roto py-24 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section id="funcionalidades" className="bg-cream px-8 md:px-14 py-36 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
 
-        {/* Encabezado */}
-        <motion.div {...fadeUp(0)} className="text-center mb-16">
-          <span className="font-sans text-xs tracking-widest uppercase text-sage mb-4 block">
-            Funcionalidades
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-verde-oscuro mb-6">
-            Todo lo que necesitas
-            <br />
-            <span className="italic text-tierra">en una invitación</span>
-          </h2>
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="w-12 h-px bg-tierra opacity-50" />
-            <span className="text-tierra text-lg">◆</span>
-            <div className="w-12 h-px bg-tierra opacity-50" />
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
+          className="mb-16"
+        >
+          <p className="section-label mb-6" data-number="03">Funcionalidades</p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <h2 className="font-serif font-bold text-display-lg text-ink leading-[1.0] max-w-md">
+              Todo lo que necesitas{' '}
+              <em className="italic text-rose">en una invitación</em>
+            </h2>
+            <p className="font-sans font-light text-[0.9rem] text-warm-gray max-w-sm leading-relaxed">
+              Cada detalle pensado para que vuestra invitación sea una experiencia completa.
+            </p>
           </div>
-          <p className="font-sans font-light text-marron max-w-xl mx-auto leading-relaxed">
-            Cada detalle pensado para que vuestra invitación sea mucho más
-            que un simple mensaje. Una experiencia completa para vuestros invitados.
-          </p>
         </motion.div>
 
-        {/* Grid de features */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((feature, index) => (
             <FeatureCard key={feature.titulo} feature={feature} index={index} />
           ))}
         </div>
-
-        {/* Nota inferior */}
-        <motion.div {...fadeUp(0.5)} className="mt-14 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full
-                          bg-sage/10 border border-sage/20">
-            <Sparkles size={14} className="text-sage" />
-            <span className="font-sans text-sm text-verde-oscuro">
-              Y mucho más... cada invitación se adapta a vuestras necesidades
-            </span>
-          </div>
-        </motion.div>
 
       </div>
     </section>
