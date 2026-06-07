@@ -108,16 +108,6 @@ function Navbar() {
             <span className="hidden sm:block">Panel</span>
           </a>
 
-          <a
-            href="/admin"
-            className="w-9 h-9 flex items-center justify-center
-                       border border-ink/10 text-ink/30"
-            title="Admin"
-            data-hover
-          >
-            <Shield size={13} />
-          </a>
-
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="w-10 h-10 flex flex-col gap-[5px] items-center justify-center

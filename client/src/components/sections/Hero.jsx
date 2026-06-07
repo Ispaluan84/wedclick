@@ -109,13 +109,13 @@ function HeroLanding() {
           </button>
         </motion.div>
 
-        {/* Stat flotante */}
-        <motion.div {...anim(0.55)} className="flex items-baseline gap-3 mt-20">
-          <span className="font-serif text-5xl font-bold text-ink leading-none">+2K</span>
-          <span className="font-sans text-[0.65rem] tracking-[0.1em] uppercase
-                           text-warm-gray leading-relaxed max-w-[7rem]">
-            bodas celebradas con Wedclick
-          </span>
+        {/* Frase editorial */}
+        <motion.div {...anim(0.55)} className="flex items-center gap-4 mt-20">
+          <div className="w-px h-8 bg-w-gold/40" />
+          <p className="font-sans text-[0.65rem] tracking-[0.15em] uppercase
+                        text-warm-gray leading-relaxed">
+            Cada boda,<br />una historia única
+          </p>
         </motion.div>
       </div>
 
