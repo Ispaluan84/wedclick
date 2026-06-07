@@ -54,7 +54,7 @@ function DemoPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="flex justify-center"
+            className="flex justify-center pt-10"
           >
             <div className="relative">
 
@@ -80,7 +80,7 @@ function DemoPreview() {
                 />
                 {/* Pantalla */}
                 <div
-                  className="overflow-hidden bg-cream"
+                  className="relative overflow-hidden bg-cream"
                   style={{
                     borderRadius: '1.75rem',
                     aspectRatio: '9/19.5',
@@ -92,11 +92,15 @@ function DemoPreview() {
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.target.style.display = 'none'
-                      e.target.parentNode.style.background = '#F7F2EB'
+                      // Mostrar el fallback cuando la imagen falla
+                      e.target.nextElementSibling.style.display = 'flex'
                     }}
                   />
-                  {/* Overlay cuando no hay imagen */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                  {/* Fallback — solo visible si la imagen no carga */}
+                  <div
+                    className="absolute inset-0 flex-col items-center justify-center text-center px-6"
+                    style={{ display: 'none' }}
+                  >
                     <p className="font-sans text-[8px] tracking-[0.25em] uppercase text-warm-gray mb-3">
                       Nos casamos
                     </p>
