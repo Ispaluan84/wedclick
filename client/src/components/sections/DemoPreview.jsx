@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowRight, Smartphone, Monitor } from 'lucide-react'
 
 const fadeUp = (delay = 0) => ({
@@ -16,6 +16,255 @@ const miniaturas = [
   { id: 4, titulo: 'Itinerario',       emoji: '◇' },
   { id: 5, titulo: 'Confirmación',     emoji: '◉' },
 ]
+
+function PhoneMockup({ onEnter }) {
+  return (
+    <div
+      className="relative cursor-pointer"
+      style={{ width: '240px' }}
+      onMouseEnter={onEnter}
+    >
+      {/* Cuerpo del teléfono */}
+      <div
+        className="relative shadow-2xl"
+        style={{
+          background: '#1A1410',
+          borderRadius: '2.5rem',
+          padding: '10px',
+          border: '2px solid #2A2420',
+        }}
+      >
+        {/* Notch */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 z-10"
+          style={{
+            width: '80px', height: '24px',
+            background: '#1A1410',
+            borderBottomLeftRadius: '14px',
+            borderBottomRightRadius: '14px',
+          }}
+        />
+        {/* Botón lateral derecho */}
+        <div
+          className="absolute"
+          style={{
+            right: '-4px', top: '80px',
+            width: '3px', height: '40px',
+            background: '#2A2420',
+            borderRadius: '0 2px 2px 0',
+          }}
+        />
+        {/* Botones laterales izquierdo */}
+        <div
+          className="absolute"
+          style={{
+            left: '-4px', top: '70px',
+            width: '3px', height: '28px',
+            background: '#2A2420',
+            borderRadius: '2px 0 0 2px',
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            left: '-4px', top: '108px',
+            width: '3px', height: '48px',
+            background: '#2A2420',
+            borderRadius: '2px 0 0 2px',
+          }}
+        />
+
+        {/* Pantalla */}
+        <div
+          className="relative overflow-hidden"
+          style={{ borderRadius: '2rem', aspectRatio: '9/19.5', background: '#F7F2EB' }}
+        >
+          <img
+            src="/screenshots/demo-mobile.jpg"
+            alt="Demo móvil Elena & Marcos"
+            className="w-full h-full object-cover object-top"
+          />
+          {/* Hint */}
+          <div
+            className="absolute inset-0 flex items-end justify-center pb-5"
+            style={{ background: 'linear-gradient(to top, rgba(26,20,16,0.55) 0%, transparent 50%)' }}
+          >
+            <div className="flex items-center gap-2">
+              <Monitor size={11} style={{ color: '#C9A96E' }} />
+              <span className="font-sans uppercase tracking-widest" style={{ fontSize: '8px', color: '#E8D5B0' }}>
+                Ver escritorio
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Tarjeta flotante — Playlist */}
+      <motion.div
+        animate={{ y: [0, -7, 0] }}
+        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -right-14 top-16"
+        style={{
+          background: '#FBF8F3',
+          border: '1px solid #E8D5B0',
+          padding: '9px 13px',
+          width: '125px',
+          boxShadow: '0 8px 30px rgba(26,20,16,0.10)',
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <span style={{ color: '#C9A96E', fontSize: '11px' }}>♪</span>
+          <div>
+            <p className="font-sans text-[9px] tracking-widest uppercase" style={{ color: '#8B8177' }}>Playlist</p>
+            <p className="font-sans text-[10px] font-light" style={{ color: '#1A1410' }}>12 canciones</p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Tarjeta flotante — Álbum */}
+      <motion.div
+        animate={{ y: [0, 7, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        className="absolute -left-14 bottom-24"
+        style={{
+          background: '#FBF8F3',
+          border: '1px solid #E8D5B0',
+          padding: '9px 13px',
+          width: '125px',
+          boxShadow: '0 8px 30px rgba(26,20,16,0.10)',
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <span style={{ color: '#C9A96E', fontSize: '11px' }}>◈</span>
+          <div>
+            <p className="font-sans text-[9px] tracking-widest uppercase" style={{ color: '#8B8177' }}>Álbum</p>
+            <p className="font-sans text-[10px] font-light" style={{ color: '#1A1410' }}>48 fotos</p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+function LaptopMockup({ onLeave }) {
+  return (
+    <div
+      className="relative cursor-pointer"
+      style={{ width: '420px' }}
+      onMouseLeave={onLeave}
+    >
+      {/* Pantalla / Tapa */}
+      <div
+        className="relative"
+        style={{
+          background: '#1A1410',
+          borderRadius: '10px 10px 0 0',
+          padding: '8px 8px 0 8px',
+          border: '2px solid #2A2420',
+          borderBottom: 'none',
+          boxShadow: '0 -4px 40px rgba(26,20,16,0.25)',
+        }}
+      >
+        {/* Cámara web */}
+        <div
+          className="absolute top-3 left-1/2 -translate-x-1/2"
+          style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#2A2420' }}
+        />
+        {/* Marco interior de pantalla */}
+        <div
+          style={{
+            background: '#0D0A08',
+            borderRadius: '5px 5px 0 0',
+            padding: '18px 6px 0 6px',
+            marginTop: '8px',
+          }}
+        >
+          {/* Barra de navegador */}
+          <div
+            className="flex items-center gap-2 px-3 mb-0"
+            style={{
+              height: '28px',
+              background: '#1A1410',
+              borderRadius: '4px 4px 0 0',
+            }}
+          >
+            <div className="flex gap-1.5">
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)' }} />
+            </div>
+            <div
+              className="flex-1 mx-2 flex items-center px-2"
+              style={{
+                height: '16px',
+                background: 'rgba(255,255,255,0.05)',
+                borderRadius: '3px',
+              }}
+            >
+              <span className="font-sans font-light" style={{ fontSize: '8px', color: 'rgba(201,169,110,0.5)' }}>
+                elena-marcos.wedclick.es
+              </span>
+            </div>
+          </div>
+
+          {/* Imagen escritorio */}
+          <div style={{ height: '280px', overflow: 'hidden', background: '#F7F2EB' }}>
+            <img
+              src="/screenshots/demo-desktop.jpg"
+              alt="Demo escritorio Elena & Marcos"
+              className="w-full h-full object-cover object-top"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Base / Bisagra */}
+      <div
+        style={{
+          height: '10px',
+          background: 'linear-gradient(to bottom, #222, #1A1410)',
+          borderRadius: '0 0 4px 4px',
+          border: '2px solid #2A2420',
+          borderTop: '1px solid #333',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+        }}
+      />
+      {/* Base inferior — reposamuñecas */}
+      <div
+        style={{
+          height: '18px',
+          background: 'linear-gradient(to bottom, #1E1A17, #161210)',
+          borderRadius: '0 0 12px 12px',
+          border: '2px solid #2A2420',
+          borderTop: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
+        }}
+      >
+        {/* Trackpad */}
+        <div
+          style={{
+            width: '60px',
+            height: '10px',
+            background: '#1A1410',
+            borderRadius: '3px',
+            border: '1px solid #2A2420',
+          }}
+        />
+      </div>
+
+      {/* Hint volver */}
+      <div className="flex items-center justify-center gap-2 mt-4">
+        <Smartphone size={11} style={{ color: '#C9A96E' }} />
+        <span className="font-sans uppercase tracking-widest" style={{ fontSize: '8px', color: '#8B8177' }}>
+          Volver a móvil
+        </span>
+      </div>
+    </div>
+  )
+}
 
 function DemoPreview() {
   const [isDesktop, setIsDesktop] = useState(false)
@@ -42,8 +291,8 @@ function DemoPreview() {
               <em className="text-w-gold not-italic">vuestra invitación</em>
             </h2>
             <p className="font-sans font-light text-warm-gray text-base leading-relaxed max-w-sm md:ml-auto">
-              Explorad la invitación de Elena & Marcos, nuestra demo interactiva.
-              Pasad el cursor sobre la pantalla para ver la versión escritorio.
+              Explorad la invitación de Elena & Marcos. Pasad el cursor sobre
+              la pantalla para ver cómo se ve en escritorio.
             </p>
           </div>
         </motion.div>
@@ -57,215 +306,53 @@ function DemoPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="flex justify-center pt-10"
+            className="flex justify-center"
+            style={{ minHeight: '520px', alignItems: 'center' }}
           >
-            {/* Contenedor con tamaño fijo para que el layout no salte */}
-            <div className="relative" style={{ height: '520px', width: '300px' }}>
+            <div className="relative flex items-center justify-center" style={{ width: '460px', height: '500px' }}>
 
-              {/* — Vista MÓVIL — teléfono */}
+              {/* Vista móvil */}
               <motion.div
+                className="absolute"
                 animate={{
                   opacity: isDesktop ? 0 : 1,
-                  scale:   isDesktop ? 0.92 : 1,
-                  y:       isDesktop ? 10 : 0,
+                  scale:   isDesktop ? 0.9 : 1,
+                  y:       isDesktop ? 12 : 0,
                 }}
-                transition={{ duration: 0.45, ease: 'easeInOut' }}
-                className="absolute inset-0 flex justify-center"
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
                 style={{ pointerEvents: isDesktop ? 'none' : 'auto' }}
               >
-                {/* Teléfono */}
-                <div
-                  className="relative shadow-2xl cursor-pointer"
-                  style={{
-                    background: '#1A1410',
-                    borderRadius: '2.25rem',
-                    padding: '10px',
-                    width: '260px',
-                    alignSelf: 'flex-start',
-                  }}
-                  onMouseEnter={() => setIsDesktop(true)}
-                >
-                  {/* Notch */}
-                  <div
-                    className="absolute top-0 left-1/2 -translate-x-1/2 z-10"
-                    style={{
-                      width: '90px', height: '22px',
-                      background: '#1A1410',
-                      borderBottomLeftRadius: '14px',
-                      borderBottomRightRadius: '14px',
-                    }}
-                  />
-                  {/* Pantalla móvil */}
-                  <div
-                    className="relative overflow-hidden"
-                    style={{ borderRadius: '1.75rem', aspectRatio: '9/19.5' }}
-                  >
-                    <img
-                      src="/screenshots/demo-mobile.jpg"
-                      alt="Demo móvil Elena & Marcos"
-                      className="w-full h-full object-cover object-top"
-                    />
-                    {/* Hint hover */}
-                    <div
-                      className="absolute inset-0 flex items-end justify-center pb-5"
-                      style={{
-                        background: 'linear-gradient(to top, rgba(26,20,16,0.55) 0%, transparent 50%)',
-                      }}
-                    >
-                      <div className="flex items-center gap-2">
-                        <Monitor size={12} style={{ color: '#C9A96E' }} />
-                        <span
-                          className="font-sans uppercase tracking-widest"
-                          style={{ fontSize: '8px', color: '#E8D5B0' }}
-                        >
-                          Ver escritorio
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Tarjeta flotante — Playlist */}
-                  <motion.div
-                    animate={{ y: [0, -7, 0] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                    className="absolute -right-12 top-14"
-                    style={{
-                      background: '#FBF8F3',
-                      border: '1px solid #E8D5B0',
-                      padding: '10px 14px',
-                      width: '130px',
-                      boxShadow: '0 8px 30px rgba(26,20,16,0.10)',
-                    }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-w-gold text-xs">♪</span>
-                      <div>
-                        <p className="font-sans text-[9px] tracking-widest uppercase text-warm-gray">Playlist</p>
-                        <p className="font-sans text-[10px] text-ink font-light">12 canciones</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Tarjeta flotante — Álbum */}
-                  <motion.div
-                    animate={{ y: [0, 7, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                    className="absolute -left-12 bottom-20"
-                    style={{
-                      background: '#FBF8F3',
-                      border: '1px solid #E8D5B0',
-                      padding: '10px 14px',
-                      width: '130px',
-                      boxShadow: '0 8px 30px rgba(26,20,16,0.10)',
-                    }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-w-gold text-xs">◈</span>
-                      <div>
-                        <p className="font-sans text-[9px] tracking-widest uppercase text-warm-gray">Álbum</p>
-                        <p className="font-sans text-[10px] text-ink font-light">48 fotos</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
+                <PhoneMockup onEnter={() => setIsDesktop(true)} />
               </motion.div>
 
-              {/* — Vista ESCRITORIO — panel expandido */}
+              {/* Vista escritorio */}
               <motion.div
+                className="absolute"
                 animate={{
                   opacity: isDesktop ? 1 : 0,
-                  scale:   isDesktop ? 1 : 0.94,
-                  y:       isDesktop ? 0 : 10,
+                  scale:   isDesktop ? 1 : 0.92,
+                  y:       isDesktop ? 0 : 12,
                 }}
-                transition={{ duration: 0.45, ease: 'easeInOut' }}
-                className="absolute inset-0 flex justify-center"
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
                 style={{ pointerEvents: isDesktop ? 'auto' : 'none' }}
-                onMouseLeave={() => setIsDesktop(false)}
               >
-                <div
-                  className="relative shadow-2xl cursor-pointer overflow-hidden"
-                  style={{
-                    width: '420px',
-                    height: '500px',
-                    border: '1px solid rgba(201,169,110,0.25)',
-                    background: '#1A1410',
-                    marginLeft: '-60px', // desplaza para que use el espacio disponible
-                  }}
-                >
-                  {/* Barra de navegador simulada */}
-                  <div
-                    className="flex items-center gap-2 px-3"
-                    style={{
-                      height: '32px',
-                      background: '#141010',
-                      borderBottom: '1px solid rgba(201,169,110,0.15)',
-                    }}
-                  >
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-warm-gray/20" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-warm-gray/20" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-warm-gray/20" />
-                    </div>
-                    <div
-                      className="flex-1 mx-2 px-3 flex items-center"
-                      style={{
-                        height: '18px',
-                        background: 'rgba(255,255,255,0.05)',
-                        borderRadius: '3px',
-                      }}
-                    >
-                      <span
-                        className="font-sans font-light"
-                        style={{ fontSize: '9px', color: 'rgba(201,169,110,0.5)' }}
-                      >
-                        elena-marcos.wedclick.es
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Imagen escritorio */}
-                  <div style={{ height: 'calc(100% - 32px)', overflow: 'hidden' }}>
-                    <img
-                      src="/screenshots/demo-desktop.jpg"
-                      alt="Demo escritorio Elena & Marcos"
-                      className="w-full h-full object-cover object-top"
-                    />
-                  </div>
-
-                  {/* Hint volver */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 flex items-end justify-center pb-4"
-                    style={{
-                      background: 'linear-gradient(to top, rgba(26,20,16,0.6) 0%, transparent 60%)',
-                    }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <Smartphone size={12} style={{ color: '#C9A96E' }} />
-                      <span
-                        className="font-sans uppercase tracking-widest"
-                        style={{ fontSize: '8px', color: '#E8D5B0' }}
-                      >
-                        Volver a móvil
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <LaptopMockup onLeave={() => setIsDesktop(false)} />
               </motion.div>
 
             </div>
           </motion.div>
 
-          {/* — Columna derecha: secciones + CTA — */}
+          {/* — Columna derecha: info + CTA — */}
           <div className="flex flex-col gap-10">
 
-            {/* Indicador de modo activo */}
+            {/* Indicador de modo */}
             <motion.div {...fadeUp(0.1)}>
-              <div className="flex items-center gap-6 mb-8">
+              <div className="flex items-center gap-6 mb-2">
                 <div className="flex items-center gap-2">
                   <motion.div
                     animate={{ background: isDesktop ? 'rgba(201,169,110,0.2)' : '#C9A96E' }}
                     transition={{ duration: 0.3 }}
-                    className="w-2 h-2 rounded-full"
+                    style={{ width: '8px', height: '8px', borderRadius: '50%' }}
                   />
                   <span
                     className="font-sans text-[10px] tracking-widest uppercase transition-colors duration-300"
@@ -274,12 +361,12 @@ function DemoPreview() {
                     Móvil
                   </span>
                 </div>
-                <div className="w-8 h-px bg-warm-gray/20" />
+                <div style={{ width: '32px', height: '1px', background: 'rgba(139,129,119,0.2)' }} />
                 <div className="flex items-center gap-2">
                   <motion.div
                     animate={{ background: isDesktop ? '#C9A96E' : 'rgba(201,169,110,0.2)' }}
                     transition={{ duration: 0.3 }}
-                    className="w-2 h-2 rounded-full"
+                    style={{ width: '8px', height: '8px', borderRadius: '50%' }}
                   />
                   <span
                     className="font-sans text-[10px] tracking-widest uppercase transition-colors duration-300"
@@ -304,15 +391,16 @@ function DemoPreview() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.1 * i }}
-                    className="flex items-center gap-4 py-4 border-b border-ink/8"
+                    className="flex items-center gap-4 py-4"
+                    style={{ borderBottom: '1px solid rgba(26,20,16,0.08)' }}
                   >
-                    <span className="font-sans text-[10px] text-w-gold/60 w-4 text-center">
+                    <span className="font-sans text-[10px] w-4 text-center" style={{ color: 'rgba(201,169,110,0.6)' }}>
                       {m.emoji}
                     </span>
                     <span className="font-sans text-sm font-light text-ink tracking-wide">
                       {m.titulo}
                     </span>
-                    <span className="ml-auto font-sans text-[10px] tracking-widest uppercase text-warm-gray/40">
+                    <span className="ml-auto font-sans text-[10px] tracking-widest uppercase" style={{ color: 'rgba(139,129,119,0.4)' }}>
                       0{m.id}
                     </span>
                   </motion.div>
