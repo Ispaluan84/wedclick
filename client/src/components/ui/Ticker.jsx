@@ -20,7 +20,7 @@ function Ticker() {
       className="bg-ink overflow-hidden py-4 border-y border-warm-dark/40"
       aria-hidden="true"
     >
-      <div className="ticker-track">
+      <div className="flex gap-14 animate-ticker whitespace-nowrap">
         {doubled.map((item, i) => (
           <span key={i} className="flex items-center gap-3.5 flex-shrink-0">
             <span className="font-sans text-[0.62rem] tracking-[0.18em] uppercase text-cream/50">

@@ -6,18 +6,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // ── Paleta nueva "Papel & Alma" ──────────────────
+        // ── Sistema «Papel & Alma» — Landing pública ─────────
+        // Usar exclusivamente en src/components/sections, layout, ui (landing)
         'cream':        '#F7F2EB',
         'paper':        '#FBF8F3',
         'ink':          '#1A1410',
-        'w-gold':       '#C9A96E',   // prefijo 'w-' para evitar colisión con Tailwind 'gold'
+        'w-gold':       '#C9A96E',   // prefijo w- para evitar colisión con Tailwind 'gold'
         'w-gold-light': '#E8D5B0',
-        'w-rose':       '#C4786A',   // prefijo 'w-' para evitar colisión con Tailwind 'rose'
-        'w-sage':       '#7A8C7E',
+        'w-rose':       '#C4786A',   // prefijo w- para evitar colisión con Tailwind 'rose'
+        'w-sage':       '#7A8C7E',   // prefijo w- para evitar colisión con Tailwind 'sage'
         'warm-gray':    '#8B8177',
         'warm-dark':    '#2A2520',
 
-        // ── Aliases retrocompatibles (panel, admin, checkout) ──
+        // ── Sistema interno — Admin, Panel, Checkout, Legal ──
+        // Mantener hasta migración completa del backoffice
         'azul-oscuro':  '#243763',
         'beige-claro':  '#D9C7A6',
         'crema':        '#F7F2EB',
