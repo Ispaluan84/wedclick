@@ -1,10 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft, MessageCircle } from 'lucide-react'
-
-const WHATSAPP_NUMBER  = '34627147039'
-const WHATSAPP_MESSAGE = encodeURIComponent(
-  'Hola, me gustaría información sobre las invitaciones de boda de WedClick 💍'
-)
+import { WHATSAPP_URL } from '../lib/contact'
 
 const fadeUp = (delay = 0) => ({
   initial:    { opacity: 0, y: 30 },
@@ -71,7 +67,7 @@ function NotFound() {
             Volver al inicio
           </a>
           <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-green-500

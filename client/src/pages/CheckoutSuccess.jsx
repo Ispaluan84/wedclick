@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { CheckCircle, Heart, ArrowRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { WHATSAPP_URL } from '../lib/contact'
 
 function CheckoutSuccess() {
   const navigate = useNavigate()
@@ -62,7 +63,7 @@ function CheckoutSuccess() {
 
         <div className="flex flex-col gap-3">
           <a
-            href="https://wa.me/34600000000"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Minus } from 'lucide-react'
+import { WHATSAPP_URL } from '../../lib/contact'
 
 const preguntas = [
   { pregunta: '¿Cómo funciona el proceso de creación?', respuesta: 'Es muy sencillo. Nos contactáis, nos contáis vuestra historia y preferencias, y en pocos días tendréis vuestra invitación lista. Podréis revisar y pedir cambios hasta que sea perfecta.' },
@@ -102,7 +103,7 @@ function FAQ() {
               ¿Tienes alguna otra pregunta?
             </p>
             <a
-              href="https://wa.me/34600000000?text=Hola!%20Tengo%20una%20duda%20sobre%20las%20invitaciones"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="font-sans text-[0.68rem] tracking-[0.12em] uppercase text-ink

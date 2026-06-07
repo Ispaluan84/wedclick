@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { XCircle, ArrowLeft, MessageCircle } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { WHATSAPP_URL } from '../lib/contact'
 
 function CheckoutCancel() {
   const navigate = useNavigate()
@@ -47,7 +48,7 @@ function CheckoutCancel() {
           </button>
 
           <a
-            href="https://wa.me/34600000000"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl

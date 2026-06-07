@@ -1,4 +1,5 @@
 import { Heart, Instagram, Mail, Phone, MapPin, Shield, Scale } from 'lucide-react'
+import { WHATSAPP_URL, PHONE_NUMBER } from '../../lib/contact'
 
 function FooterLanding() {
   return (
@@ -93,10 +94,10 @@ function FooterLanding() {
             <ul className="flex flex-col gap-4 text-warm-gray">
               <li className="flex items-center gap-3">
                 <Phone size={14} className="flex-shrink-0 text-w-gold/60" />
-                <a href="tel:+34628355913"
+                <a href={`tel:${PHONE_NUMBER.replace(/\s/g,'')}`}
                    className="font-sans font-light text-[0.82rem] hover:text-cream transition-colors"
                    data-hover>
-                  +34 628 355 913
+                  {PHONE_NUMBER}
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -114,7 +115,7 @@ function FooterLanding() {
             </ul>
 
             <a
-              href="https://wa.me/34628355913"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-6 font-sans text-[0.65rem]

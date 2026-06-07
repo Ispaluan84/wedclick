@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Heart, Sparkles, Send, Check, Loader2 } from 'lucide-react'
+import { ArrowRight, MessageCircle, Sparkles, Check, Loader2 } from 'lucide-react'
+import { WHATSAPP_URL } from '../../lib/contact'
 
 const fadeUp = (delay = 0) => ({
   initial:     { opacity: 0, y: 30 },
@@ -10,7 +11,7 @@ const fadeUp = (delay = 0) => ({
 })
 
 function CTAFinal() {
-  const [form, setForm]       = useState({ novio1: '', novio2: '', fecha: '', lugarCeremonia: '', lugarCelebracion: '', contacto: '', consulta: '' })
+  const [form, setForm]         = useState({ nombre: '', email: '', consulta: '' })
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado]   = useState(false)
   const [error, setError]       = useState('')
@@ -20,8 +21,8 @@ function CTAFinal() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (!form.novio1 || !form.novio2 || !form.consulta) {
-      setError('Por favor rellena al menos los nombres y la consulta.')
+    if (!form.nombre || !form.email) {
+      setError('Por favor rellena nombre y email.')
       return
     }
     setEnviando(true)
@@ -40,174 +41,189 @@ function CTAFinal() {
     }
   }
 
-  const inputCls = `w-full px-4 py-3 rounded-xl bg-crema/10 border border-crema/20
-    text-crema placeholder:text-crema/40 font-sans text-sm
-    focus:outline-none focus:border-crema/60 transition`
+  const inputCls = [
+    'w-full px-0 py-3 bg-transparent border-0 border-b border-w-gold/30',
+    'text-cream placeholder:text-warm-gray font-sans text-sm font-light',
+    'focus:outline-none focus:border-w-gold transition-colors duration-300',
+  ].join(' ')
+
+  const labelCls = 'font-sans text-[0.6rem] tracking-[0.2em] uppercase text-warm-gray block mb-1'
 
   return (
-    <section className="relative py-32 px-6 overflow-hidden
-                        bg-gradient-to-br from-verde-oscuro via-sage to-crema">
+    <section className="relative bg-ink overflow-hidden">
 
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-10 left-10 w-64 h-64 bg-crema/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-80 h-80 bg-tierra/20 rounded-full blur-3xl" />
-      </div>
+      {/* Línea decorativa superior */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-w-gold/40 to-transparent" />
 
-      <div className="relative max-w-3xl mx-auto">
+      {/* Textura de fondo sutil */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, #C9A96E 1px, transparent 0)`,
+          backgroundSize: '32px 32px',
+        }}
+      />
 
-        {/* Cabecera */}
-        <div className="text-center mb-12">
-          <motion.div {...fadeUp(0)} className="flex justify-center mb-8">
-            <div className="w-16 h-16 rounded-full bg-crema/10 border border-crema/20
-                            flex items-center justify-center">
-              <Heart size={28} className="text-crema" />
-            </div>
-          </motion.div>
-          <motion.h2 {...fadeUp(0.1)}
-            className="font-serif text-4xl md:text-5xl lg:text-6xl text-crema mb-6 leading-tight"
-          >
-            ¿Listos para crear
-            <br />
-            <span className="italic text-tierra">vuestra invitación?</span>
-          </motion.h2>
-          <motion.p {...fadeUp(0.2)}
-            className="font-sans font-light text-crema/80 text-lg leading-relaxed max-w-xl mx-auto mb-6"
-          >
-            Haced que vuestros invitados vivan la emoción de vuestra boda
-            desde el primer momento. Empezamos cuando queráis.
-          </motion.p>
-          <motion.div {...fadeUp(0.25)} className="flex justify-center mb-10">
-            
-            <a  href="https://elena-marcos.wedclick.es"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3 px-6 py-3 rounded-2xl
-                bg-crema/20 text-crema font-sans text-sm tracking-wide uppercase
-                border border-crema/30 hover:bg-crema/30 transition-all"
+      <div className="relative max-w-5xl mx-auto px-6 py-28 md:py-36">
+        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+
+          {/* — Columna izquierda: copy editorial — */}
+          <div>
+            <motion.p {...fadeUp(0)}
+              className="font-sans text-[0.6rem] tracking-[0.25em] uppercase text-w-gold mb-8"
             >
-              <Sparkles size={16} />
-              Ver demo primero
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-          </motion.div>
-        </div>
+              Empezamos cuando queráis
+            </motion.p>
 
-        {/* Formulario */}
-        <motion.div {...fadeUp(0.3)}>
-          <AnimatePresence mode="wait">
-            {enviado ? (
-              <motion.div
-                key="ok"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-crema/10 border border-crema/20 rounded-3xl p-12 text-center"
+            <motion.h2 {...fadeUp(0.1)}
+              className="font-serif text-display-lg text-cream leading-[1.05] mb-8"
+            >
+              Cada boda merece
+              <br />
+              <em className="text-w-gold not-italic">su propia voz.</em>
+            </motion.h2>
+
+            <motion.p {...fadeUp(0.2)}
+              className="font-sans font-light text-warm-gray text-base leading-relaxed mb-12 max-w-sm"
+            >
+              Haced que vuestros invitados vivan la emoción de vuestra boda
+              desde el primer momento. Diseño único, entrega rápida,
+              soporte personal durante todo el proceso.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row gap-4 mb-14">
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-3
+                           px-7 py-4 bg-w-gold text-ink
+                           font-sans text-xs tracking-[0.15em] uppercase font-medium
+                           hover:bg-w-gold-light transition-colors duration-300"
               >
-                <div className="w-16 h-16 rounded-full bg-tierra/20 flex items-center justify-center mx-auto mb-4">
-                  <Check size={28} className="text-tierra" />
-                </div>
-                <h3 className="font-serif text-2xl text-crema mb-2">¡Mensaje enviado!</h3>
-                <p className="font-sans text-crema/70 text-sm">
-                  Os contactaremos pronto para empezar a crear vuestra invitación.
-                </p>
-              </motion.div>
-            ) : (
-              <motion.form
-                key="form"
-                onSubmit={handleSubmit}
-                className="bg-crema/10 border border-crema/20 rounded-3xl p-8 flex flex-col gap-4"
+                <MessageCircle size={15} />
+                Escribirnos por WhatsApp
+              </a>
+
+              <a
+                href="https://elena-marcos.wedclick.es"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-3
+                           px-7 py-4 border border-w-gold/30 text-cream
+                           font-sans text-xs tracking-[0.15em] uppercase font-light
+                           hover:border-w-gold/70 transition-colors duration-300"
               >
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="font-sans text-xs text-crema/60 uppercase tracking-widest mb-1.5 block">
-                      Nombre novio/a 1 *
-                    </label>
-                    <input name="novio1" value={form.novio1} onChange={handleChange}
-                      placeholder="Elena" className={inputCls} />
-                  </div>
-                  <div>
-                    <label className="font-sans text-xs text-crema/60 uppercase tracking-widest mb-1.5 block">
-                      Nombre novio/a 2 *
-                    </label>
-                    <input name="novio2" value={form.novio2} onChange={handleChange}
-                      placeholder="Marcos" className={inputCls} />
-                  </div>
-                </div>
+                <Sparkles size={15} className="text-w-gold" />
+                Ver demo en vivo
+                <ArrowRight size={13} className="text-w-gold group-hover:translate-x-1 transition-transform duration-300" />
+              </a>
+            </motion.div>
 
-                <div>
-                  <label className="font-sans text-xs text-crema/60 uppercase tracking-widest mb-1.5 block">
-                    Fecha de la boda
-                  </label>
-                  <input name="fecha" type="date" value={form.fecha} onChange={handleChange}
-                    className={inputCls} />
+            {/* Garantías */}
+            <motion.div {...fadeUp(0.4)} className="flex flex-col gap-3">
+              {['Diseño 100% personalizado', 'Cambios ilimitados incluidos', 'Soporte personal continuo'].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <div className="w-px h-3 bg-w-gold/60" />
+                  <span className="font-sans text-xs font-light text-warm-gray tracking-wide">{item}</span>
                 </div>
+              ))}
+            </motion.div>
+          </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="font-sans text-xs text-crema/60 uppercase tracking-widest mb-1.5 block">
-                      Lugar ceremonia
-                    </label>
-                    <input name="lugarCeremonia" value={form.lugarCeremonia} onChange={handleChange}
-                      placeholder="Iglesia de..." className={inputCls} />
-                  </div>
-                  <div>
-                    <label className="font-sans text-xs text-crema/60 uppercase tracking-widest mb-1.5 block">
-                      Lugar celebración
-                    </label>
-                    <input name="lugarCelebracion" value={form.lugarCelebracion} onChange={handleChange}
-                      placeholder="Hacienda..." className={inputCls} />
-                  </div>
-                </div>
+          {/* — Columna derecha: formulario minimalista — */}
+          <motion.div {...fadeUp(0.2)}>
+            <div className="border border-w-gold/20 p-8 md:p-10">
 
-                <div>
-                  <label className="font-sans text-xs text-crema/60 uppercase tracking-widest mb-1.5 block">
-                    Forma de contacto (email o teléfono)
-                  </label>
-                  <input name="contacto" value={form.contacto} onChange={handleChange}
-                    placeholder="email@ejemplo.com / +34 600 000 000" className={inputCls} />
-                </div>
+              <p className="font-sans text-[0.6rem] tracking-[0.2em] uppercase text-w-gold mb-6">
+                O si preferís escribirnos aquí
+              </p>
 
-                <div>
-                  <label className="font-sans text-xs text-crema/60 uppercase tracking-widest mb-1.5 block">
-                    ¿En qué podemos ayudaros? *
-                  </label>
-                  <textarea name="consulta" value={form.consulta} onChange={handleChange}
-                    rows={4} placeholder="Cuéntanos lo que necesitáis..."
-                    className={`${inputCls} resize-none`} />
-                </div>
+              <AnimatePresence mode="wait">
+                {enviado ? (
+                  <motion.div
+                    key="ok"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="py-12 text-center"
+                  >
+                    <div className="w-10 h-10 border border-w-gold/40 flex items-center justify-center mx-auto mb-5">
+                      <Check size={18} className="text-w-gold" />
+                    </div>
+                    <h3 className="font-serif text-xl text-cream mb-2">Mensaje recibido</h3>
+                    <p className="font-sans text-sm font-light text-warm-gray leading-relaxed">
+                      Os contactaremos en menos de 24 horas para empezar a crear vuestra invitación.
+                    </p>
+                  </motion.div>
+                ) : (
+                  <motion.div key="form" className="flex flex-col gap-7">
 
-                {error && (
-                  <p className="font-sans text-xs text-tierra text-center">{error}</p>
+                    <div>
+                      <label className={labelCls}>Vuestros nombres *</label>
+                      <input
+                        name="nombre"
+                        value={form.nombre}
+                        onChange={handleChange}
+                        placeholder="Elena & Marcos"
+                        className={inputCls}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelCls}>Email o teléfono *</label>
+                      <input
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="hola@ejemplo.com"
+                        className={inputCls}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelCls}>Contadnos vuestra boda</label>
+                      <textarea
+                        name="consulta"
+                        value={form.consulta}
+                        onChange={handleChange}
+                        rows={3}
+                        placeholder="Fecha, lugar, estilo que buscáis..."
+                        className={`${inputCls} resize-none`}
+                      />
+                    </div>
+
+                    {error && (
+                      <p className="font-sans text-xs text-w-rose">{error}</p>
+                    )}
+
+                    <button
+                      onClick={handleSubmit}
+                      disabled={enviando}
+                      className="group flex items-center justify-center gap-2 w-full py-4
+                                 bg-transparent border border-w-gold/40 text-cream
+                                 font-sans text-xs tracking-[0.2em] uppercase font-light
+                                 hover:border-w-gold hover:bg-w-gold/5
+                                 transition-all duration-300
+                                 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      {enviando
+                        ? <><Loader2 size={13} className="animate-spin" /> Enviando</>
+                        : <>Enviar consulta <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform duration-300" /></>
+                      }
+                    </button>
+                  </motion.div>
                 )}
-
-                <button
-                  type="submit"
-                  disabled={enviando}
-                  className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl
-                    bg-crema text-verde-oscuro font-sans text-sm font-semibold
-                    tracking-wide uppercase hover:bg-crema/90 transition-all
-                    shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {enviando
-                    ? <><Loader2 size={16} className="animate-spin" /> Enviando...</>
-                    : <><Send size={16} /> Enviar consulta</>
-                  }
-                </button>
-              </motion.form>
-            )}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Garantías */}
-        <motion.div {...fadeUp(0.5)} className="flex flex-wrap justify-center gap-8 mt-10">
-          {['Diseño 100% personalizado', 'Cambios ilimitados', 'Soporte continuo'].map((item) => (
-            <div key={item} className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-tierra" />
-              <span className="font-sans text-sm text-crema/90">{item}</span>
+              </AnimatePresence>
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
 
+        </div>
       </div>
+
+      {/* Línea decorativa inferior */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-w-gold/40 to-transparent" />
+
     </section>
   )
 }
