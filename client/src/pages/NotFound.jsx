@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft, MessageCircle } from 'lucide-react'
 import { WHATSAPP_URL } from '../lib/contact'
+import SEO from '../components/SEO'
 
 const fadeUp = (delay = 0) => ({
   initial:    { opacity: 0, y: 30 },
@@ -10,7 +11,13 @@ const fadeUp = (delay = 0) => ({
 
 function NotFound() {
   return (
-    <section className="min-h-screen bg-warmWhite flex items-center justify-center px-6">
+    <>
+      <SEO
+        titulo="Página no encontrada · WedClick"
+        descripcion="La página que buscas no existe."
+        noIndex={true}
+      />
+      <section className="min-h-screen bg-warmWhite flex items-center justify-center px-6">
 
       {/* Elementos decorativos de fondo */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -91,6 +98,7 @@ function NotFound() {
       </div>
 
     </section>
+    </>
   )
 }
 
