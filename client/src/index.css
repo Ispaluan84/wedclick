@@ -78,6 +78,12 @@
   .cursor-dot.is-hover  { width: 14px; height: 14px; background: #C9A96E; }
   .cursor-ring.is-hover { width: 54px; height: 54px; border-color: #C9A96E; opacity: 0.5; }
 
+  /* Variante clara para secciones con fondo oscuro */
+  .cursor-dot.is-light  { background: #F7F2EB; }
+  .cursor-ring.is-light { border-color: #F7F2EB; opacity: 0.4; }
+  .cursor-dot.is-light.is-hover  { background: #C9A96E; }
+  .cursor-ring.is-light.is-hover { border-color: #C9A96E; }
+
   /* Ornament line */
   .ornament-line {
     display: block;

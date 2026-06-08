@@ -3,7 +3,7 @@ import { WHATSAPP_URL, PHONE_NUMBER } from '../../lib/contact'
 
 function FooterLanding() {
   return (
-    <footer className="bg-ink text-cream">
+    <footer data-dark className="bg-ink text-cream">
 
       {/* Contenido principal */}
       <div className="max-w-7xl mx-auto px-8 md:px-14 py-20">

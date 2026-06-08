@@ -50,7 +50,7 @@ function CTAFinal() {
   const labelCls = 'font-sans text-[0.6rem] tracking-[0.2em] uppercase text-warm-gray block mb-1'
 
   return (
-    <section className="relative bg-ink overflow-hidden">
+    <section data-dark className="relative bg-ink overflow-hidden">
 
       {/* Línea decorativa superior */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-w-gold/40 to-transparent" />

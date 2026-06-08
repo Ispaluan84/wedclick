@@ -45,7 +45,7 @@ function Testimonials() {
   const anterior  = () => setActual((p) => (p <= 0 ? testimonios.length - 1 : p - 1))
 
   return (
-    <section id="testimonios" className="bg-ink px-8 md:px-14 py-32 relative overflow-hidden">
+    <section id="testimonios" data-dark className="bg-ink px-8 md:px-14 py-32 relative overflow-hidden">
 
       {/* Texto fantasma decorativo */}
       <span

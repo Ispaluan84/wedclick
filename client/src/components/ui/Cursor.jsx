@@ -1,13 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
-// El cursor personalizado solo se activa en la landing page (ruta "/")
 function Cursor() {
-  const dotRef  = useRef(null)
-  const ringRef = useRef(null)
-  const mouse   = useRef({ x: 0, y: 0 })
-  const ring    = useRef({ x: 0, y: 0 })
-  const raf     = useRef(0)
+  const dotRef   = useRef(null)
+  const ringRef  = useRef(null)
+  const mouse    = useRef({ x: 0, y: 0 })
+  const ring     = useRef({ x: 0, y: 0 })
+  const raf      = useRef(0)
   const location = useLocation()
 
   const isLanding = location.pathname === '/'
@@ -19,6 +18,7 @@ function Cursor() {
 
     const onMove = (e) => {
       mouse.current = { x: e.clientX, y: e.clientY }
+
       if (dotRef.current) {
         dotRef.current.style.left = e.clientX + 'px'
         dotRef.current.style.top  = e.clientY + 'px'
@@ -26,6 +26,17 @@ function Cursor() {
       }
       if (ringRef.current) {
         ringRef.current.classList.add('is-visible')
+      }
+
+      // Detectar si el cursor está sobre una sección oscura
+      const el = document.elementFromPoint(e.clientX, e.clientY)
+      const darkSection = el?.closest('[data-dark]')
+      if (darkSection) {
+        dotRef.current?.classList.add('is-light')
+        ringRef.current?.classList.add('is-light')
+      } else {
+        dotRef.current?.classList.remove('is-light')
+        ringRef.current?.classList.remove('is-light')
       }
     }
 
@@ -57,8 +68,6 @@ function Cursor() {
 
     document.addEventListener('mousemove', onMove)
     raf.current = requestAnimationFrame(animate)
-
-    // Pequeño delay para que el DOM esté montado
     const t = setTimeout(bindHoverables, 300)
 
     return () => {
