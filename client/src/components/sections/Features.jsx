@@ -56,7 +56,7 @@ function FeatureCard({ feature, index }) {
 
 function Features() {
   return (
-    <section id="funcionalidades" className="bg-cream px-8 md:px-14 py-36 overflow-hidden">
+    <section id="funcionalidades" className="bg-cream px-8 md:px-14 py-24 overflow-hidden">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}

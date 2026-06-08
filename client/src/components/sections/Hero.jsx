@@ -111,9 +111,8 @@ function HeroLanding() {
 
         {/* Frase editorial */}
         <motion.div {...anim(0.55)} className="flex items-center gap-4 mt-20">
-          <div className="w-px h-8 bg-w-gold/40" />
-          <p className="font-sans text-[0.65rem] tracking-[0.15em] uppercase
-                        text-warm-gray leading-relaxed">
+          <div className="w-px h-10 bg-w-gold/50" />
+          <p className="font-serif italic text-ink/50 text-sm leading-snug">
             Cada boda,<br />una historia única
           </p>
         </motion.div>

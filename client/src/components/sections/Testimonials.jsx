@@ -45,13 +45,13 @@ function Testimonials() {
   const anterior  = () => setActual((p) => (p <= 0 ? testimonios.length - 1 : p - 1))
 
   return (
-    <section id="testimonios" className="bg-w-rose px-8 md:px-14 py-32 relative overflow-hidden">
+    <section id="testimonios" className="bg-ink px-8 md:px-14 py-32 relative overflow-hidden">
 
       {/* Texto fantasma decorativo */}
       <span
         className="pointer-events-none select-none absolute bottom-0 left-0
                    font-serif font-black italic text-[18rem] leading-[0.8]
-                   text-white/[0.07] whitespace-nowrap"
+                   text-w-gold/[0.06] whitespace-nowrap"
         aria-hidden="true"
       >
         amor

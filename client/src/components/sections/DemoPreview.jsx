@@ -274,7 +274,7 @@ function DemoPreview() {
 
       {/* Línea decorativa superior */}
       <div className="max-w-6xl mx-auto">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-w-gold/30 to-transparent mb-28" />
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-w-gold/30 to-transparent mb-16" />
       </div>
 
       <div className="max-w-6xl mx-auto">
@@ -441,4 +441,4 @@ function DemoPreview() {
   )
 }
 
-export default DemoPreview
+export default DemoPreviewh

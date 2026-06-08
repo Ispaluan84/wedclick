@@ -22,6 +22,10 @@ function Cursor() {
       if (dotRef.current) {
         dotRef.current.style.left = e.clientX + 'px'
         dotRef.current.style.top  = e.clientY + 'px'
+        dotRef.current.classList.add('is-visible')
+      }
+      if (ringRef.current) {
+        ringRef.current.classList.add('is-visible')
       }
     }
 
