@@ -42,8 +42,8 @@ function EnvelopeCard() {
 
   return (
     <div
-      className="absolute z-10 cursor-pointer select-none"
-      style={{ transform: 'rotate(5deg) translate(55px, 18px)' }}
+      className="cursor-pointer select-none"
+      style={{ position: 'relative' }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       data-hover
@@ -246,11 +246,9 @@ function HeroLanding() {
 
           <div className="absolute inset-0 flex items-center justify-center">
 
-            {/* Sobre animado */}
-            <EnvelopeCard />
-
-            {/* Tarjeta principal */}
-            <div className="relative z-20 inv-card-tilt">
+            {/* Tarjeta de fondo — Claudia & Daniel */}
+            <div className="absolute z-10"
+                 style={{ transform: 'rotate(5deg) translate(55px, 18px)' }}>
               <div className="bg-paper w-44 md:w-56 px-7 py-10 text-center
                               shadow-[0_40px_80px_rgba(26,20,16,0.18)]">
                 <p className="font-sans text-[0.44rem] tracking-[0.18em] uppercase text-w-gold mb-4">
@@ -267,6 +265,11 @@ function HeroLanding() {
                   Finca La Encina · Valencia
                 </p>
               </div>
+            </div>
+
+            {/* Sobre animado — encima y centrado */}
+            <div className="relative z-20 inv-card-tilt">
+              <EnvelopeCard />
             </div>
 
           </div>
