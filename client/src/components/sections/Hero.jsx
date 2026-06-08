@@ -37,136 +37,145 @@ function OrnamentalSVG() {
 function EnvelopeCard() {
   const [open, setOpen] = useState(false)
 
-  const W = 210
-  const H = 140
+  const W   = 220   // ancho sobre
+  const H   = 150   // alto sobre
+  const invW = W - 28
+  const invH = 175  // invitación más alta que el sobre
 
-  // La invitación es más alta que el sobre para que sobre salga por arriba
-  const invW = W - 24
-  const invH = 160
+  // Cuánto sobresale la invitación por arriba cuando está abierta
+  const peekAmount = invH - H * 0.35
 
   return (
     <div
       className="cursor-pointer select-none"
-      style={{ position: 'relative', width: W, height: H + invH * 0.6 }}
+      style={{
+        position: 'relative',
+        width: W,
+        // altura total = sobre + espacio para que la invitación sobresalga
+        height: H + peekAmount * 0.6,
+        // Perspectiva para que el rotateX de la solapa se vea en 3D
+        perspective: '600px',
+      }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       data-hover
     >
-      {/* ── Sobre (base) — siempre visible, z bajo ── */}
+
+      {/* ══ INVITACIÓN ══
+          Empieza oculta dentro del sobre (translateY grande)
+          y sube al hacer hover. Siempre detrás de la solapa
+          pero delante del cuerpo del sobre.
+      */}
+      <motion.div
+        animate={{ y: open ? 0 : invH * 0.52 }}
+        transition={{
+          duration: 1.1,
+          ease: [0.19, 1, 0.22, 1],
+          delay: open ? 0.35 : 0,
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: '50%',
+          marginLeft: -(invW / 2),
+          width: invW,
+          height: invH,
+          zIndex: 2,       // encima del cuerpo, debajo de la solapa mientras sube
+          background: '#F7F2EB',
+          padding: '20px 22px',
+          textAlign: 'center',
+          boxShadow: '0 8px 40px rgba(26,20,16,0.18)',
+          overflow: 'hidden',
+        }}
+      >
+        <p style={{ fontFamily: 'DM Sans', fontSize: '7px', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '10px' }}>
+          — Os invitamos —
+        </p>
+        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '16px', color: '#1A1410', lineHeight: 1.2 }}>
+          Elena
+        </p>
+        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '26px', color: '#C9A96E', lineHeight: 1, margin: '5px 0' }}>
+          &
+        </p>
+        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '16px', color: '#1A1410', lineHeight: 1.2 }}>
+          Marcos
+        </p>
+        <div style={{ width: '22px', height: '1px', background: '#C9A96E', margin: '12px auto' }} />
+        <p style={{ fontFamily: 'DM Sans', fontSize: '6.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8B8177', lineHeight: 2.2 }}>
+          14 · IX · 2025<br />
+          Hacienda Los Olivos<br />
+          Sevilla
+        </p>
+      </motion.div>
+
+      {/* ══ CUERPO DEL SOBRE ══
+          Rectángulo beige. Tapa la invitación mientras está dentro.
+          El clipPath hace que la parte superior del cuerpo
+          no tape la invitación cuando ya ha subido.
+      */}
       <div style={{
         position: 'absolute',
         bottom: 0,
         left: 0,
         width: W,
         height: H,
-        zIndex: 1,
+        zIndex: 3,
+        background: '#EDE5D8',
+        border: '1px solid #D4C4A8',
+        boxShadow: '0 20px 50px rgba(26,20,16,0.13)',
+        overflow: 'hidden',
       }}>
-        {/* Sombra / cuerpo */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: '#EDE5D8',
-          border: '1px solid #D4C4A8',
-          boxShadow: '0 20px 60px rgba(26,20,16,0.14)',
-        }} />
-
-        {/* Triángulo inferior interior (V frontal) */}
+        {/* V costura inferior — solo decorativa, dibujada sobre el cuerpo */}
         <svg
-          style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '55%', zIndex: 3 }}
+          style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '55%' }}
           viewBox={`0 0 ${W} ${H * 0.55}`}
           preserveAspectRatio="none"
         >
           <polygon
             points={`0,0 ${W},0 ${W / 2},${H * 0.55}`}
-            fill="#E4D9CB"
+            fill="#E3D8C8"
             stroke="#D4C4A8"
-            strokeWidth="0.8"
+            strokeWidth="1"
           />
         </svg>
-
-        {/* Triángulos laterales */}
-        <svg
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 2 }}
-          viewBox={`0 0 ${W} ${H}`}
-          preserveAspectRatio="none"
-        >
-          <polygon points={`0,0 0,${H} ${W / 2},${H * 0.52}`} fill="#EAE0D2" stroke="#D4C4A8" strokeWidth="0.8" />
-          <polygon points={`${W},0 ${W},${H} ${W / 2},${H * 0.52}`} fill="#EAE0D2" stroke="#D4C4A8" strokeWidth="0.8" />
-        </svg>
-
-        {/* Solapa superior — se dobla hacia atrás en hover */}
-        <motion.div
-          style={{
-            position: 'absolute', top: 0, left: 0,
-            width: '100%',
-            transformOrigin: 'top center',
-            zIndex: 4,
-            perspective: 400,
-          }}
-          animate={{ rotateX: open ? -160 : 0 }}
-          transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
-        >
-          <svg
-            viewBox={`0 0 ${W} ${H * 0.56}`}
-            style={{ width: '100%', display: 'block' }}
-            preserveAspectRatio="none"
-          >
-            <polygon
-              points={`0,0 ${W},0 ${W / 2},${H * 0.56}`}
-              fill={open ? '#D8CFC0' : '#E0D6C8'}
-              stroke="#D4C4A8"
-              strokeWidth="0.8"
-            />
-            {/* Sello */}
-            <circle cx={W / 2} cy={10} r="9" fill="none" stroke="#C9A96E" strokeWidth="0.8" opacity="0.8" />
-            <circle cx={W / 2} cy={10} r="4" fill="#C9A96E" opacity="0.5" />
-          </svg>
-        </motion.div>
       </div>
 
-      {/* ── Invitación — sale por encima del sobre ── */}
+      {/* ══ SOLAPA SUPERIOR ══
+          Se dobla hacia atrás en hover (rotateX negativo).
+          transformOrigin en el borde superior para que gire desde arriba.
+          zIndex alto para tapar la invitación mientras está cerrada,
+          pero al abrirse se va hacia atrás y la deja libre.
+      */}
       <motion.div
-        animate={{
-          y:       open ? 0   : invH * 0.55,
-          opacity: open ? 1   : 0,
-        }}
-        transition={{
-          duration: 0.8,
-          ease: [0.19, 1, 0.22, 1],
-          delay: open ? 0.3 : 0,   // espera a que la solapa se abra
-        }}
+        animate={{ rotateX: open ? -165 : 0 }}
+        transition={{ duration: 0.75, ease: [0.19, 1, 0.22, 1] }}
         style={{
           position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: invW,
-          height: invH,
-          zIndex: 10,             // encima del sobre siempre
-          background: '#F7F2EB',
-          padding: '18px 22px',
-          textAlign: 'center',
-          boxShadow: '0 24px 70px rgba(26,20,16,0.22)',
-          pointerEvents: 'none',
+          bottom: H - 2,  // justo en el borde superior del cuerpo
+          left: 0,
+          width: W,
+          transformOrigin: 'bottom center',
+          zIndex: 5,
+          backfaceVisibility: 'hidden',
         }}
       >
-        <p style={{ fontFamily: 'DM Sans', fontSize: '7px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '8px' }}>
-          — Os invitamos —
-        </p>
-        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '15px', color: '#1A1410', lineHeight: 1.3 }}>
-          Elena
-        </p>
-        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '22px', color: '#C9A96E', lineHeight: 1, margin: '4px 0' }}>
-          &
-        </p>
-        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '15px', color: '#1A1410', lineHeight: 1.3 }}>
-          Marcos
-        </p>
-        <div style={{ width: '20px', height: '1px', background: '#C9A96E', margin: '10px auto' }} />
-        <p style={{ fontFamily: 'DM Sans', fontSize: '6.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8B8177', lineHeight: 2.1 }}>
-          14 · IX · 2025<br />
-          Hacienda Los Olivos<br />
-          Sevilla
-        </p>
+        <svg
+          viewBox={`0 0 ${W} ${H * 0.58}`}
+          style={{ width: '100%', display: 'block' }}
+          preserveAspectRatio="none"
+        >
+          {/* Triángulo de la solapa — apunta hacia abajo (hacia el centro del sobre) */}
+          <polygon
+            points={`0,0 ${W},0 ${W / 2},${H * 0.58}`}
+            fill="#E0D6C8"
+            stroke="#D4C4A8"
+            strokeWidth="1"
+          />
+          {/* Sello dorado */}
+          <circle cx={W / 2} cy={14} r="10" fill="none" stroke="#C9A96E" strokeWidth="0.9" opacity="0.8" />
+          <circle cx={W / 2} cy={14} r="4.5" fill="#C9A96E" opacity="0.45" />
+          <text x={W / 2} y={17.5} textAnchor="middle" fontSize="5" fill="#C9A96E" opacity="0.9" fontFamily="serif">W</text>
+        </svg>
       </motion.div>
 
     </div>
