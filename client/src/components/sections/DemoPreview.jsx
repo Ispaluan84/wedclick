@@ -79,11 +79,17 @@ function PhoneMockup({ onEnter }) {
           className="relative overflow-hidden"
           style={{ borderRadius: '2rem', aspectRatio: '9/19.5', background: '#F7F2EB' }}
         >
-          <img
-            src="/screenshots/demo-mobile.jpg"
-            alt="Demo móvil Elena & Marcos"
-            className="w-full h-full object-cover object-top"
-          />
+          <picture>
+            <source srcSet="/screenshots/demo-mobile.webp" type="image/webp" />
+            <img
+              src="/screenshots/demo-mobile.jpg"
+              alt="Demo móvil Elena & Marcos"
+              width="240"
+              height="520"
+              className="w-full h-full object-cover object-top"
+              loading="eager"
+            />
+          </picture>
           {/* Hint */}
           <div
             className="absolute inset-0 flex items-end justify-center pb-5"
@@ -209,11 +215,17 @@ function LaptopMockup({ onLeave }) {
 
           {/* Imagen escritorio */}
           <div style={{ height: '280px', overflow: 'hidden', background: '#F7F2EB' }}>
-            <img
-              src="/screenshots/demo-desktop.jpg"
-              alt="Demo escritorio Elena & Marcos"
-              className="w-full h-full object-cover object-top"
-            />
+            <picture>
+              <source srcSet="/screenshots/demo-desktop.webp" type="image/webp" />
+              <img
+                src="/screenshots/demo-desktop.jpg"
+                alt="Demo escritorio Elena & Marcos"
+                width="900"
+                height="280"
+                className="w-full h-full object-cover object-top"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </div>
       </div>

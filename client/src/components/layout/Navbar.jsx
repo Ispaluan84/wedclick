@@ -36,7 +36,10 @@ function Navbar() {
           <img
             src="/Logo_WedClick.png"
             alt="WedClick"
+            width="120"
+            height="36"
             className="h-9 w-auto"
+            loading="eager"
           />
         </a>
 

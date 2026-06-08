@@ -14,19 +14,32 @@
 </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1C2B3A" />
+    <meta name="theme-color" content="#1A1410" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo_wedclick.png" />
     <link rel="apple-touch-icon" href="/logo_wedclick.png" />
 
-    <!-- Fuentes -->
+    <!-- Fuentes — carga no bloqueante -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
-      rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      />
+    </noscript>
 
     <!-- SEO primario -->
     <title>WedClick · Invitaciones de boda digitales y personalizadas</title>
@@ -36,7 +49,7 @@
     />
     <meta
       name="keywords"
-      content="invitaciones de boda digitales, invitaciones boda online, invitación boda interactiva, invitación boda personalizada, wedding invitation digital, invitación boda Sevilla, wedclick"
+      content="invitaciones de boda digitales, invitaciones boda online, invitación boda interactiva, invitación boda personalizada, invitación boda digital España, invitación boda digital Sevilla, invitaciones boda sin plantillas, wedclick"
     />
     <meta name="author"  content="WedClick" />
     <meta name="robots"  content="index, follow" />
@@ -99,10 +112,12 @@
           "priceRange": "€€",
           "currenciesAccepted": "EUR",
           "paymentAccepted": "Credit Card",
-          "areaServed": {
-            "@type": "Country",
-            "name": "España"
-          },
+          "areaServed": [
+            { "@type": "Country", "name": "España" },
+            { "@type": "Country", "name": "México" },
+            { "@type": "Country", "name": "Argentina" },
+            { "@type": "Country", "name": "Colombia" }
+          ],
           "serviceType": "Invitaciones de boda digitales",
           "sameAs": [
             "https://instagram.com/wedclick"
@@ -114,16 +129,24 @@
               {
                 "@type": "Offer",
                 "name": "Plan Esencial",
-                "description": "Invitación de boda digital personalizada con confirmación de asistencia, banda sonora y álbum colaborativo",
-                "price": "297",
+                "description": "Invitación de boda digital personalizada con confirmación de asistencia, playlist colaborativa, mapa interactivo e itinerario",
+                "price": "149",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock"
               },
               {
                 "@type": "Offer",
                 "name": "Plan Premium",
-                "description": "Todo lo del plan Esencial más funcionalidades avanzadas y soporte prioritario",
-                "price": "497",
+                "description": "Todo lo del plan Esencial más QR personalizado por invitado, sobre animado y animación de apertura tipo carta",
+                "price": "249",
+                "priceCurrency": "EUR",
+                "availability": "https://schema.org/InStock"
+              },
+              {
+                "@type": "Offer",
+                "name": "Plan Lanzamiento",
+                "description": "Todo lo del plan Premium más álbum colaborativo de fotos con hosting incluido",
+                "price": "299",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/InStock"
               }
@@ -139,41 +162,30 @@
           "publisher": {
             "@id": "https://wedclick.es/#business"
           },
-          "inLanguage": "es-ES"
+          "inLanguage": "es-ES",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://wedclick.es/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
         },
         {
           "@type": "FAQPage",
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "¿Qué es una invitación de boda digital?",
+              "name": "¿Cómo funciona el proceso de creación?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Una invitación de boda digital es una página web personalizada para vuestra boda donde los invitados pueden confirmar asistencia, ver los detalles del evento, escuchar vuestra banda sonora y subir fotos del gran día."
+                "text": "Es muy sencillo. Nos contactáis, nos contáis vuestra historia y preferencias, y en pocos días tendréis vuestra invitación lista. Podréis revisar y pedir cambios hasta que sea perfecta."
               }
             },
             {
               "@type": "Question",
-              "name": "¿Cuánto cuesta una invitación de boda digital con WedClick?",
+              "name": "¿Cuánto tiempo tardáis en tener la invitación lista?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Nuestros planes empiezan desde 297€ para el Plan Esencial. El pago se divide en dos partes: 50% al contratar y 50% antes de la entrega."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Cuánto tiempo tardáis en entregar la invitación?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "El plazo de entrega habitual es de 7 a 14 días desde que recibimos toda la información necesaria. Lo acordamos contigo al inicio del proyecto."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Puedo ver una demo antes de contratar?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sí, tenemos una invitación de demostración completa disponible en nuestra web para que podáis ver exactamente cómo quedará vuestra invitación."
+                "text": "Normalmente entre 5 y 7 días laborables desde que recibimos toda la información. Si tenéis prisa, ofrecemos un servicio express de 48 horas con un pequeño suplemento."
               }
             },
             {
@@ -181,7 +193,39 @@
               "name": "¿Los invitados necesitan descargar alguna app?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No, la invitación es una página web accesible desde cualquier dispositivo con un navegador. No se necesita descargar ninguna aplicación."
+                "text": "No, para nada. La invitación es una página web que se abre directamente en el navegador del móvil o del ordenador. Solo necesitan el enlace que les enviéis."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Puedo hacer cambios después de publicar la invitación?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sí, podéis hacer cambios en textos, horarios, ubicaciones y más en cualquier momento. Nosotros nos encargamos de actualizarlo al instante."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cómo recibo las confirmaciones de asistencia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Tendréis acceso a un panel donde veréis en tiempo real quién ha confirmado, cuántos asistentes vienen, alergias alimentarias y cualquier nota que dejen vuestros invitados."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Las fotos del álbum colaborativo se pierden?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, todas las fotos quedan guardadas de forma segura. Al finalizar el evento os entregamos el álbum completo en alta resolución para que lo tengáis para siempre."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Puedo personalizar los colores y el diseño?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Por supuesto. Cada invitación se diseña desde cero con vuestra paleta de colores, tipografías y estilo. No usamos plantillas genéricas, cada boda es única."
               }
             }
           ]
