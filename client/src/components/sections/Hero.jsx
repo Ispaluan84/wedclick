@@ -37,128 +37,138 @@ function OrnamentalSVG() {
 function EnvelopeCard() {
   const [open, setOpen] = useState(false)
 
-  const W = 192  // ancho sobre en px
-  const H = 128  // alto sobre en px
+  const W = 210
+  const H = 140
+
+  // La invitación es más alta que el sobre para que sobre salga por arriba
+  const invW = W - 24
+  const invH = 160
 
   return (
     <div
       className="cursor-pointer select-none"
-      style={{ position: 'relative' }}
+      style={{ position: 'relative', width: W, height: H + invH * 0.6 }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
       data-hover
     >
-      {/* Contenedor con perspectiva */}
-      <div style={{ width: W, height: H + 80, position: 'relative' }}>
+      {/* ── Sobre (base) — siempre visible, z bajo ── */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: W,
+        height: H,
+        zIndex: 1,
+      }}>
+        {/* Sombra / cuerpo */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: '#EDE5D8',
+          border: '1px solid #D4C4A8',
+          boxShadow: '0 20px 60px rgba(26,20,16,0.14)',
+        }} />
 
-        {/* ── Invitación que sube desde dentro ── */}
-        <motion.div
-          animate={{ y: open ? -70 : 10, opacity: open ? 1 : 0 }}
-          transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1], delay: open ? 0.15 : 0 }}
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: W - 20,
-            zIndex: 2,
-            background: '#F7F2EB',
-            padding: '16px 20px',
-            textAlign: 'center',
-            boxShadow: '0 20px 60px rgba(26,20,16,0.18)',
-          }}
+        {/* Triángulo inferior interior (V frontal) */}
+        <svg
+          style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '55%', zIndex: 3 }}
+          viewBox={`0 0 ${W} ${H * 0.55}`}
+          preserveAspectRatio="none"
         >
-          <p style={{ fontFamily: 'DM Sans', fontSize: '7px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '6px' }}>
-            — Os invitamos —
-          </p>
-          <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '13px', color: '#1A1410', lineHeight: 1.3 }}>
-            Elena & Marcos
-          </p>
-          <div style={{ width: '20px', height: '1px', background: '#C9A96E', margin: '6px auto' }} />
-          <p style={{ fontFamily: 'DM Sans', fontSize: '6.5px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8B8177', lineHeight: 2 }}>
-            14 · IX · 2025<br />
-            Hacienda Los Olivos<br />
-            Sevilla
-          </p>
+          <polygon
+            points={`0,0 ${W},0 ${W / 2},${H * 0.55}`}
+            fill="#E4D9CB"
+            stroke="#D4C4A8"
+            strokeWidth="0.8"
+          />
+        </svg>
+
+        {/* Triángulos laterales */}
+        <svg
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 2 }}
+          viewBox={`0 0 ${W} ${H}`}
+          preserveAspectRatio="none"
+        >
+          <polygon points={`0,0 0,${H} ${W / 2},${H * 0.52}`} fill="#EAE0D2" stroke="#D4C4A8" strokeWidth="0.8" />
+          <polygon points={`${W},0 ${W},${H} ${W / 2},${H * 0.52}`} fill="#EAE0D2" stroke="#D4C4A8" strokeWidth="0.8" />
+        </svg>
+
+        {/* Solapa superior — se dobla hacia atrás en hover */}
+        <motion.div
+          style={{
+            position: 'absolute', top: 0, left: 0,
+            width: '100%',
+            transformOrigin: 'top center',
+            zIndex: 4,
+            perspective: 400,
+          }}
+          animate={{ rotateX: open ? -160 : 0 }}
+          transition={{ duration: 0.7, ease: [0.19, 1, 0.22, 1] }}
+        >
+          <svg
+            viewBox={`0 0 ${W} ${H * 0.56}`}
+            style={{ width: '100%', display: 'block' }}
+            preserveAspectRatio="none"
+          >
+            <polygon
+              points={`0,0 ${W},0 ${W / 2},${H * 0.56}`}
+              fill={open ? '#D8CFC0' : '#E0D6C8'}
+              stroke="#D4C4A8"
+              strokeWidth="0.8"
+            />
+            {/* Sello */}
+            <circle cx={W / 2} cy={10} r="9" fill="none" stroke="#C9A96E" strokeWidth="0.8" opacity="0.8" />
+            <circle cx={W / 2} cy={10} r="4" fill="#C9A96E" opacity="0.5" />
+          </svg>
         </motion.div>
-
-        {/* ── Sobre ── */}
-        <div style={{ position: 'absolute', bottom: 0, width: W, height: H, zIndex: 3 }}>
-
-          {/* Cuerpo del sobre */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: '#EDE5D8',
-            border: '1px solid #D4C4A8',
-            boxShadow: '0 20px 60px rgba(26,20,16,0.12)',
-          }} />
-
-          {/* Triángulo inferior (parte frontal V) */}
-          <svg
-            style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '60%', zIndex: 5 }}
-            viewBox={`0 0 ${W} ${H * 0.6}`}
-            preserveAspectRatio="none"
-          >
-            <polygon
-              points={`0,0 ${W},0 ${W / 2},${H * 0.6}`}
-              fill="#E8DDD0"
-              stroke="#D4C4A8"
-              strokeWidth="0.8"
-            />
-          </svg>
-
-          {/* Triángulos laterales */}
-          <svg
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 4 }}
-            viewBox={`0 0 ${W} ${H}`}
-            preserveAspectRatio="none"
-          >
-            {/* Izquierdo */}
-            <polygon
-              points={`0,0 0,${H} ${W / 2},${H * 0.5}`}
-              fill="#EAE0D2"
-              stroke="#D4C4A8"
-              strokeWidth="0.8"
-            />
-            {/* Derecho */}
-            <polygon
-              points={`${W},0 ${W},${H} ${W / 2},${H * 0.5}`}
-              fill="#EAE0D2"
-              stroke="#D4C4A8"
-              strokeWidth="0.8"
-            />
-          </svg>
-
-          {/* Solapa superior — se abre en hover */}
-          <motion.div
-            style={{
-              position: 'absolute', top: 0, left: 0,
-              width: '100%',
-              transformOrigin: 'top center',
-              zIndex: 6,
-            }}
-            animate={{ rotateX: open ? -155 : 0 }}
-            transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-          >
-            <svg
-              viewBox={`0 0 ${W} ${H * 0.55}`}
-              style={{ width: '100%', display: 'block' }}
-              preserveAspectRatio="none"
-            >
-              <polygon
-                points={`0,0 ${W},0 ${W / 2},${H * 0.55}`}
-                fill={open ? '#D4C4A8' : '#E0D6C8'}
-                stroke="#D4C4A8"
-                strokeWidth="0.8"
-              />
-              {/* Sello dorado en la solapa */}
-              <circle cx={W / 2} cy={12} r="8" fill="none" stroke="#C9A96E" strokeWidth="0.8" opacity="0.7" />
-              <circle cx={W / 2} cy={12} r="4" fill="#C9A96E" opacity="0.4" />
-            </svg>
-          </motion.div>
-
-        </div>
       </div>
+
+      {/* ── Invitación — sale por encima del sobre ── */}
+      <motion.div
+        animate={{
+          y:       open ? 0   : invH * 0.55,
+          opacity: open ? 1   : 0,
+        }}
+        transition={{
+          duration: 0.8,
+          ease: [0.19, 1, 0.22, 1],
+          delay: open ? 0.3 : 0,   // espera a que la solapa se abra
+        }}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: invW,
+          height: invH,
+          zIndex: 10,             // encima del sobre siempre
+          background: '#F7F2EB',
+          padding: '18px 22px',
+          textAlign: 'center',
+          boxShadow: '0 24px 70px rgba(26,20,16,0.22)',
+          pointerEvents: 'none',
+        }}
+      >
+        <p style={{ fontFamily: 'DM Sans', fontSize: '7px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '8px' }}>
+          — Os invitamos —
+        </p>
+        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '15px', color: '#1A1410', lineHeight: 1.3 }}>
+          Elena
+        </p>
+        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '22px', color: '#C9A96E', lineHeight: 1, margin: '4px 0' }}>
+          &
+        </p>
+        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '15px', color: '#1A1410', lineHeight: 1.3 }}>
+          Marcos
+        </p>
+        <div style={{ width: '20px', height: '1px', background: '#C9A96E', margin: '10px auto' }} />
+        <p style={{ fontFamily: 'DM Sans', fontSize: '6.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8B8177', lineHeight: 2.1 }}>
+          14 · IX · 2025<br />
+          Hacienda Los Olivos<br />
+          Sevilla
+        </p>
+      </motion.div>
+
     </div>
   )
 }
@@ -245,33 +255,9 @@ function HeroLanding() {
           <OrnamentalSVG />
 
           <div className="absolute inset-0 flex items-center justify-center">
-
-            {/* Tarjeta de fondo — Claudia & Daniel */}
-            <div className="absolute z-10"
-                 style={{ transform: 'rotate(5deg) translate(55px, 18px)' }}>
-              <div className="bg-paper w-44 md:w-56 px-7 py-10 text-center
-                              shadow-[0_40px_80px_rgba(26,20,16,0.18)]">
-                <p className="font-sans text-[0.44rem] tracking-[0.18em] uppercase text-w-gold mb-4">
-                  — Os invitamos —
-                </p>
-                <p className="font-serif italic text-lg text-ink">Claudia</p>
-                <p className="font-serif italic text-4xl text-w-gold leading-none my-1">&</p>
-                <p className="font-serif italic text-lg text-ink">Daniel</p>
-                <div className="w-5 h-px bg-w-gold mx-auto my-4" />
-                <p className="font-sans text-[0.42rem] tracking-[0.1em] uppercase
-                               text-warm-gray leading-[2.1]">
-                  Sábado, 21 de junio de 2025<br />
-                  6:00 de la tarde<br />
-                  Finca La Encina · Valencia
-                </p>
-              </div>
-            </div>
-
-            {/* Sobre animado — encima y centrado */}
             <div className="relative z-20 inv-card-tilt">
               <EnvelopeCard />
             </div>
-
           </div>
         </div>
       </div>
