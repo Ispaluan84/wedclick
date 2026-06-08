@@ -33,14 +33,17 @@ function Navbar() {
 
         {/* Logo */}
         <a href="/" className="flex items-center gap-3" data-hover>
-          <img
-            src="/Logo_WedClick.png"
-            alt="WedClick"
-            width="120"
-            height="36"
-            className="h-9 w-auto"
-            loading="eager"
-          />
+          <picture>
+            <source srcSet="/Logo_WedClick.webp" type="image/webp" />
+            <img
+              src="/Logo_WedClick.png"
+              alt="WedClick"
+              width="137"
+              height="72"
+              className="h-9 w-auto"
+              loading="eager"
+            />
+          </picture>
         </a>
 
         {/* Desktop links */}
