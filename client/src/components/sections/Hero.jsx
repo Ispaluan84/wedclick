@@ -33,155 +33,76 @@ function OrnamentalSVG() {
   )
 }
 
-// Sobre animado con invitación
-function EnvelopeCard() {
-  const [open, setOpen] = useState(false)
-
-  const W   = 220   // ancho sobre
-  const H   = 150   // alto sobre
-  const invW = W - 28
-  const invH = 175  // invitación más alta que el sobre
-
-  // Cuánto sobresale la invitación por arriba cuando está abierta
-  const peekAmount = invH - H * 0.35
+// Dos tarjetas que intercambian al hacer hover
+function InvitationCards() {
+  const [hovered, setHovered] = useState(false)
 
   return (
     <div
-      className="cursor-pointer select-none"
-      style={{
-        position: 'relative',
-        width: W,
-        // altura total = sobre + espacio para que la invitación sobresalga
-        height: H + peekAmount * 0.6,
-        // Perspectiva para que el rotateX de la solapa se vea en 3D
-        perspective: '600px',
-      }}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      className="relative cursor-pointer"
+      style={{ width: '240px', height: '320px' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       data-hover
     >
-
-      {/* ══ INVITACIÓN ══
-          Empieza oculta dentro del sobre (translateY grande)
-          y sube al hacer hover. Siempre detrás de la solapa
-          pero delante del cuerpo del sobre.
-      */}
+      {/* Tarjeta trasera — Elena & Marcos */}
       <motion.div
-        animate={{ y: open ? 0 : invH * 0.52 }}
-        transition={{
-          duration: 1.1,
-          ease: [0.19, 1, 0.22, 1],
-          delay: open ? 0.35 : 0,
+        animate={{
+          rotate:  hovered ? -3  : 5,
+          x:       hovered ? -30 : 55,
+          y:       hovered ? 10  : 18,
+          zIndex:  hovered ? 20  : 10,
+          scale:   hovered ? 1   : 0.95,
         }}
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: '50%',
-          marginLeft: -(invW / 2),
-          width: invW,
-          height: invH,
-          zIndex: 2,       // encima del cuerpo, debajo de la solapa mientras sube
-          background: '#F7F2EB',
-          padding: '20px 22px',
-          textAlign: 'center',
-          boxShadow: '0 8px 40px rgba(26,20,16,0.18)',
-          overflow: 'hidden',
-        }}
+        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+        style={{ position: 'absolute', top: 0, left: 0 }}
       >
-        <p style={{ fontFamily: 'DM Sans', fontSize: '7px', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '10px' }}>
-          — Os invitamos —
-        </p>
-        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '16px', color: '#1A1410', lineHeight: 1.2 }}>
-          Elena
-        </p>
-        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '26px', color: '#C9A96E', lineHeight: 1, margin: '5px 0' }}>
-          &
-        </p>
-        <p style={{ fontFamily: 'Playfair Display', fontStyle: 'italic', fontSize: '16px', color: '#1A1410', lineHeight: 1.2 }}>
-          Marcos
-        </p>
-        <div style={{ width: '22px', height: '1px', background: '#C9A96E', margin: '12px auto' }} />
-        <p style={{ fontFamily: 'DM Sans', fontSize: '6.5px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8B8177', lineHeight: 2.2 }}>
-          14 · IX · 2025<br />
-          Hacienda Los Olivos<br />
-          Sevilla
-        </p>
+        <div className="bg-cream w-44 p-6 shadow-[0_20px_60px_rgba(26,20,16,0.12)]">
+          <p className="font-sans text-[0.48rem] tracking-[0.16em] uppercase text-w-gold mb-3">
+            Save the date
+          </p>
+          <p className="font-serif italic text-[0.95rem] text-ink leading-snug">
+            Elena & Marcos
+          </p>
+          <div className="w-5 h-px bg-w-gold my-3" />
+          <p className="font-sans text-[0.46rem] tracking-[0.12em] uppercase text-warm-gray leading-loose">
+            14 · IX · 2025<br />
+            Hacienda Los Olivos<br />
+            Sevilla
+          </p>
+        </div>
       </motion.div>
 
-      {/* ══ CUERPO DEL SOBRE ══
-          Rectángulo beige. Tapa la invitación mientras está dentro.
-          El clipPath hace que la parte superior del cuerpo
-          no tape la invitación cuando ya ha subido.
-      */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        width: W,
-        height: H,
-        zIndex: 3,
-        background: '#EDE5D8',
-        border: '1px solid #D4C4A8',
-        boxShadow: '0 20px 50px rgba(26,20,16,0.13)',
-        overflow: 'hidden',
-      }}>
-        {/* V costura inferior — solo decorativa, dibujada sobre el cuerpo */}
-        <svg
-          style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '55%' }}
-          viewBox={`0 0 ${W} ${H * 0.55}`}
-          preserveAspectRatio="none"
-        >
-          <polygon
-            points={`0,0 ${W},0 ${W / 2},${H * 0.55}`}
-            fill="#E3D8C8"
-            stroke="#D4C4A8"
-            strokeWidth="1"
-          />
-        </svg>
-      </div>
-
-      {/* ══ SOLAPA SUPERIOR ══
-          Se dobla hacia atrás en hover (rotateX negativo).
-          transformOrigin en el borde superior para que gire desde arriba.
-          zIndex alto para tapar la invitación mientras está cerrada,
-          pero al abrirse se va hacia atrás y la deja libre.
-      */}
+      {/* Tarjeta delantera — Claudia & Daniel */}
       <motion.div
-        animate={{ rotateX: open ? -165 : 0 }}
-        transition={{ duration: 0.75, ease: [0.19, 1, 0.22, 1] }}
-        style={{
-          position: 'absolute',
-          bottom: H - 2,  // justo en el borde superior del cuerpo
-          left: 0,
-          width: W,
-          transformOrigin: 'bottom center',
-          zIndex: 5,
-          backfaceVisibility: 'hidden',
+        animate={{
+          rotate:  hovered ? 4   : -2,
+          x:       hovered ? 40  : 0,
+          y:       hovered ? 20  : 0,
+          zIndex:  hovered ? 10  : 20,
+          scale:   hovered ? 0.95 : 1,
         }}
+        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+        style={{ position: 'absolute', top: 0, left: 0 }}
       >
-        <svg
-          viewBox={`0 0 ${W} ${H * 0.58}`}
-          style={{ width: '100%', display: 'block' }}
-          preserveAspectRatio="none"
-        >
-          {/* Triángulo de la solapa — apunta hacia abajo (hacia el centro del sobre) */}
-          <polygon
-            points={`0,0 ${W},0 ${W / 2},${H * 0.58}`}
-            fill="#E0D6C8"
-            stroke="#D4C4A8"
-            strokeWidth="1"
-          />
-          {/* Sello dorado */}
-          <circle cx={W / 2} cy={14} r="10" fill="none" stroke="#C9A96E" strokeWidth="0.9" opacity="0.8" />
-          <circle cx={W / 2} cy={14} r="4.5" fill="#C9A96E" opacity="0.45" />
-          <text x={W / 2} y={17.5} textAnchor="middle" fontSize="5" fill="#C9A96E" opacity="0.9" fontFamily="serif">W</text>
-        </svg>
+        <div className="bg-paper w-44 md:w-52 px-7 py-10 text-center shadow-[0_40px_80px_rgba(26,20,16,0.18)]">
+          <p className="font-sans text-[0.44rem] tracking-[0.18em] uppercase text-w-gold mb-4">
+            — Os invitamos —
+          </p>
+          <p className="font-serif italic text-lg text-ink">Claudia</p>
+          <p className="font-serif italic text-4xl text-w-gold leading-none my-1">&</p>
+          <p className="font-serif italic text-lg text-ink">Daniel</p>
+          <div className="w-5 h-px bg-w-gold mx-auto my-4" />
+          <p className="font-sans text-[0.42rem] tracking-[0.1em] uppercase text-warm-gray leading-[2.1]">
+            Sábado, 21 de junio de 2025<br />
+            6:00 de la tarde<br />
+            Finca La Encina · Valencia
+          </p>
+        </div>
       </motion.div>
-
     </div>
   )
 }
-
 const anim = (delay = 0) => ({
   initial:    { opacity: 0, y: 32 },
   animate:    { opacity: 1, y: 0 },
@@ -264,9 +185,7 @@ function HeroLanding() {
           <OrnamentalSVG />
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative z-20 inv-card-tilt">
-              <EnvelopeCard />
-            </div>
+            <InvitationCards />
           </div>
         </div>
       </div>
