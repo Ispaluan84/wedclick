@@ -103,11 +103,19 @@ function InvitationCards() {
     </div>
   )
 }
+// Animación para elementos secundarios (no LCP)
 const anim = (delay = 0) => ({
-  initial:    { opacity: 0, y: 32 },
+  initial:    { opacity: 0, y: 20 },
   animate:    { opacity: 1, y: 0 },
-  transition: { duration: 0.9, delay, ease: [0.19, 1, 0.22, 1] },
+  transition: { duration: 0.7, delay, ease: [0.19, 1, 0.22, 1] },
 })
+
+// Animación para el H1 — LCP element, debe ser visible inmediatamente
+const animH1 = {
+  initial:    { opacity: 1, y: 16 },
+  animate:    { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: [0.19, 1, 0.22, 1] },
+}
 
 function HeroLanding() {
   return (
@@ -116,12 +124,12 @@ function HeroLanding() {
       {/* ── COLUMNA IZQUIERDA ── */}
       <div className="flex flex-col justify-end px-8 md:px-14 pt-36 pb-20 relative z-10">
 
-        <motion.p {...anim(0.05)} className="section-label mb-10" data-number="">
+        <motion.p {...anim(0)} className="section-label mb-10" data-number="">
           Invitaciones digitales de boda
         </motion.p>
 
         <motion.h1
-          {...anim(0.15)}
+          {...animH1}
           className="font-serif font-black text-display-xl text-ink mb-6 leading-[0.9]"
         >
           Tu boda merece<br />
@@ -129,10 +137,10 @@ function HeroLanding() {
           única
         </motion.h1>
 
-        <motion.span {...anim(0.25)} className="ornament-line mb-8" />
+        <motion.span {...anim(0.1)} className="ornament-line mb-8" />
 
         <motion.p
-          {...anim(0.3)}
+          {...anim(0.15)}
           className="font-sans font-light text-[0.95rem] leading-[1.85] text-warm-gray max-w-sm mb-12"
         >
           Creamos invitaciones digitales personalizadas que enamoran.
@@ -140,7 +148,7 @@ function HeroLanding() {
           necesitas para tu gran día.
         </motion.p>
 
-        <motion.div {...anim(0.4)} className="flex flex-wrap items-center gap-6">
+        <motion.div {...anim(0.2)} className="flex flex-wrap items-center gap-6">
           <a
             href="https://elena-marcos.wedclick.es"
             target="_blank"
@@ -170,7 +178,7 @@ function HeroLanding() {
           </button>
         </motion.div>
 
-        <motion.div {...anim(0.55)} className="flex items-center gap-4 mt-20">
+        <motion.div {...anim(0.3)} className="flex items-center gap-4 mt-20">
           <div className="w-px h-10 bg-w-gold/50" />
           <p className="font-serif italic text-ink/60 text-sm leading-snug">
             Cada boda,<br />una historia única

@@ -42,6 +42,7 @@ function Navbar() {
               height="72"
               className="h-9 w-auto"
               loading="eager"
+              fetchPriority="high"
             />
           </picture>
         </a>
