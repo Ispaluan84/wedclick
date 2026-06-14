@@ -15,7 +15,7 @@ module.exports = {
         'w-gold-light': '#E8D5B0',
         'w-rose':       '#C4786A',   // prefijo w- para evitar colisión con Tailwind 'rose'
         'w-sage':       '#7A8C7E',   // prefijo w- para evitar colisión con Tailwind 'sage'
-        'warm-gray':    '#8B8177',
+        'warm-gray':    '#6B6159',
         'warm-dark':    '#2A2520',
 
         // ── Sistema interno — Admin, Panel, Checkout, Legal ──

@@ -160,7 +160,7 @@ function HeroLanding() {
               document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })
             }
             className="flex items-center gap-3 font-sans text-[0.68rem]
-                       tracking-[0.12em] uppercase text-ink/50
+                       tracking-[0.12em] uppercase text-ink/60
                        hover:text-ink transition-colors duration-300
                        border-b border-ink/20 pb-0.5"
             data-hover
@@ -172,7 +172,7 @@ function HeroLanding() {
 
         <motion.div {...anim(0.55)} className="flex items-center gap-4 mt-20">
           <div className="w-px h-10 bg-w-gold/50" />
-          <p className="font-serif italic text-ink/50 text-sm leading-snug">
+          <p className="font-serif italic text-ink/60 text-sm leading-snug">
             Cada boda,<br />una historia única
           </p>
         </motion.div>

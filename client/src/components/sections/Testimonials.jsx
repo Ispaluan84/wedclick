@@ -120,6 +120,7 @@ function Testimonials() {
         <div className="flex items-center justify-center gap-5 mt-12">
           <button
             onClick={anterior}
+            aria-label="Testimonio anterior"
             className="w-11 h-11 border border-white/20 flex items-center justify-center
                        hover:border-white/50 hover:bg-white/10 transition-all duration-300"
             data-hover
@@ -132,16 +133,18 @@ function Testimonials() {
               <button
                 key={i}
                 onClick={() => setActual(i)}
+                aria-label={`Ver testimonio ${i + 1}`}
                 className={`rounded-full transition-all duration-300
                            ${i === actual
-                             ? 'w-7 h-2 bg-white'
-                             : 'w-2 h-2 bg-white/30 hover:bg-white/50'}`}
+                             ? 'w-7 h-3 bg-white'
+                             : 'w-3 h-3 bg-white/30 hover:bg-white/50'}`}
               />
             ))}
           </div>
 
           <button
             onClick={siguiente}
+            aria-label="Testimonio siguiente"
             className="w-11 h-11 border border-white/20 flex items-center justify-center
                        hover:border-white/50 hover:bg-white/10 transition-all duration-300"
             data-hover

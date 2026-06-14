@@ -21,6 +21,7 @@ function FooterLanding() {
                 href="https://instagram.com/wedclick"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="WedClick en Instagram"
                 className="w-9 h-9 border border-warm-gray/30 flex items-center justify-center
                            hover:border-w-gold hover:text-w-gold transition-all duration-300"
                 data-hover
@@ -29,6 +30,7 @@ function FooterLanding() {
               </a>
               <a
                 href="mailto:contacto@wedclick.es"
+                aria-label="Enviar email a WedClick"
                 className="w-9 h-9 border border-warm-gray/30 flex items-center justify-center
                            hover:border-w-gold hover:text-w-gold transition-all duration-300"
                 data-hover
@@ -136,26 +138,26 @@ function FooterLanding() {
         <div className="max-w-7xl mx-auto px-8 md:px-14 py-7
                         flex flex-col md:flex-row items-center justify-between gap-4">
 
-          <p className="font-sans text-[0.6rem] tracking-[0.06em] text-warm-gray/50">
+          <p className="font-sans text-[0.6rem] tracking-[0.06em] text-warm-gray/70">
             © {new Date().getFullYear()} WedClick. Todos los derechos reservados.
           </p>
 
           <div className="flex items-center gap-6">
             <a href="/privacidad"
                className="flex items-center gap-1.5 font-sans text-[0.58rem] tracking-[0.08em]
-                          uppercase text-warm-gray/50 hover:text-warm-gray transition-colors"
+                          uppercase text-warm-gray/70 hover:text-warm-gray transition-colors"
                data-hover>
               <Shield size={11} /> Privacidad
             </a>
             <a href="/aviso-legal"
                className="flex items-center gap-1.5 font-sans text-[0.58rem] tracking-[0.08em]
-                          uppercase text-warm-gray/50 hover:text-warm-gray transition-colors"
+                          uppercase text-warm-gray/70 hover:text-warm-gray transition-colors"
                data-hover>
               <Scale size={11} /> Aviso Legal
             </a>
           </div>
 
-          <p className="font-sans text-[0.6rem] text-warm-gray/50 flex items-center gap-1">
+          <p className="font-sans text-[0.6rem] text-warm-gray/70 flex items-center gap-1">
             Hecho con <Heart size={11} className="text-w-gold" fill="#C9A96E" /> en Sevilla
           </p>
         </div>
