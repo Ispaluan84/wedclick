@@ -134,11 +134,15 @@ function Testimonials() {
                 key={i}
                 onClick={() => setActual(i)}
                 aria-label={`Ver testimonio ${i + 1}`}
-                className={`rounded-full transition-all duration-300
+                className="p-2 flex items-center justify-center"
+                style={{ margin: '-8px' }}
+              >
+                <span className={`block rounded-full transition-all duration-300
                            ${i === actual
                              ? 'w-7 h-3 bg-white'
                              : 'w-3 h-3 bg-white/30 hover:bg-white/50'}`}
-              />
+                />
+              </button>
             ))}
           </div>
 

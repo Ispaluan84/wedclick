@@ -42,6 +42,7 @@ function WhatsAppButton() {
                                 rotate-45" />
                 <button
                   onClick={() => setTooltip(false)}
+                  aria-label="Cerrar mensaje"
                   className="absolute -top-2 -right-2 w-5 h-5 rounded-full
                              bg-gray-200 flex items-center justify-center
                              hover:bg-gray-300 transition-colors duration-200"

@@ -86,7 +86,7 @@ function InvitationCards() {
         style={{ position: 'absolute', top: 0, left: 0 }}
       >
         <div className="bg-paper w-44 md:w-52 px-7 py-10 text-center shadow-[0_40px_80px_rgba(26,20,16,0.18)]">
-          <p className="font-sans text-[0.44rem] tracking-[0.18em] uppercase text-w-gold mb-4">
+          <p className="font-sans text-[0.44rem] tracking-[0.18em] uppercase text-w-gold-dark mb-4">
             — Os invitamos —
           </p>
           <p className="font-serif italic text-lg text-ink">Claudia</p>

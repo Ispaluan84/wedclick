@@ -12,7 +12,7 @@ function FooterLanding() {
           {/* Columna 1 — Marca */}
           <div>
             <p className="font-serif italic text-[1.9rem] text-cream mb-4">Wedclick</p>
-            <p className="font-sans font-light text-[0.82rem] leading-[1.85] text-warm-gray max-w-xs mb-8">
+            <p className="font-sans font-light text-[0.82rem] leading-[1.85] text-cream/60 max-w-xs mb-8">
               Invitaciones digitales diseñadas para que el primer recuerdo de vuestra boda sea perfecto.
             </p>
             <span className="ornament-line mb-8 block" />
@@ -56,7 +56,7 @@ function FooterLanding() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="font-sans font-light text-[0.82rem] text-warm-gray
+                    className="font-sans font-light text-[0.82rem] text-cream/60
                                hover:text-cream transition-colors duration-300"
                     data-hover
                   >
@@ -77,7 +77,7 @@ function FooterLanding() {
                 <li key={item}>
                   <a
                     href="#precios"
-                    className="font-sans font-light text-[0.82rem] text-warm-gray
+                    className="font-sans font-light text-[0.82rem] text-cream/60
                                hover:text-cream transition-colors duration-300"
                     data-hover
                   >
@@ -93,7 +93,7 @@ function FooterLanding() {
             <p className="font-sans text-[0.58rem] tracking-[0.2em] uppercase text-w-gold mb-6">
               Contacto
             </p>
-            <ul className="flex flex-col gap-4 text-warm-gray">
+            <ul className="flex flex-col gap-4 text-cream/60">
               <li className="flex items-center gap-3">
                 <Phone size={14} className="flex-shrink-0 text-w-gold/60" />
                 <a href={`tel:${PHONE_NUMBER.replace(/\s/g,'')}`}
@@ -138,26 +138,26 @@ function FooterLanding() {
         <div className="max-w-7xl mx-auto px-8 md:px-14 py-7
                         flex flex-col md:flex-row items-center justify-between gap-4">
 
-          <p className="font-sans text-[0.6rem] tracking-[0.06em] text-warm-gray/70">
+          <p className="font-sans text-[0.6rem] tracking-[0.06em] text-cream/50">
             © {new Date().getFullYear()} WedClick. Todos los derechos reservados.
           </p>
 
           <div className="flex items-center gap-6">
             <a href="/privacidad"
                className="flex items-center gap-1.5 font-sans text-[0.58rem] tracking-[0.08em]
-                          uppercase text-warm-gray/70 hover:text-warm-gray transition-colors"
+                          uppercase text-cream/50 hover:text-cream transition-colors"
                data-hover>
               <Shield size={11} /> Privacidad
             </a>
             <a href="/aviso-legal"
                className="flex items-center gap-1.5 font-sans text-[0.58rem] tracking-[0.08em]
-                          uppercase text-warm-gray/70 hover:text-warm-gray transition-colors"
+                          uppercase text-cream/50 hover:text-cream transition-colors"
                data-hover>
               <Scale size={11} /> Aviso Legal
             </a>
           </div>
 
-          <p className="font-sans text-[0.6rem] text-warm-gray/70 flex items-center gap-1">
+          <p className="font-sans text-[0.6rem] text-cream/50 flex items-center gap-1">
             Hecho con <Heart size={11} className="text-w-gold" fill="#C9A96E" /> en Sevilla
           </p>
         </div>

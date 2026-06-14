@@ -12,6 +12,7 @@ module.exports = {
         'paper':        '#FBF8F3',
         'ink':          '#1A1410',
         'w-gold':       '#C9A96E',   // prefijo w- para evitar colisión con Tailwind 'gold'
+        'w-gold-dark':  '#8B6914',   // versión oscura para uso sobre fondos claros (WCAG AA)
         'w-gold-light': '#E8D5B0',
         'w-rose':       '#C4786A',   // prefijo w- para evitar colisión con Tailwind 'rose'
         'w-sage':       '#7A8C7E',   // prefijo w- para evitar colisión con Tailwind 'sage'
