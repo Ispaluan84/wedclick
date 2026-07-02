@@ -108,7 +108,7 @@ if (error || !adminData || adminData.length === 0) {
   return (
     <>
     <SEO noIndex={true} />
-    <div className="min-h-screen bg-crema flex">
+    <div className="min-h-screen bg-crema flex cursor-default">
 
       {/* ── Sidebar Desktop ── */}
       <aside className="hidden md:flex flex-col w-64 bg-azul-oscuro
