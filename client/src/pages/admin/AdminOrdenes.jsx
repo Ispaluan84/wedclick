@@ -5,8 +5,9 @@ import {
   Search, ShoppingBag, ChevronDown, ChevronUp,
   Mail, Phone, MapPin, Calendar, Palette,
   MessageSquare, Clock, Euro, Check, X,
-  Edit2, Save
+  Edit2, Save, UserPlus
 } from 'lucide-react'
+import ModalNuevaOrden from './ModalNuevaOrden'
 
 const fadeUp = (delay = 0) => ({
   initial:    { opacity: 0, y: 20 },
@@ -100,8 +101,23 @@ function OrdenCard({ orden, index, onUpdate }) {
 
         {/* Info */}
         <div className="flex-1 min-w-0">
-          <p className="font-sans text-sm text-azul-oscuro font-medium truncate">
+          <p className="font-sans text-sm text-azul-oscuro font-medium truncate
+                        flex items-center gap-2">
             {orden.novio1} & {orden.novio2}
+            {orden.excluir_estadisticas && (
+              <span className="flex-shrink-0 px-2 py-0.5 rounded-full
+                               bg-tierra/10 text-tierra text-[10px]
+                               font-medium uppercase tracking-wide">
+                Sin coste
+              </span>
+            )}
+            {orden.origen === 'manual' && !orden.excluir_estadisticas && (
+              <span className="flex-shrink-0 px-2 py-0.5 rounded-full
+                               bg-azul-oscuro/10 text-azul-oscuro text-[10px]
+                               font-medium uppercase tracking-wide">
+                Manual
+              </span>
+            )}
           </p>
           <p className="font-sans text-xs text-marron/60 truncate">
             {orden.email} · Plan {orden.plan}
@@ -364,12 +380,13 @@ function OrdenCard({ orden, index, onUpdate }) {
 }
 
 function AdminOrdenes() {
-  const [ordenes, setOrdenes]   = useState([])
-  const [filtradas, setFiltradas] = useState([])
-  const [loading, setLoading]   = useState(true)
-  const [busqueda, setBusqueda] = useState('')
+  const [ordenes, setOrdenes]           = useState([])
+  const [filtradas, setFiltradas]       = useState([])
+  const [loading, setLoading]           = useState(true)
+  const [busqueda, setBusqueda]         = useState('')
   const [filtroEstado, setFiltroEstado] = useState('todos')
   const [filtroPlan, setFiltroPlan]     = useState('todos')
+  const [ModalAbierto, setModalAbierto] = useState(false)
 
   useEffect(() => {
     cargarOrdenes()
@@ -424,6 +441,11 @@ function AdminOrdenes() {
     )
   }
 
+  const handleOrdenCreada = (nuevaOrden) => {
+    setOrdenes((prev) => [nuevaOrden, ...prev])
+  }
+
+
   const pendientesPago = ordenes.filter((o) => o.importe_pendiente > 0).length
 
   if (loading) {
@@ -439,13 +461,28 @@ function AdminOrdenes() {
     <div className="p-6 md:p-8 max-w-5xl mx-auto">
 
       {/* Header */}
-      <motion.div {...fadeUp(0)} className="mb-8">
-        <h1 className="font-serif text-3xl text-azul-oscuro mb-1">
-          Órdenes
-        </h1>
-        <p className="font-sans text-sm text-marron/60">
-          Gestiona todos los pedidos
-        </p>
+      <motion.div
+        {...fadeUp(0)}
+        className="mb-8 flex items-start justify-between gap-4 flex-wrap"
+      >
+        <div>
+          <h1 className="font-serif text-3xl text-azul-oscuro mb-1">
+            Órdenes
+          </h1>
+          <p className="font-sans text-sm text-marron/60">
+            Gestiona todos los pedidos
+          </p>
+        </div>
+        <button
+          onClick={() => setModalAbierto(true)}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl
+                     bg-azul-oscuro text-crema font-sans text-sm
+                     hover:bg-beige-claro hover:text-azul-oscuro
+                     transition-colors flex-shrink-0"
+        >
+          <UserPlus size={16} />
+          Añadir cliente manualmente
+        </button>
       </motion.div>
 
       {/* Alerta pagos pendientes */}
@@ -547,6 +584,12 @@ function AdminOrdenes() {
           {filtradas.length} de {ordenes.length} órdenes
         </motion.p>
       )}
+
+      <ModalNuevaOrden
+        abierto={modalAbierto}
+        onClose={() => setModalAbierto(false)}
+        onCreada={handleOrdenCreada}
+      />
     </div>
   )
 }

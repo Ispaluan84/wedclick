@@ -28,24 +28,26 @@ function AdminEstadisticas() {
         .order('created_at', { ascending: false })
 
       if (ordenes) {
+        const ordenesContables = ordenes.filter((o) => !o.excluir_estadisticas)
+
         // Por plan
         const porPlan = {
-          esencial:    ordenes.filter((o) => o.plan === 'esencial').length,
-          premium:     ordenes.filter((o) => o.plan === 'premium').length,
-          lanzamiento: ordenes.filter((o) => o.plan === 'lanzamiento').length,
+          esencial:    ordenesContables.filter((o) => o.plan === 'esencial').length,
+          premium:     ordenesContables.filter((o) => o.plan === 'premium').length,
+          lanzamiento: ordenesContables.filter((o) => o.plan === 'lanzamiento').length,
         }
 
         // Por estado
         const porEstado = {
-          pendiente:   ordenes.filter((o) => o.estado === 'pendiente').length,
-          en_proceso:  ordenes.filter((o) => o.estado === 'en_proceso').length,
-          completada:  ordenes.filter((o) => o.estado === 'completada').length,
-          cancelada:   ordenes.filter((o) => o.estado === 'cancelada').length,
+          pendiente:   ordenesContables.filter((o) => o.estado === 'pendiente').length,
+          en_proceso:  ordenesContables.filter((o) => o.estado === 'en_proceso').length,
+          completada:  ordenesContables.filter((o) => o.estado === 'completada').length,
+          cancelada:   ordenesContables.filter((o) => o.estado === 'cancelada').length,
         }
 
         // Ingresos
-        const ingresosTotales   = ordenes.reduce((acc, o) => acc + (o.importe_pagado    || 0), 0)
-        const ingresosPendientes = ordenes.reduce((acc, o) => acc + (o.importe_pendiente || 0), 0)
+        const ingresosTotales   = ordenesContables.reduce((acc, o) => acc + (o.importe_pagado    || 0), 0)
+        const ingresosPendientes = ordenesContables.reduce((acc, o) => acc + (o.importe_pendiente || 0), 0)
 
         // Por mes (últimos 6 meses)
         const ahora   = new Date()
@@ -53,7 +55,7 @@ function AdminEstadisticas() {
         for (let i = 5; i >= 0; i--) {
           const fecha = new Date(ahora.getFullYear(), ahora.getMonth() - i, 1)
           const mes   = fecha.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })
-          const count = ordenes.filter((o) => {
+          const count = ordenesContables.filter((o) => {
             const d = new Date(o.created_at)
             return d.getMonth() === fecha.getMonth() &&
                    d.getFullYear() === fecha.getFullYear()
@@ -70,11 +72,11 @@ function AdminEstadisticas() {
           porEstado,
           ingresosTotales,
           ingresosPendientes,
-          totalOrdenes: ordenes.length,
+          totalOrdenes: ordenesContables.length,
           meses,
           planMasVendido: planMasVendido[0],
-          ticketMedio: ordenes.length > 0
-            ? (ingresosTotales / ordenes.length / 100).toFixed(0)
+          ticketMedio: ordenesContables.length > 0
+            ? (ingresosTotales / ordenesContables.length / 100).toFixed(0)
             : 0,
         })
       }

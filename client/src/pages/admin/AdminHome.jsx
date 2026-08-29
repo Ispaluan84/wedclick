@@ -73,20 +73,23 @@ function AdminHome() {
         .order('created_at', { ascending: false })
 
       if (ordenes) {
-        const pendientes   = ordenes.filter((o) => o.estado === 'pendiente')
-        const completadas  = ordenes.filter((o) => o.estado === 'completada')
-        const ingresos     = ordenes.reduce((acc, o) => acc + (o.importe_pagado || 0), 0)
-        const pendientePago = ordenes.reduce((acc, o) => acc + (o.importe_pendiente || 0), 0)
+        const ordenesContables = ordenes.filter((o) => !o.excluir_estadisticas)
+
+        const pendientes   = ordenesContables.filter((o) => o.estado === 'pendiente')
+        const completadas  = ordenesContables.filter((o) => o.estado === 'completada')
+        const ingresos     = ordenesContables.reduce((acc, o) => acc + (o.importe_pagado || 0), 0)
+        const pendientePago = ordenesContables.reduce((acc, o) => acc + (o.importe_pendiente || 0), 0)
 
         setStats({
-          totalOrdenes:       ordenes.length,
+          totalOrdenes:       ordenesContables.length,
           ordenesPendientes:  pendientes.length,
           ordenesCompletadas: completadas.length,
           ingresosTotales:    ingresos / 100,
           ingresosPendientes: pendientePago / 100,
-          totalClientes:      new Set(ordenes.map((o) => o.email)).size,
+          totalClientes:      new Set(ordenesContables.map((o) => o.email)).size,
         })
 
+        // La tabla de últimas órdenes sí muestra todo, incluidas manuales
         setUltimasOrdenes(ordenes.slice(0, 5))
       }
 
