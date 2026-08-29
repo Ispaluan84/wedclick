@@ -386,7 +386,7 @@ function AdminOrdenes() {
   const [busqueda, setBusqueda]         = useState('')
   const [filtroEstado, setFiltroEstado] = useState('todos')
   const [filtroPlan, setFiltroPlan]     = useState('todos')
-  const [ModalAbierto, setModalAbierto] = useState(false)
+  const [modalAbierto, setModalAbierto] = useState(false)
 
   useEffect(() => {
     cargarOrdenes()
