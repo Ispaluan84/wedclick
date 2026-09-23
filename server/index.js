@@ -4,10 +4,11 @@ import dotenv     from 'dotenv'
 import bodyParser from 'body-parser'
 import { createRequire } from 'module'
 
-import checkoutRoutes from './routes/checkout.js'
-import ordersRoutes   from './routes/orders.js'
-import stripeWebhook  from './webhooks/stripe.js'
-import contactoRouter from './routes/contacto.js'
+import checkoutRoutes      from './routes/checkout.js'
+import ordersRoutes        from './routes/orders.js'
+import stripeWebhook       from './webhooks/stripe.js'
+import contactoRouter      from './routes/contacto.js'
+import adminClientesRoutes from './routes/adminClientes.js'
 
 
 dotenv.config()
@@ -28,6 +29,7 @@ app.use(cors({
 app.use('/api/checkout', checkoutRoutes)
 app.use('/api/orders',   ordersRoutes)
 app.use('/api/contacto', contactoRouter)
+app.use('/api/admin',    adminClientesRoutes)
 app.use('/webhook',      stripeWebhook)
 
 // ─── Health check ────────────────────────────────────────────
