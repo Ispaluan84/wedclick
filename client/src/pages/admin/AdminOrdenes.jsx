@@ -23,10 +23,16 @@ const estadoOpciones = [
 ]
 
 function OrdenCard({ orden, index, onUpdate }) {
-  const [expandida, setExpandida]     = useState(false)
-  const [editandoEstado, setEditando] = useState(false)
-  const [nuevoEstado, setNuevoEstado] = useState(orden.estado)
-  const [guardando, setGuardando]     = useState(false)
+  const [expandida, setExpandida]                     = useState(false)
+  const [editandoEstado, setEditando]                 = useState(false)
+  const [nuevoEstado, setNuevoEstado]                 = useState(orden.estado)
+  const [guardando, setGuardando]                     = useState(false)
+  const [editandoImporte, setEditandoImporte]         = useState(false)
+  const [nuevoTotal, setNuevoTotal]                   = useState(((orden.importe_total || 0) / 100).toString())
+  const [nuevoPagado, setNuevoPagado]                 = useState(((orden.importe_pagado || 0) /100).toString())
+  const [creandoAcceso, setCreandoAcceso]             = useState(false)
+  const [actualizandoAcceso, setActualizandoAcceso]   = useState(false)
+  const [credencialesCreadas, setCredencialesCreadas] = useState(null)
 
   const estadoInfo = estadoOpciones.find((e) => e.value === orden.estado)
     || estadoOpciones[0]
@@ -75,6 +81,97 @@ function OrdenCard({ orden, index, onUpdate }) {
       console.error('Error:', err)
     } finally {
       setGuardando(false)
+    }
+  }
+
+  const handleGuardarImporte = async () => {
+    setGuardando(true)
+    try {
+      const totalCent     = Math.round(parseFloat(nuevoTotal  || 0) * 100)
+      const pagadoCent    = Math.round(parseFloat(nuevoPagado || 0) * 100)
+      const pendienteCent = Math.max(totalCent - pagadoCent, 0)
+
+      const { error } = await supabase
+        .from('ordenes')
+        .update({
+          importe_total:     totalCent,
+          importe_pagado:    pagadoCent,
+          importe_pendiente: pendienteCent,
+        })
+        .eq('id', orden.id)
+
+      if (!error) {
+        onUpdate(orden.id, {
+          importe_total:     totalCent,
+          importe_pagado:    pagadoCent,
+          importe_pendiente: pendienteCent,
+        })
+        setEditandoImporte(false)
+      }
+    } catch (err) {
+      console.error('Error actualizando importes:', err)
+    } finally {
+      setGuardando(false)
+    }
+  }
+
+    const obtenerToken = async () => {
+    const { data: { session } } = await supabase.auth.getSession()
+    return session?.access_token
+  }
+
+  const handleCrearAcceso = async () => {
+    setCreandoAcceso(true)
+    try {
+      const token = await obtenerToken()
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/ordenes/${orden.id}/crear-acceso`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Error desconocido')
+
+      setCredencialesCreadas(data)
+      onUpdate(orden.id, { user_id: data.user_id, acceso_habilitado: false })
+    } catch (err) {
+      console.error('Error creando acceso:', err)
+      alert('No se ha podido crear el acceso: ' + err.message)
+    } finally {
+      setCreandoAcceso(false)
+    }
+  }
+
+  const handleToggleAcceso = async () => {
+    setActualizandoAcceso(true)
+    try {
+      const token = await obtenerToken()
+      const nuevoValor = !orden.acceso_habilitado
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/ordenes/${orden.id}/acceso`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ habilitado: nuevoValor }),
+        }
+      )
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Error desconocido')
+
+      onUpdate(orden.id, { acceso_habilitado: data.acceso_habilitado })
+    } catch (err) {
+      console.error('Error actualizando acceso:', err)
+      alert('No se ha podido actualizar el acceso: ' + err.message)
+    } finally {
+      setActualizandoAcceso(false)
     }
   }
 
@@ -346,6 +443,96 @@ function OrdenCard({ orden, index, onUpdate }) {
                   </button>
                 )}
 
+                {/* Editar importes manualmente */}
+                {editandoImporte ? (
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-col">
+                      <label className="font-sans text-[10px] text-marron/50 uppercase mb-0.5">
+                        Total (€)
+                      </label>
+                      <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={nuevoTotal}
+                        onChange={(e) => setNuevoTotal(e.target.value)}
+                        className="w-24 px-3 py-2 rounded-xl border border-beige-claro
+                                   font-sans text-sm text-azul-oscuro
+                                   focus:outline-none focus:ring-2 focus:ring-azul-oscuro/20"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <label className="font-sans text-[10px] text-marron/50 uppercase mb-0.5">
+                        Pagado (€)
+                      </label>
+                      <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={nuevoPagado}
+                        onChange={(e) => setNuevoPagado(e.target.value)}
+                        className="w-24 px-3 py-2 rounded-xl border border-beige-claro
+                                   font-sans text-sm text-azul-oscuro
+                                   focus:outline-none focus:ring-2 focus:ring-azul-oscuro/20"
+                      />
+                    </div>
+                    <button
+                      onClick={handleGuardarImporte}
+                      disabled={guardando}
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl
+                                 bg-azul-oscuro text-crema font-sans text-sm
+                                 hover:bg-beige-claro hover:text-azul-oscuro
+                                 transition-colors disabled:opacity-50 self-end"
+                    >
+                      <Save size={14} />
+                      Guardar
+                    </button>
+                    <button
+                      onClick={() => setEditandoImporte(false)}
+                      className="w-8 h-8 rounded-xl bg-gray-100 flex items-center
+                                 justify-center hover:bg-gray-200 transition-colors self-end"
+                    >
+                      <X size={14} className="text-gray-500" />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setEditandoImporte(true)}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl
+                               bg-crema border border-beige-claro font-sans text-sm
+                               text-azul-oscuro hover:bg-beige-claro transition-colors"
+                  >
+                    <Euro size={14} />
+                    Editar importes
+                  </button>
+                )}
+
+                                {/* Acceso del cliente al panel */}
+                {!orden.user_id ? (
+                  <button
+                    onClick={handleCrearAcceso}
+                    disabled={creandoAcceso}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl
+                               bg-crema border border-beige-claro font-sans text-sm
+                               text-azul-oscuro hover:bg-beige-claro transition-colors
+                               disabled:opacity-50"
+                  >
+                    {creandoAcceso ? 'Creando...' : 'Crear acceso cliente'}
+                  </button>
+                ) : (
+                  <label className="flex items-center gap-2 px-4 py-2 rounded-xl
+                                    bg-crema border border-beige-claro font-sans text-sm
+                                    text-azul-oscuro cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={!!orden.acceso_habilitado}
+                      onChange={handleToggleAcceso}
+                      disabled={actualizandoAcceso}
+                    />
+                    Acceso habilitado
+                  </label>
+                )}  
+
                 {/* Contactar por email */}
                 <a
                   href={`mailto:${orden.email}`}
@@ -372,7 +559,22 @@ function OrdenCard({ orden, index, onUpdate }) {
                 )}
               </div>
             </div>
+            {credencialesCreadas && (
+              <div className="w-full mt-2 bg-verde-suave/10 border border-verde-suave/30
+                                  rounded-xl px-4 py-3 font-sans text-sm text-azul-oscuro">
+                <p className="font-medium mb-1">Acceso creado. Cópialo ahora, no se volverá a mostrar:</p>
+                <p>Email: {credencialesCreadas.email}</p>
+                <p>Contraseña: <span className="font-mono">{credencialesCreadas.password}</span></p>
+                  <button
+                    onClick={() => setCredencialesCreadas(null)}
+                    className="mt-2 text-xs underline text-marron/60"
+                  >
+                    Ya la he copiado, cerrar
+                  </button>
+              </div>
+            )}
           </motion.div>
+
         )}
       </AnimatePresence>
     </motion.div>
