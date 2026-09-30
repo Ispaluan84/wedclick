@@ -90,4 +90,44 @@ router.patch('/ordenes/:id/acceso', requireAdmin, async (req, res) => {
   }
 })
 
+// Eliminar cliente/orden por completo (orden, boda, invitados, fotos, canciones, confirmaciones y su acceso)
+router.delete('/ordenes/:id', requireAdmin, async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const { data: orden, error: ordenError } = await supabaseAdmin
+      .from('ordenes')
+      .select('id, user_id')
+      .eq('id', id)
+      .single()
+
+    if (ordenError || !orden) {
+      return res.status(404).json({ error: 'Orden no encontrada' })
+    }
+
+    // Si tiene acceso creado, borramos el usuario de Auth.
+    // Esto arrastra en cascada: bodas -> confirmaciones, fotos, canciones.
+    if (orden.user_id) {
+      const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(orden.user_id)
+      if (authError) {
+        console.error('Error borrando usuario de auth (se continúa igualmente):', authError)
+      }
+    }
+
+    // Borramos la orden. Esto arrastra en cascada: invitados.
+    const { error: deleteError } = await supabaseAdmin
+      .from('ordenes')
+      .delete()
+      .eq('id', id)
+
+    if (deleteError) throw deleteError
+
+    res.json({ deleted: true })
+  } catch (err) {
+    console.error('Error eliminando orden:', err)
+    res.status(500).json({ error: 'No se ha podido eliminar' })
+  }
+})
+
+
 export default router
