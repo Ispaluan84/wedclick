@@ -5,7 +5,7 @@ import {
   Search, ShoppingBag, ChevronDown, ChevronUp,
   Mail, Phone, MapPin, Calendar, Palette,
   MessageSquare, Clock, Euro, Check, X,
-  Edit2, Save, UserPlus
+  Edit2, Save, UserPlus, Trash2
 } from 'lucide-react'
 import ModalNuevaOrden from './ModalNuevaOrden'
 
@@ -22,7 +22,7 @@ const estadoOpciones = [
   { value: 'cancelada',   label: '✗ Cancelada',    color: 'bg-red-100 text-red-500'             },
 ]
 
-function OrdenCard({ orden, index, onUpdate }) {
+function OrdenCard({ orden, index, onUpdate, onDelete }) {
   const [expandida, setExpandida]                     = useState(false)
   const [editandoEstado, setEditando]                 = useState(false)
   const [nuevoEstado, setNuevoEstado]                 = useState(orden.estado)
@@ -33,6 +33,7 @@ function OrdenCard({ orden, index, onUpdate }) {
   const [creandoAcceso, setCreandoAcceso]             = useState(false)
   const [actualizandoAcceso, setActualizandoAcceso]   = useState(false)
   const [credencialesCreadas, setCredencialesCreadas] = useState(null)
+  const [eliminando, setEliminando]                   = useState(false)
 
   const estadoInfo = estadoOpciones.find((e) => e.value === orden.estado)
     || estadoOpciones[0]
@@ -172,6 +173,35 @@ function OrdenCard({ orden, index, onUpdate }) {
       alert('No se ha podido actualizar el acceso: ' + err.message)
     } finally {
       setActualizandoAcceso(false)
+    }
+  }
+
+    const handleEliminar = async () => {
+    const confirmado = window.confirm(
+      `¿Seguro que quieres eliminar por completo a ${orden.novio1} & ${orden.novio2}?\n\n` +
+      `Esto borrará su orden, su boda, invitados, fotos y canciones asociadas, y su acceso al panel. No se puede deshacer.`
+    )
+    if (!confirmado) return
+
+    setEliminando(true)
+    try {
+      const token = await obtenerToken()
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/ordenes/${orden.id}`,
+        {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Error desconocido')
+
+      onDelete(orden.id)
+    } catch (err) {
+      console.error('Error eliminando orden:', err)
+      alert('No se ha podido eliminar: ' + err.message)
+    } finally {
+      setEliminando(false)
     }
   }
 
@@ -531,7 +561,20 @@ function OrdenCard({ orden, index, onUpdate }) {
                     />
                     Acceso habilitado
                   </label>
-                )}  
+                )} 
+
+                {/* Eliminar cliente por completo */}
+                <button
+                  onClick={handleEliminar}
+                  disabled={eliminando}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl
+                             bg-red-50 border border-red-200 font-sans text-sm
+                             text-red-600 hover:bg-red-100 transition-colors
+                             disabled:opacity-50 ml-auto"
+                >
+                  <Trash2 size={14} />
+                  {eliminando ? 'Eliminando...' : 'Eliminar'}
+                </button> 
 
                 {/* Contactar por email */}
                 <a
@@ -572,7 +615,7 @@ function OrdenCard({ orden, index, onUpdate }) {
                     Ya la he copiado, cerrar
                   </button>
               </div>
-            )}
+            )}    
           </motion.div>
 
         )}
@@ -645,6 +688,10 @@ function AdminOrdenes() {
 
   const handleOrdenCreada = (nuevaOrden) => {
     setOrdenes((prev) => [nuevaOrden, ...prev])
+  }
+
+  const handleOrdenEliminada = (id) => {
+    setOrdenes((prev) => prev.filter((o) => o.id !== id))
   }
 
 
@@ -773,6 +820,7 @@ function AdminOrdenes() {
               orden={orden}
               index={index}
               onUpdate={handleUpdate}
+              onDelete={handleOrdenEliminada}
             />
           ))
         )}
