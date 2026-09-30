@@ -16,7 +16,7 @@ router.post('/ordenes/:id/crear-acceso', requireAdmin, async (req, res) => {
   try {
     const { data: orden, error: ordenError } = await supabaseAdmin
       .from('ordenes')
-      .select('id, email, user_id')
+      .select('id, email, user_id, novio1, novio2, fecha_boda')
       .eq('id', id)
       .single()
 
@@ -25,6 +25,9 @@ router.post('/ordenes/:id/crear-acceso', requireAdmin, async (req, res) => {
     }
     if (orden.user_id) {
       return res.status(400).json({ error: 'Esta orden ya tiene acceso creado' })
+    }
+    if (!orden.fecha_boda) {
+      return res.status(400).json({ error: 'Esta orden no tiene fecha de boda. Añádela antes de crear el acceso.' })
     }
 
     const password = generarPassword()
@@ -43,6 +46,23 @@ router.post('/ordenes/:id/crear-acceso', requireAdmin, async (req, res) => {
       .eq('id', id)
 
     if (updateError) throw updateError
+
+    // La web pública (Panel Novios) lee de "bodas", no de "ordenes" —
+    // sin esta fila el cliente no puede acceder aunque tenga usuario creado.
+    const { error: bodaError } = await supabaseAdmin
+      .from('bodas')
+      .insert({
+        nombre_pareja: `${orden.novio1} & ${orden.novio2}`,
+        fecha_boda:    orden.fecha_boda,
+        user_id:       nuevoUsuario.user.id,
+      })
+
+    if (bodaError) {
+      // Revertimos para poder reintentar limpio si algo falla aquí
+      await supabaseAdmin.from('ordenes').update({ user_id: null }).eq('id', id)
+      await supabaseAdmin.auth.admin.deleteUser(nuevoUsuario.user.id)
+      throw bodaError
+    }
 
     res.json({ email: orden.email, password, user_id: nuevoUsuario.user.id })
   } catch (err) {
