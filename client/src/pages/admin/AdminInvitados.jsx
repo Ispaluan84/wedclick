@@ -46,7 +46,7 @@ function AdminInvitados() {
       const { data } = await supabase
         .from('ordenes')
         .select('id, novio1, novio2, email, estado')
-        .eq('estado', 'cancelada')
+        .neq('estado', 'cancelada')
         .order('created_at', { ascending: false })
 
       if (data) setBodas(data)
