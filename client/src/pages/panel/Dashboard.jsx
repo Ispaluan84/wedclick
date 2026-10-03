@@ -159,7 +159,7 @@ function Dashboard() {
           <img
             src="/Logo_WedClick.png"
             alt="WedClick"
-            className="h-10 brightness-0 invert"
+            className="h-14 brightness-0 invert"
           />
         </div>
 

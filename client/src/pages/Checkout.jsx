@@ -48,7 +48,7 @@ const planesInfo = {
     nombre: 'Lanzamiento', precio: 299, icono: Zap, esOferta: true,
     incluye: [
       'Todo lo del plan Premium', 'Álbum colaborativo de fotos',
-      '2 meses de hosting del álbum', 'Álbum en alta resolución al finalizar',
+      '2 meses de hosting del álbum', 'Descarga de todas las fotos del álbum',
       'Tres rondas de revisión',
     ],
   },

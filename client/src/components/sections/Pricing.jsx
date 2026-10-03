@@ -60,12 +60,13 @@ const planes = [
     descripcion: 'Oferta exclusiva de estreno. Todo Premium más álbum colaborativo con hosting incluido.',
     icono:       Zap,
     featured:    false,
+    destacado:   true,
     badge:       '🎁 Oferta de estreno',
     incluye: [
       { icono: Heart,       texto: 'Todo lo del plan Premium'             },
       { icono: Camera,      texto: 'Álbum colaborativo de fotos'          },
       { icono: Images,      texto: '2 meses de hosting del álbum'         },
-      { icono: Images,      texto: 'Álbum en alta resolución al finalizar'},
+      { icono: Images,      texto: 'Descarga de todas las fotos del álbum'},
       { icono: CheckCircle, texto: 'Tres rondas de revisión'              },
     ],
     noIncluye: [],
@@ -86,7 +87,9 @@ function PlanCard({ plan, index }) {
                   hover:-translate-y-2 hover:shadow-[0_40px_80px_rgba(26,20,16,0.08)]
                   ${plan.featured
                     ? 'bg-ink border-w-gold text-cream'
-                    : 'bg-paper border-w-gold-light hover:border-w-gold/50'}`}
+                    : plan.destacado
+                      ? 'bg-gradient-to-br from-cream via-paper to-w-gold/10 border-2 border-w-gold shadow-[0_20px_50px_rgba(176,141,63,0.18)]'
+                      : 'bg-paper border-w-gold-light hover:border-w-gold/50'}`}
       data-hover
     >
       {/* Badge */}

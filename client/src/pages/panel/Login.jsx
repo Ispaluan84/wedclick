@@ -60,7 +60,7 @@ function Login() {
             <ArrowLeft size={13} />
             Volver a la web
           </a>
-          <img src="/Logo_WedClick.png" alt="WedClick" style={{ height: '2rem' }} />
+          <img src="/Logo_WedClick.png" alt="WedClick" style={{ height: '3.25rem' }} />
         </div>
 
         {/* Centro */}

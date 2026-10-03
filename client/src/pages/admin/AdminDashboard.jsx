@@ -119,7 +119,7 @@ if (error || !adminData || adminData.length === 0) {
           <img
             src="/Logo_WedClick.png"
             alt="WedClick"
-            className="h-10 brightness-0 invert mb-3"
+            className="h-14 brightness-0 invert mb-3"
             />
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full
                           bg-white/10 border border-white/10 w-fit">
