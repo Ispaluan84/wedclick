@@ -239,7 +239,7 @@ function Checkout() {
         {/* Header */}
         <motion.div {...fadeUp(0)} className="text-center mb-10">
           <a href="/" className="inline-block mb-6">
-            <img src="/Logo_WedClick.png" alt="WedClick" className="h-10 mx-auto" />
+            <img src="/Logo_WedClick.png" alt="WedClick" className="h-16 md:h-20 mx-auto" />
           </a>
 
           <p className="font-sans text-xs tracking-[0.15em] uppercase text-w-gold mb-2">
