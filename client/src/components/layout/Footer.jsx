@@ -1,4 +1,4 @@
-import { Heart, Instagram, Mail, Phone, MapPin, Shield, Scale } from 'lucide-react'
+import { Heart, Instagram, Mail, Phone, MapPin, Shield, Scale, Cookie } from 'lucide-react'
 import { WHATSAPP_URL, PHONE_NUMBER } from '../../lib/contact'
 
 function FooterLanding() {
@@ -154,6 +154,12 @@ function FooterLanding() {
                           uppercase text-cream/50 hover:text-cream transition-colors"
                data-hover>
               <Scale size={11} /> Aviso Legal
+            </a>
+            <a href="/politica-cookies"
+               className="flex items-center gap-1.5 font-sans text-[0.58rem] tracking-[0.08em]
+                          uppercase text-cream/50 hover:text-cream transition-colors"
+               data-hover>
+              <Cookie size={11} /> Cookies
             </a>
           </div>
 
