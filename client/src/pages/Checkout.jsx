@@ -14,6 +14,7 @@ import {
   Users, MessageCircle, Clock,
   ChevronRight, ChevronLeft, Heart,
   Smartphone, Star, Zap, Check, Loader2,
+  ShieldCheck, Sparkles, Lock,
 } from 'lucide-react'
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
@@ -44,7 +45,7 @@ const planesInfo = {
     ],
   },
   lanzamiento: {
-    nombre: 'Lanzamiento', precio: 299, icono: Zap,
+    nombre: 'Lanzamiento', precio: 299, icono: Zap, esOferta: true,
     incluye: [
       'Todo lo del plan Premium', 'Álbum colaborativo de fotos',
       '2 meses de hosting del álbum', 'Álbum en alta resolución al finalizar',
@@ -63,6 +64,25 @@ const inputCls = `w-full pl-11 pr-4 py-3 bg-transparent border-0 border-b border
   focus:outline-none focus:border-w-gold transition-colors duration-300`
 
 const labelCls = 'font-sans text-[0.6rem] tracking-[0.2em] uppercase text-warm-gray block mb-2'
+
+/* ── Franja de confianza, reutilizada en el resumen y bajo el botón de pago ── */
+function FranjaConfianza({ compacta = false }) {
+  const items = [
+    { Icon: Lock,        texto: 'Pago 100% seguro' },
+    { Icon: ShieldCheck, texto: 'Sin letra pequeña' },
+    { Icon: Heart,       texto: 'Trato directo con nosotros' },
+  ]
+  return (
+    <div className={`flex ${compacta ? 'flex-wrap justify-center gap-x-5 gap-y-2' : 'flex-col gap-3'}`}>
+      {items.map(({ Icon, texto }) => (
+        <div key={texto} className="flex items-center gap-2">
+          <Icon size={13} className="text-w-gold flex-shrink-0" />
+          <span className="font-sans text-[11px] text-warm-gray">{texto}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 /* ── Formulario de pago Stripe ── */
 function FormularioPago({ plan, mitad, onBack }) {
@@ -90,17 +110,20 @@ function FormularioPago({ plan, mitad, onBack }) {
 
   return (
     <motion.div {...fadeUp(0)}>
-      <div className="flex items-center gap-4 mb-8">
+      <div className="flex items-center gap-4 mb-2">
         <button onClick={onBack} type="button"
-          className="w-9 h-9 border border-ink/15 flex items-center justify-center
-                     hover:border-w-gold transition-colors duration-300">
+          className="w-9 h-9 rounded-full border border-ink/15 flex items-center justify-center
+                     hover:border-w-gold hover:bg-w-gold/5 transition-colors duration-300">
           <ChevronLeft size={16} className="text-ink" />
         </button>
-        <h2 className="font-serif text-2xl text-ink">Pago seguro</h2>
+        <h2 className="font-serif text-2xl text-ink">Último paso 🎉</h2>
       </div>
+      <p className="font-sans font-light text-warm-gray text-sm mb-8 ml-13 pl-0">
+        Solo falta confirmar la reserva para que empecemos a diseñar vuestra invitación.
+      </p>
 
       {/* Resumen */}
-      <div className="border border-w-gold/20 p-6 mb-8">
+      <div className="rounded-2xl border border-w-gold/20 bg-w-gold/[0.04] p-6 mb-8">
         <div className="flex items-center justify-between mb-4">
           <span className="font-sans text-sm font-light text-warm-gray">Plan {plan.nombre}</span>
           <span className="font-sans text-sm text-ink">{plan.precio}€ total</span>
@@ -108,7 +131,7 @@ function FormularioPago({ plan, mitad, onBack }) {
         <div className="flex items-center justify-between pt-4 border-t border-ink/8">
           <div>
             <span className="font-sans text-sm text-ink">Reserva ahora (50%)</span>
-            <p className="font-sans text-xs text-warm-gray mt-0.5">Resto a la entrega</p>
+            <p className="font-sans text-xs text-warm-gray mt-0.5">Resto a la entrega, sin sorpresas</p>
           </div>
           <span className="font-serif text-2xl text-ink">{mitad}€</span>
         </div>
@@ -117,16 +140,22 @@ function FormularioPago({ plan, mitad, onBack }) {
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <PaymentElement />
         {error && <p className="font-sans text-xs text-w-rose">{error}</p>}
-        <button type="submit" disabled={!stripe || loading}
-          className="group flex items-center justify-center gap-2 w-full py-4
+        <motion.button type="submit" disabled={!stripe || loading}
+          whileHover={{ scale: stripe && !loading ? 1.01 : 1 }}
+          whileTap={{ scale: stripe && !loading ? 0.98 : 1 }}
+          className="group flex items-center justify-center gap-2 w-full py-4 rounded-xl
                      bg-ink text-cream font-sans text-xs tracking-[0.15em] uppercase font-light
+                     shadow-lg shadow-ink/10
                      hover:bg-warm-dark transition-colors duration-300
                      disabled:opacity-40 disabled:cursor-not-allowed">
           {loading
             ? <><Loader2 size={13} className="animate-spin" /> Procesando...</>
             : <>🔒 Pagar {mitad}€ de reserva</>
           }
-        </button>
+        </motion.button>
+
+        <FranjaConfianza compacta />
+
         <p className="font-sans text-xs text-warm-gray/50 text-center">
           Pago seguro procesado por Stripe · Cifrado SSL
         </p>
@@ -199,23 +228,35 @@ function Checkout() {
   const Icono = plan.icono
 
   return (
-    <div className="min-h-screen bg-paper py-12 px-6">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-paper py-12 px-6 relative overflow-hidden">
+
+      {/* Resplandor cálido de fondo, muy sutil */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2
+                      w-[640px] h-[640px] rounded-full bg-w-gold/[0.07] blur-3xl" />
+
+      <div className="max-w-5xl mx-auto relative">
 
         {/* Header */}
-        <motion.div {...fadeUp(0)} className="text-center mb-14">
-          <a href="/" className="inline-block mb-8">
+        <motion.div {...fadeUp(0)} className="text-center mb-10">
+          <a href="/" className="inline-block mb-6">
             <img src="/Logo_WedClick.png" alt="WedClick" className="h-10 mx-auto" />
           </a>
+
+          <p className="font-sans text-xs tracking-[0.15em] uppercase text-w-gold mb-2">
+            ¡Enhorabuena por dar el paso!
+          </p>
+          <h1 className="font-serif text-2xl md:text-3xl text-ink mb-8">
+            Vamos a crear vuestra invitación
+          </h1>
 
           {/* Pasos */}
           <div className="flex items-center justify-center gap-4">
             {[{ n: 1, label: 'Tus datos' }, { n: 2, label: 'Pago' }].map((p, i) => (
               <div key={p.n} className="flex items-center gap-4">
                 <div className={`flex items-center gap-2 transition-opacity duration-300 ${paso >= p.n ? 'opacity-100' : 'opacity-30'}`}>
-                  <div className={`w-7 h-7 flex items-center justify-center font-sans text-xs
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center font-sans text-xs
                     ${paso >= p.n ? 'bg-ink text-cream' : 'border border-ink/20 text-warm-gray'}`}>
-                    {p.n}
+                    {paso > p.n ? <Check size={12} /> : p.n}
                   </div>
                   <span className={`font-sans text-xs tracking-widest uppercase hidden sm:block
                     ${paso >= p.n ? 'text-ink' : 'text-warm-gray'}`}>
@@ -232,9 +273,20 @@ function Checkout() {
 
           {/* Columna izquierda — resumen plan */}
           <motion.div {...fadeUp(0.1)} className="lg:col-span-1">
-            <div className="border border-w-gold/20 p-6 sticky top-8">
+            <div className="rounded-2xl border border-w-gold/20 shadow-sm shadow-ink/5 p-6 sticky top-8 bg-white/40">
+
+              {plan.esOferta && (
+                <div className="flex items-center gap-1.5 mb-5 px-3 py-1.5 rounded-full
+                                bg-w-gold/10 border border-w-gold/25 w-fit">
+                  <Sparkles size={12} className="text-w-gold" />
+                  <span className="font-sans text-[10px] tracking-widest uppercase text-w-gold">
+                    Oferta de lanzamiento
+                  </span>
+                </div>
+              )}
+
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-9 h-9 border border-w-gold/25 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl border border-w-gold/25 bg-w-gold/5 flex items-center justify-center">
                   <Icono size={16} className="text-w-gold" />
                 </div>
                 <div>
@@ -244,7 +296,7 @@ function Checkout() {
               </div>
 
               {/* Desglose 50/50 */}
-              <div className="flex items-center justify-between p-4 bg-cream mb-6">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-cream mb-6">
                 <div>
                   <p className="font-sans text-[10px] tracking-widest uppercase text-warm-gray">Pagas ahora</p>
                   <p className="font-serif text-xl text-ink">{plan.precio / 2}€</p>
@@ -256,7 +308,7 @@ function Checkout() {
               </div>
 
               {/* Incluye */}
-              <ul className="flex flex-col gap-2.5">
+              <ul className="flex flex-col gap-2.5 mb-6">
                 {plan.incluye.map((item) => (
                   <li key={item} className="flex items-start gap-2.5">
                     <span className="text-w-gold text-[10px] mt-1 flex-shrink-0">✦</span>
@@ -264,12 +316,16 @@ function Checkout() {
                   </li>
                 ))}
               </ul>
+
+              <div className="pt-5 border-t border-ink/8">
+                <FranjaConfianza />
+              </div>
             </div>
           </motion.div>
 
           {/* Columna derecha — formulario / pago */}
           <motion.div {...fadeUp(0.2)} className="lg:col-span-2">
-            <div className="border border-ink/8 p-8 md:p-10 bg-paper">
+            <div className="rounded-2xl border border-ink/8 shadow-sm shadow-ink/5 p-8 md:p-10 bg-paper">
               <AnimatePresence mode="wait">
 
                 {/* ── Paso 1 ── */}
@@ -280,7 +336,7 @@ function Checkout() {
 
                     <h2 className="font-serif text-2xl text-ink mb-2">Cuéntanos sobre vuestra boda</h2>
                     <p className="font-sans font-light text-warm-gray text-sm mb-10">
-                      Esta información nos ayudará a empezar a crear vuestra invitación perfecta.
+                      Dos minutos y lo tenemos todo para empezar a diseñar vuestra invitación perfecta.
                     </p>
 
                     <div className="flex flex-col gap-10">
@@ -352,7 +408,7 @@ function Checkout() {
                           {estilos.map((estilo) => (
                             <button key={estilo} type="button"
                               onClick={() => setFormulario((prev) => ({ ...prev, estilo }))}
-                              className={`py-3 px-3 border font-sans text-xs text-center transition-all duration-200
+                              className={`py-3 px-3 rounded-xl border font-sans text-xs text-center transition-all duration-200
                                 ${formulario.estilo === estilo
                                   ? 'bg-ink text-cream border-ink'
                                   : 'bg-transparent text-warm-gray border-ink/15 hover:border-w-gold/40'}`}>
@@ -389,7 +445,7 @@ function Checkout() {
                               {canales.map((canal) => (
                                 <button key={canal.value} type="button"
                                   onClick={() => setFormulario((prev) => ({ ...prev, canalContacto: canal.value }))}
-                                  className={`flex-1 py-3 px-3 border font-sans text-xs transition-all duration-200
+                                  className={`flex-1 py-3 px-3 rounded-xl border font-sans text-xs transition-all duration-200
                                     flex items-center justify-center gap-2
                                     ${formulario.canalContacto === canal.value
                                       ? 'bg-ink text-cream border-ink'
@@ -408,7 +464,7 @@ function Checkout() {
                               {horarios.map((horario) => (
                                 <button key={horario} type="button"
                                   onClick={() => setFormulario((prev) => ({ ...prev, horarioContacto: horario }))}
-                                  className={`py-3 px-3 border font-sans text-xs text-center transition-all duration-200
+                                  className={`py-3 px-3 rounded-xl border font-sans text-xs text-center transition-all duration-200
                                     flex items-center justify-center gap-1.5
                                     ${formulario.horarioContacto === horario
                                       ? 'bg-ink text-cream border-ink'
@@ -433,18 +489,24 @@ function Checkout() {
                       {error && <p className="font-sans text-xs text-w-rose">{error}</p>}
 
                       {/* Botón continuar */}
-                      <button type="submit" onClick={handleSubmitFormulario} disabled={loading}
-                        className="group flex items-center justify-center gap-2 w-full py-4
+                      <motion.button type="submit" onClick={handleSubmitFormulario} disabled={loading}
+                        whileHover={{ scale: loading ? 1 : 1.01 }}
+                        whileTap={{ scale: loading ? 1 : 0.98 }}
+                        className="group flex items-center justify-center gap-2 w-full py-4 rounded-xl
                                    bg-ink text-cream font-sans text-xs tracking-[0.15em] uppercase font-light
+                                   shadow-lg shadow-ink/10
                                    hover:bg-warm-dark transition-colors duration-300
                                    disabled:opacity-40 disabled:cursor-not-allowed">
                         {loading
                           ? <><Loader2 size={13} className="animate-spin" /> Preparando pago...</>
                           : <>Continuar al pago <ChevronRight size={14} /></>
                         }
-                      </button>
+                      </motion.button>
 
-                      <p className="font-sans text-xs text-warm-gray/40 text-center">* Campos obligatorios</p>
+                      <p className="font-sans text-xs text-warm-gray/60 text-center">
+                        Solo reserváis la fecha ahora (50%) · Sin compromiso adicional
+                      </p>
+                      <p className="font-sans text-xs text-warm-gray/40 text-center -mt-4">* Campos obligatorios</p>
                     </div>
                   </motion.div>
                 )}
@@ -462,7 +524,7 @@ function Checkout() {
                           colorPrimary:    '#1A1410',
                           colorBackground: '#FBF8F3',
                           colorText:       '#1A1410',
-                          borderRadius:    '0px',
+                          borderRadius:    '12px',
                           fontFamily:      'DM Sans, system-ui, sans-serif',
                         },
                       },
