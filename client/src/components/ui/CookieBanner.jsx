@@ -45,13 +45,13 @@ function CookieBanner() {
                 Utilizamos cookies propias y de terceros para analizar el uso de la web
                 y mejorar vuestra experiencia. Más información en nuestra{' '}
                 <a
-                  href="/privacidad"
+                  href="/politica-cookies"
                   className="underline underline-offset-2 transition-colors duration-200"
                   style={{ color: '#C9A96E' }}
                   onMouseEnter={e => e.target.style.color = '#E8D5B0'}
                   onMouseLeave={e => e.target.style.color = '#C9A96E'}
                 >
-                  política de privacidad
+                  política de cookies
                 </a>
                 .
               </p>

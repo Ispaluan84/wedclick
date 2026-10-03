@@ -96,7 +96,11 @@ function PlanCard({ plan, index }) {
       {(plan.badge || plan.featured) && (
         <span className={`absolute -top-px left-1/2 -translate-x-1/2
                           font-sans text-[0.52rem] tracking-[0.16em] uppercase px-5 py-1.5
-                          ${plan.featured ? 'bg-w-gold text-ink' : 'bg-ink text-cream'}`}>
+                          ${plan.featured
+                            ? 'bg-w-gold text-ink'
+                            : plan.destacado
+                              ? 'bg-gradient-to-r from-w-gold to-w-rose text-cream'
+                              : 'bg-ink text-cream'}`}>
           {plan.badge || 'Más popular'}
         </span>
       )}
@@ -111,15 +115,23 @@ function PlanCard({ plan, index }) {
       <div className="flex items-baseline gap-1 mb-4">
         <span className="font-serif text-xl text-w-gold">€</span>
         <span className={`font-serif text-6xl font-bold leading-none
-                          ${plan.featured ? 'text-cream' : 'text-ink'}`}>
+                          ${plan.featured ? 'text-cream' : plan.destacado ? 'text-w-gold' : 'text-ink'}`}>
           {plan.precio}
         </span>
       </div>
 
-      <p className={`font-sans font-light text-[0.82rem] leading-relaxed mb-8
+      <p className={`font-sans font-light text-[0.82rem] leading-relaxed
+                     ${plan.destacado ? 'mb-2' : 'mb-8'}
                      ${plan.featured ? 'text-cream/70' : 'text-warm-gray'}`}>
         {plan.descripcion}
       </p>
+
+      {plan.destacado && (
+        <p className="font-sans text-[0.68rem] tracking-wide text-w-gold mb-6 flex items-center gap-1.5">
+          <Zap size={11} className="text-w-gold" />
+          Precio de lanzamiento, por tiempo limitado
+        </p>
+      )}
 
       <div className={`w-full h-px mb-8 ${plan.featured ? 'bg-white/10' : 'bg-w-gold-light'}`} />
 
@@ -148,12 +160,14 @@ function PlanCard({ plan, index }) {
       {/* CTA */}
       <button
         onClick={() => navigate(`/checkout/${plan.id}`)}
-        className={`flex items-center justify-center gap-2 w-full
+          className={`flex items-center justify-center gap-2 w-full
                    font-sans text-[0.65rem] tracking-[0.14em] uppercase py-4 border
                    transition-all duration-300
                    ${plan.featured
                      ? 'bg-w-gold border-w-gold text-ink hover:bg-cream hover:border-cream'
-                     : 'bg-transparent border-w-gold-light text-ink hover:bg-w-gold hover:border-w-gold'}`}
+                     : plan.destacado
+                       ? 'bg-w-gold border-w-gold text-ink hover:bg-ink hover:border-ink hover:text-cream'
+                       : 'bg-transparent border-w-gold-light text-ink hover:bg-w-gold hover:border-w-gold'}`}
       >
         <MessageCircle size={14} />
         {plan.cta}

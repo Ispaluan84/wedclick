@@ -4,12 +4,14 @@ import { CookieProvider }  from './context/CookieContext'
 import Analytics           from './components/analytics/Analytics'
 import CookieBanner        from './components/ui/CookieBanner'
 
+
 // Públicas — críticas, se cargan rápido
 import LandingPage         from './pages/LandingPage'
 
 // El resto en lazy
 const Privacy              = lazy(() => import('./pages/Privacy'))
 const LegalNotice          = lazy(() => import('./pages/LegalNotice'))
+const CookiePolicy         = lazy(() => import('./pages/CookiePolicy'))
 const NotFound             = lazy(() => import('./pages/NotFound'))
 
 // Checkout
@@ -44,9 +46,10 @@ function App() {
           <Routes>
 
             {/* Públicas */}
-            <Route path="/"            element={<LandingPage />} />
-            <Route path="/privacidad"  element={<Privacy />} />
-            <Route path="/aviso-legal" element={<LegalNotice />} />
+            <Route path="/"                 element={<LandingPage />} />
+            <Route path="/privacidad"       element={<Privacy />} />
+            <Route path="/aviso-legal"      element={<LegalNotice />} />
+            <Route path="/politica-cookies" element={<CookiePolicy />} />
 
             {/* Checkout */}
             <Route path="/checkout/:plan"   element={<Checkout />} />
