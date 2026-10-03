@@ -19,6 +19,17 @@ function Navbar() {
     { href: '#faq',           label: 'FAQ'            },
   ]
 
+  // Cierra el menú móvil y espera a que termine su animación de colapso
+  // antes de desplazar la página — así no compite con el salto nativo del ancla.
+  const handleMobileNavClick = (href) => (e) => {
+    e.preventDefault()
+    setMenuOpen(false)
+    setTimeout(() => {
+      const el = document.querySelector(href)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 360)
+  }
+
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
@@ -143,7 +154,7 @@ function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={handleMobileNavClick(link.href)}
                   className="font-sans text-[0.75rem] tracking-[0.12em] uppercase
                              text-ink/60 hover:text-ink py-4
                              border-b border-w-gold-light/20 transition-colors"
@@ -153,7 +164,7 @@ function Navbar() {
               ))}
               <a
                 href="#precios"
-                onClick={() => setMenuOpen(false)}
+                onClick={handleMobileNavClick('#precios')}
                 className="mt-4 w-full py-4 bg-ink text-cream font-sans text-[0.68rem]
                            tracking-[0.14em] uppercase text-center
                            hover:bg-w-rose transition-all duration-300"

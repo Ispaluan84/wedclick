@@ -1,12 +1,22 @@
-import { lazy, Suspense }  from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { lazy, Suspense, useEffect }  from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { CookieProvider }  from './context/CookieContext'
 import Analytics           from './components/analytics/Analytics'
 import CookieBanner        from './components/ui/CookieBanner'
 
+//Sube al principio de la página en cada cambio de ruta(React Router no lo hace solo)
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+} 
+
 
 // Públicas — críticas, se cargan rápido
 import LandingPage         from './pages/LandingPage'
+import { useVelocity } from 'framer-motion'
 
 // El resto en lazy
 const Privacy              = lazy(() => import('./pages/Privacy'))
@@ -42,6 +52,7 @@ function App() {
     <CookieProvider>
       <Analytics />
       <BrowserRouter>
+        <ScrollToTop />
         <Suspense fallback={null}>
           <Routes>
 
